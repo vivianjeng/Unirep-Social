@@ -28,10 +28,6 @@
     },
     "author": "",
     "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/vivianjeng/Unirep-Social/issues"
-    },
-    "homepage": "https://github.com/vivianjeng/Unirep-Social#readme",
     "devDependencies": {
         "@nomiclabs/hardhat-ethers": "^2.0.2",
         "@nomiclabs/hardhat-waffle": "^2.0.1",
