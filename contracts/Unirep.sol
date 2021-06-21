@@ -4,21 +4,21 @@ pragma solidity 0.7.6;
 import "@openzeppelin/contracts/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
-import { DomainObjs } from './DomainObjs.sol';
-import { SnarkConstants } from './SnarkConstants.sol';
-import { ComputeRoot } from './ComputeRoot.sol';
-import { UnirepParameters } from './UnirepParameters.sol';
-import { EpochKeyValidityVerifier } from './EpochKeyValidityVerifier.sol';
-import { UserStateTransitionVerifier } from './UserStateTransitionVerifier.sol';
-import { ReputationVerifier } from './ReputationVerifier.sol';
-import { ReputationFromAttesterVerifier } from './ReputationFromAttesterVerifier.sol';
+import { DomainObjs } from "./DomainObjs.sol";
+import { SnarkConstants } from "./SnarkConstants.sol";
+import { ComputeRoot } from "./ComputeRoot.sol";
+import { UnirepParameters } from "./UnirepParameters.sol";
+import { EpochKeyValidityVerifier } from "./EpochKeyValidityVerifier.sol";
+import { UserStateTransitionVerifier } from "./UserStateTransitionVerifier.sol";
+import { ReputationVerifier } from "./ReputationVerifier.sol";
+import { ReputationFromAttesterVerifier } from "./ReputationFromAttesterVerifier.sol";
 
 contract Unirep is DomainObjs, ComputeRoot, UnirepParameters {
     using SafeMath for uint256;
 
     // A nothing-up-my-sleeve zero value
     // Should be equal to 16916383162496104613127564537688207714240750091683495371401923915264313510848
-    uint256 ZERO_VALUE = uint256(keccak256(abi.encodePacked('Unirep'))) % SNARK_SCALAR_FIELD;
+    uint256 ZERO_VALUE = uint256(keccak256(abi.encodePacked("Unirep"))) % SNARK_SCALAR_FIELD;
 
     // Verifier Contracts
     EpochKeyValidityVerifier internal epkValidityVerifier;
