@@ -5,6 +5,7 @@ import useLocalStorage from './useLocalStorage';
 import * as Constants from './constants';
 
 import Header from './components/header';
+import Overlay from './components/overlay';
 import PostsList from './components/postsList';
 
 import WebContext from './context/WebContext';
@@ -12,10 +13,6 @@ import WebContext from './context/WebContext';
 const Router = () => {
     const [user, setUser] = useLocalStorage(Constants.userKey, {});
     const [pageStatus, setPageStatus] = useLocalStorage(Constants.pageStatusKey, Constants.PageStatus.None);
-
-    const closeOverlay = () => {
-        setPageStatus(Constants.PageStatus.None);
-    }
 
     return (
         <BrowserRouter>
@@ -28,8 +25,8 @@ const Router = () => {
                         <Route component={() => <Redirect to="/" />} />
                     </Switch>
                 </div>
-                {pageStatus === Constants.PageStatus.SignUp? 
-                    <div className="overlay" onClick={closeOverlay}></div> : <div></div>
+                {pageStatus !== Constants.PageStatus.None? 
+                    <Overlay /> : <div></div>
                 }
                 </WebContext.Provider>
             </div>

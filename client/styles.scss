@@ -5,12 +5,18 @@
 // color //
 $main-font-color: #000;
 $background-color: #E5E5E5;
+$large-font-size: 32px;
+$big-font-size: 24px;
+$body-font-size: 21px;
+$small-font-size: 12px;
 // color //
 
 // widgets //
-@mixin myButton($width, $height, $radius:0, $color:$main-font-color, $block-color:#FFF, $margin-horizontal: 5px) {
-  width:$width;
-  height:$height;
+@mixin myButton($width:0, $height:0, $radius:0, $color:$main-font-color, $block-color:#FFF, 
+    $margin-horizontal: 5px, $font-size:$body-font-size, $font-weight:500) {
+  
+  @if $width > 0 { width:$width; }
+  @if $height > 0 { height:$height; }
   border-radius: $radius;
 
   color: $color;
@@ -19,9 +25,24 @@ $background-color: #E5E5E5;
   margin-left: $margin-horizontal;
   margin-right: $margin-horizontal;
 
+  font-size: $font-size;
+  font-weight: $font-weight;
   text-align: center;
   vertical-align: middle;
   line-height: $height;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin popupBox($width, $height, $block-color:#fff,) {
+  width:$width;
+  height:$height;
+  margin: 10% auto;
+  padding: 32px;
+  
+  background-color: $block-color;
 }
 // widgets//
 
@@ -74,35 +95,30 @@ body {
       display: flex;
 
       .signupButton {
-        @include myButton(75px, 45px, $color: #FFF, $block-color: #000);
-      }
-      .signupButton:hover {
-        cursor: pointer;
+        @include myButton(85px, 45px, $color: #FFF, $block-color: #000, $font-weight: 300);
       }
 
       .signinButton {
-        @include myButton(75px, 45px);
-      }
-      .signinButton:hover {
-        cursor: pointer;
+        @include myButton(85px, 45px, $font-weight: 300);
       }
 
       .userInfo {
         @include myButton(45px, 45px, $radius: 22px);
       }
-      .userInfo:hover {
-        cursor: pointer;
-      }
     }
   }
   
   h1 {
-    font-size: 32px;
+    font-size: $large-font-size;
   }
 
-  h1,
   h2 {
-    color: #000;
+    font-size: $big-font-size;
+  }
+
+  h3 {
+    font-size: $body-font-size;
+    font-weight: 700;
   }
 
   .overlay {
@@ -112,7 +128,66 @@ body {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(242, 242, 242, 0.8);
+
+    .signupBox {
+      @include popupBox(536px, 449px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .signup-title {
+        width: 100%;
+        text-align:left;
+        margin-bottom: 20px;
+      }
+
+      .signup-with-twitter {
+        @include myButton(300px, 45px, $block-color:#1DA1F2, $radius:5px, $color:#fff, $font-size: $big-font-size);
+      }
+
+      .signup-private-key {
+        @include myButton(440px, 45px, $block-color:#F2F2F2, $radius:8px, $font-size: $small-font-size);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-left: 8px;
+
+        .signup-private-key-text {
+          text-align: left;
+          flex: 2 1 90%;
+        }
+
+        .signup-private-key-status {
+          flex: 2 1 10%;
+        }
+
+        input {
+          outline: none;
+          border: none;
+          background-color:transparent;
+          width: 420px;
+        }
+      }
+
+      .signup-message {
+        width: 440px;
+        line-height: 140%;
+        font-size: $body-font-size;
+        margin: 25px auto;
+      }
+
+      .signup-button-black {
+        @include myButton(275px, 45px, $color: #fff, $block-color: #000);
+        margin: auto;
+      }
+
+      .signup-button-white {
+        @include myButton($height:35px);
+        margin: 40px auto;
+        text-decoration: underline;
+      }
+    }
   }
   
   .main-content {
