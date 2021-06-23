@@ -13,6 +13,17 @@ const MainPage = () => {
     }
 
     const loadMorePosts = () => {
+        const examplePost = {
+            id: Math.floor(Math.random() * 10000000),
+            title: 'Post Title',
+            content: 'Iaculis a consequat ut laoreet pretium, neque, at. Pellentesque a sapien rhoncus ut tincidunt phasellus laoreet nisl, et. Id cursus viverra lobortis pharetra tortor curabitur id. Mauris tincidunt duis vulputate eget posuere adipiscing.',
+            vote: 200,
+            epoch_key: 'xyz',
+            username: 'cutie',
+            post_time: Date.now(),
+        };
+        setShownPosts([...shownPosts, examplePost]);
+
         console.log("load more posts, now posts: " + shownPosts.length);
     }
 

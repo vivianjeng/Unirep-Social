@@ -6,7 +6,7 @@ const PostsList = (props) => {
         <div className="post-list">
             {props.posts.length > 0? (
                 props.posts.map((post) => (
-                    <PostBlock post={post} />
+                    <PostBlock key={post.id} post={post} />
                 ))
             ) : <p>No posts are available.</p>}
         </div>

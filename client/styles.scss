@@ -56,13 +56,16 @@ body {
   }
   
   header {
-    text-align: left;
-    margin: 5px 0 5px 0;
-    font-family: sans-serif;
-    font-weight: 700;
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     flex-direction: row;
-
+    text-align: left;
+    padding: 5px;
+    font-weight: 700;
+    background-color: $background-color;
+    
     .navLinks {
       flex: 3;
       text-transform: uppercase;
@@ -93,6 +96,7 @@ body {
       justify-content: flex-end;
       align-items: center;
       display: flex;
+      padding-right: 10px;
 
       .signupButton {
         @include myButton(85px, 45px, $color: #FFF, $block-color: #000, $font-weight: 300);
@@ -199,8 +203,7 @@ body {
   
   .main-content {
     width: 80%;
-    margin: auto auto 100px auto;
-    padding-top: 20px;
+    margin: 50px auto 100px auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -246,6 +249,7 @@ body {
     display: flex;
     flex-direction: row;
     padding: 8px;
+    margin: 10px auto;
 
     .post-block-vote {
       flex: 1;
