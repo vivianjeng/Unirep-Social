@@ -130,13 +130,13 @@ body {
     left: 0;
     background-color: rgba(242, 242, 242, 0.8);
 
-    .signupBox {
+    .signBox {
       @include popupBox(536px, 449px);
       display: flex;
       flex-direction: column;
       align-items: center;
 
-      .signup-title {
+      .sign-title {
         width: 100%;
         text-align:left;
         margin-bottom: 20px;
@@ -146,7 +146,7 @@ body {
         @include myButton(300px, 45px, $block-color:#1DA1F2, $radius:5px, $color:#fff, $font-size: $big-font-size);
       }
 
-      .signup-private-key {
+      .sign-private-key {
         @include myButton(440px, 45px, $block-color:#F2F2F2, $radius:8px, $font-size: $small-font-size);
         display: flex;
         flex-direction: row;
@@ -170,19 +170,19 @@ body {
         }
       }
 
-      .signup-message {
+      .sign-message {
         width: 440px;
         line-height: 140%;
         font-size: $body-font-size;
         margin: 25px auto;
       }
 
-      .signup-button-black {
+      .sign-button-black {
         @include myButton(275px, 45px, $color: #fff, $block-color: #000);
         margin: auto;
       }
 
-      .signup-button-white {
+      .sign-button-white {
         @include myButton($height:35px);
         margin: 40px auto;
         text-decoration: underline;

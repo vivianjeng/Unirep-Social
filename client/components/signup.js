@@ -52,8 +52,8 @@ const SignUp = () => {
     }
 
     return (
-        <div className="signupBox" onClick={preventCloseBox}>
-            <div className="signup-title">
+        <div className="signBox" onClick={preventCloseBox}>
+            <div className="sign-title">
                 <h3>{
                     step === 0?
                     "Sign Up With" : step === 1?
@@ -70,27 +70,27 @@ const SignUp = () => {
                     </div>
                 </div> : step === 1?
                 <div>
-                    <div className="signup-private-key" onClick={copyPrivateKey}>
+                    <div className="sign-private-key" onClick={copyPrivateKey}>
                         <div className="signup-private-key-text">{privateKey}</div>
                         <div className="signup-private-key-status"><FaCheck /></div>
                     </div>
-                    <div className="signup-message">
+                    <div className="sign-message">
                         Record this private key and store it safely. You will need it to regain access to your reputation score.
                     </div>
-                    <div className="signup-button-black" onClick={downloadPrivateKey}>Download Private Key</div>
-                    <div className="signup-button-white" onClick={nextStep}>Next</div>
+                    <div className="sign-button-black" onClick={downloadPrivateKey}>Download Private Key</div>
+                    <div className="sign-button-white" onClick={nextStep}>Next</div>
                 </div> : step === 2?
-                <div className="signup-confirm">
-                    <div className="signup-private-key">
+                <div className="sign-confirm">
+                    <div className="sign-private-key">
                         <form>
                             <input type="text" name="userInput" placeholder="enter your private key" onChange={handleUserInput} />
                         </form>
                     </div>
-                    <div className="signup-message">
+                    <div className="sign-message">
                         ... some message
                     </div>
-                    <div className="signup-button-black" onClick={closeBox}>Confirm</div>
-                    <div className="signup-button-white" onClick={previousStep}>{"<<Back"}</div>
+                    <div className="sign-button-black" onClick={closeBox}>Confirm</div>
+                    <div className="sign-button-white" onClick={previousStep}>{"<<Back"}</div>
                 </div> : <div>{errorMsg}</div>
             } 
         </div>

@@ -8,13 +8,17 @@ const Header = () => {
     const { user, setUser, pageStatus, setPageStatus } = useContext(WebContext);
 
     const signUp = () => {
-        /// open up popup box ///
         console.log('open sign up! set ' + Constants.PageStatus.SignUp);
         setPageStatus(Constants.PageStatus.SignUp);
     }
 
+    const signIn = () => {
+        console.log('open sign in! set ' + Constants.PageStatus.SignIn);
+        setPageStatus(Constants.PageStatus.SignIn);
+    }
+
     const printUser = () => {
-        console.log('user length is ' + user.length);
+        console.log('user is ' + user.privateKey);
     }
 
     return (
@@ -24,13 +28,13 @@ const Header = () => {
                     UNIREP SOCIAL
                 </NavLink>
             </div>
-            {user && user.length > 0? 
+            {user && user.privateKey? 
                 <div className="navButtons">
                     <div className="userInfo" onClick={printUser}><FaUser /></div>
                 </div> :
                 <div className="navButtons">
                     <div className="signupButton" onClick={signUp}> SignUp</div>
-                    <div className="signinButton"> SignIn</div>
+                    <div className="signinButton" onClick={signIn}> SignIn</div>
                 </div>
                 
             }   

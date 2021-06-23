@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import WebContext from '../context/WebContext';
 import * as Constants from '../constants';
 import SignUp from './signup';
+import SignIn from './signin';
 
 const Overlay = () => {
     const { pageStatus, setPageStatus } = useContext(WebContext);
@@ -14,7 +15,8 @@ const Overlay = () => {
     return (
         <div className="overlay" onClick={closeOverlay}>
             {pageStatus === Constants.PageStatus.SignUp? 
-                <SignUp /> : <div></div>}
+                <SignUp /> : pageStatus == Constants.PageStatus.SignIn?
+                <SignIn /> : <div></div>}
         </div>
     );
 }
