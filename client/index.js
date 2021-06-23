@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Router from './router';
+import AppRouter from './router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.scss';
 
-ReactDOM.render(<Router />, document.getElementById('root'));
+ReactDOM.render(<AppRouter />, document.getElementById('root'));

@@ -13,7 +13,7 @@ $small-font-size: 12px;
 
 // widgets //
 @mixin myButton($width:0, $height:0, $radius:0, $color:$main-font-color, $block-color:#FFF, 
-    $margin-horizontal: 5px, $font-size:$body-font-size, $font-weight:500) {
+    $margin-horizontal: 5px, $font-size:$body-font-size, $font-weight:500, $text-align:center) {
   
   @if $width > 0 { width:$width; }
   @if $height > 0 { height:$height; }
@@ -27,7 +27,7 @@ $small-font-size: 12px;
 
   font-size: $font-size;
   font-weight: $font-weight;
-  text-align: center;
+  text-align: $text-align;
   vertical-align: middle;
   line-height: $height;
 
@@ -64,7 +64,7 @@ body {
     flex-direction: row;
 
     .navLinks {
-      flex: 3 1 30%;
+      flex: 3;
       text-transform: uppercase;
       font-size: 150%;
       
@@ -85,11 +85,11 @@ body {
     }
 
     .searchBar {
-      flex: 3 1 40%;
+      flex: 4;
     }
 
     .navButtons {
-      flex: 3 1 30%;
+      flex: 3;
       justify-content: flex-end;
       align-items: center;
       display: flex;
@@ -155,11 +155,11 @@ body {
 
         .signup-private-key-text {
           text-align: left;
-          flex: 2 1 90%;
+          flex: 9;
         }
 
         .signup-private-key-status {
-          flex: 2 1 10%;
+          flex: 1;
         }
 
         input {
@@ -200,6 +200,87 @@ body {
   .main-content {
     width: 80%;
     margin: auto auto 100px auto;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .search-bar {
+      padding-left: 8px;
+      width: 640px;
+      height: 45px;
+      line-height: 45px;
+      vertical-align: middle;
+      background-color: #fff;
+      border-radius: 20px;
+      border: 1px solid #bdbdbd;
+      display: flex;
+      flex-direction: row;
+
+      form {
+        flex: 15;
+
+        input {
+          outline: none;
+          border: none;
+          background-color:transparent;
+          width: 100%;
+        }
+      }
+
+      .search-icon {
+        flex: 1;
+      } 
+    }
+  }
+
+  .post-list {
+    margin-top: 20px;
+  }
+
+  .post-block {
+    width: 640px;
+    height: 250px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+
+    .post-block-vote {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .post-block-main {
+      flex: 9;
+      padding-left: 8px;
+      padding-right: 18px;
+
+      .post-block-title {
+        font-weight: bold;
+        font-size: $body-font-size;
+        margin: 15px auto;
+      }
+
+      .post-block-bottom-row {
+        display: flex;
+        flex-direction: row;
+        height: 60px;
+        align-items: center;
+
+        .post-block-button {
+          @include myButton($text-align: left);
+          flex: 1;
+
+          span {
+            margin-left: 8px;
+          }
+        }
+      }
+    }
   }
   
   .main {

@@ -6,32 +6,44 @@ import * as Constants from './constants';
 
 import Header from './components/header';
 import Overlay from './components/overlay';
+import MainPage from './components/mainPage';
 import PostsList from './components/postsList';
 
 import WebContext from './context/WebContext';
 
-const Router = () => {
+const AppRouter = () => {
+    const examplePost = {
+        id: 19348297,
+        title: 'Post Title',
+        content: 'Iaculis a consequat ut laoreet pretium, neque, at. Pellentesque a sapien rhoncus ut tincidunt phasellus laoreet nisl, et. Id cursus viverra lobortis pharetra tortor curabitur id. Mauris tincidunt duis vulputate eget posuere adipiscing.',
+        vote: 200,
+        epoch_key: 'xyz',
+        username: 'cutie',
+        post_time: Date.now(),
+    };
+    
     const [user, setUser] = useLocalStorage(Constants.userKey, {});
     const [pageStatus, setPageStatus] = useLocalStorage(Constants.pageStatusKey, Constants.PageStatus.None);
+    const [shownPosts, setShownPosts] = useLocalStorage(Constants.shownPostsKey, [examplePost]);
 
     return (
         <BrowserRouter>
             <div>
-            <WebContext.Provider value={{user, setUser, pageStatus, setPageStatus}}>
+            <WebContext.Provider value={{user, setUser, pageStatus, setPageStatus, shownPosts, setShownPosts}}>
                 <Header />
-                <div className="main-content">
-                    <Switch>
-                        <Route components={PostsList} path="/" exact={true} />
-                        <Route component={() => <Redirect to="/" />} />
-                    </Switch>
-                </div>
+                
+                <Switch>
+                    <Route component={MainPage} path="/" exact={true} />
+                    <Route component={() => <Redirect to="/" />} />
+                </Switch>
+
                 {pageStatus !== Constants.PageStatus.None? 
                     <Overlay /> : <div></div>
                 }
-                </WebContext.Provider>
+            </WebContext.Provider>
             </div>
         </BrowserRouter>
     );
 };
 
-export default Router;
+export default AppRouter;

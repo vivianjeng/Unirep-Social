@@ -6,3 +6,5 @@ export const PageStatus = {
     SignUp: 'signup',
     SignIn: 'signin',
 };
+
+export const shownPostsKey = 'shownPosts';
