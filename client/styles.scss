@@ -177,6 +177,13 @@ body {
         margin: 25px auto;
       }
 
+      .sign-error-message {
+        width: 440px;
+        font-size: $small-font-size;
+        color: #f00;
+        margin: 0 auto;
+      }
+
       .sign-button-black {
         @include myButton(275px, 45px, $color: #fff, $block-color: #000);
         margin: auto;

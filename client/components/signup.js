@@ -43,7 +43,11 @@ const SignUp = () => {
     const handleUserInput = (event) => {
         event.stopPropagation();
         setUserInput(event.target.value);
-        console.log('user input: ' + userInput);
+        if (event.target.value !== privateKey) {
+            setErrorMsg("wrong private key");
+        } else {
+            setErrorMsg("");
+        }
     }
 
     const closeBox = () => {
@@ -86,6 +90,11 @@ const SignUp = () => {
                             <input type="text" name="userInput" placeholder="enter your private key" onChange={handleUserInput} />
                         </form>
                     </div>
+                    {errorMsg !== ''? 
+                        <div className="sign-error-message">
+                            {errorMsg}
+                        </div> : <div></div>
+                    }
                     <div className="sign-message">
                         ... some message
                     </div>
