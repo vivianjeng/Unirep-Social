@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import WebContext from '../context/WebContext';
+import { WebContext } from '../context/WebContext';
 import * as Constants from '../constants';
 import { FaTwitter, FaCheck } from 'react-icons/fa';
 
@@ -52,7 +52,7 @@ const SignUp = () => {
 
     const closeBox = () => {
         setPageStatus(Constants.PageStatus.None);
-        setUser({ privateKey: privateKey });
+        setUser({ private_key: privateKey });
     }
 
     return (

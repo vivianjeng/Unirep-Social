@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import WebContext from '../context/WebContext';
+import { WebContext } from '../context/WebContext';
 import * as Constants from '../constants';
 import SignUp from './signup';
 import SignIn from './signin';

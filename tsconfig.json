@@ -26,7 +26,8 @@
     "./crypto",
     "./core",
     "./cli",
-    "./test"
+    "./test",
+    "./src/**/*"
   ],
   "files": [
     "./hardhat.config.ts"

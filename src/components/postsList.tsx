@@ -1,8 +1,13 @@
 import React from 'react';
 import PostBlock from './postBlock';
+import { Post } from '../constants';
 
-const PostsList = (props) => {
-    const sortedPosts = props.posts.sort((a, b) => a.post_time > b.post_time? -1 : 1); // newest show upper
+type Props = {
+    posts: Post[],
+}
+
+const PostsList = ({ posts }: Props) => {
+    const sortedPosts = posts.sort((a, b) => a.post_time > b.post_time? -1 : 1); // newest show upper
 
     return (
         <div className="post-list">

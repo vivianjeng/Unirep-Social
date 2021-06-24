@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
-import WebContext from '../context/WebContext';
+import { WebContext } from '../context/WebContext';
 import { FaSearch } from 'react-icons/fa';
 import PostsList from './postsList';
 
 const MainPage = () => {
 
     const { shownPosts, setShownPosts } = useContext(WebContext);
-    const [searchInput, setSearchInput] = useState("");
+    const [searchInput, setSearchInput] = useState<string>("");
 
     const handleSearchInput = (event) => {
         console.log("search input : " + event.target.value);

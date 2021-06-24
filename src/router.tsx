@@ -7,11 +7,11 @@ import * as Constants from './constants';
 import Header from './components/header';
 import Overlay from './components/overlay';
 import MainPage from './components/mainPage';
-import PostsList from './components/postsList';
 
-import WebContext from './context/WebContext';
+import { WebContext } from './context/WebContext';
 
 const AppRouter = () => {
+    
     const examplePost = {
         id: 19348297,
         title: 'Post Title',
@@ -21,7 +21,7 @@ const AppRouter = () => {
         username: 'cutie',
         post_time: Date.now(),
     };
-    
+
     const [user, setUser] = useLocalStorage(Constants.userKey, {});
     const [pageStatus, setPageStatus] = useLocalStorage(Constants.pageStatusKey, Constants.PageStatus.None);
     const [shownPosts, setShownPosts] = useLocalStorage(Constants.shownPostsKey, [examplePost]);

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 // use lazy initial state //
 const useLocalStorage = (key, initialValue) => {
-    const [value, setValue] = useState(() => {
+    const [value, setValue] = useState<any | null>(() => {
         try {
             const localValue = window.localStorage.getItem(key);
             return localValue? JSON.parse(localValue) : initialValue;

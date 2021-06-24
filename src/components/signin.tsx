@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react';
-import WebContext from '../context/WebContext';
+import { WebContext } from '../context/WebContext';
 import * as Constants from '../constants';
-import { FaTwitter, FaCheck } from 'react-icons/fa';
 
 const SignUp = () => {
     const { setUser, setPageStatus } = useContext(WebContext);
     
-    const [userInput, setUserInput] = useState("");
-    const [errorMsg, setErrorMsg] = useState("");
+    const [userInput, setUserInput] = useState<string>("");
+    const [errorMsg, setErrorMsg] = useState<string>("");
 
     const preventCloseBox = (event) => {
         event.stopPropagation();
@@ -21,7 +20,7 @@ const SignUp = () => {
 
     const closeBox = () => {
         setPageStatus(Constants.PageStatus.None);
-        setUser({ privateKey: userInput }); // check if the user exists and login with the private identity
+        setUser({ private_key: userInput }); // check if the user exists and login with the private identity
     }
 
     return (
