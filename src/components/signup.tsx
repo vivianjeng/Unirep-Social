@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { WebContext } from '../context/WebContext';
 import * as Constants from '../constants';
 import { FaTwitter, FaCheck } from 'react-icons/fa';
+import { deploy } from '../../cli/deploy';
 
 const SignUp = () => {
     const { setUser, setPageStatus } = useContext(WebContext);
@@ -53,6 +54,12 @@ const SignUp = () => {
     const closeBox = () => {
         setPageStatus(Constants.PageStatus.None);
         setUser({ private_key: privateKey });
+
+        const args = {
+            deployer_privkey: '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'
+        };
+
+        deploy(args);
     }
 
     return (

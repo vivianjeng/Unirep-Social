@@ -5,12 +5,11 @@
     "description": "",
     "main": "index.ts",
     "scripts": {
-        "start": "react-scripts start",
-        "start-react-version": "PORT=3006 react-app-rewired start",
+        "start": "PORT=3000 react-app-rewired start",
         "build-frontend": "react-app-rewired build",
         "test-frontend": "react-app-rewired test",
         "eject": "react-scripts eject",
-        "build": "yarn run installZkutil && yarn run buildVerifyEpochKeySnark && yarn run buildUserStateTransitionSnark && yarn run buildProveReputationSnark && yarn run buildProveReputationFromAttesterSnark",
+        "build": "yarn run installZkutil && yarn run buildVerifyEpochKeySnark && yarn run buildUserStateTransitionSnark && yarn run buildProveReputationSnark && yarn run buildProveReputationFromAttesterSnark && npx hardhat compile && npx ts-node scripts/buildPoseidon.ts",
         "installZkutil": "./scripts/installZkutil.sh",
         "buildVerifyEpochKeySnark": "./scripts/buildVerifyEpochKeySnark.sh",
         "buildUserStateTransitionSnark": "./scripts/buildUserStateTransitionSnark.sh",
@@ -43,6 +42,7 @@
     "dependencies": {
         "@openzeppelin/contracts": "^3.2.0",
         "@types/jest": "^26.0.23",
+        "@types/lodash": "^4.14.170",
         "@types/react": "^17.0.11",
         "@types/react-dom": "^17.0.8",
         "argparse": "^2.0.1",
@@ -53,6 +53,7 @@
         "circom": "0.5.38",
         "circomlib": "0.5.1",
         "ethers": "^5.2.0",
+        "html-webpack-plugin": "^5.3.2",
         "libsemaphore": "^1.0.16",
         "lodash": "^4.17.21",
         "maci-config": "^0.7.4",
@@ -67,6 +68,7 @@
         "react-bootstrap": "^1.6.1",
         "react-dom": "^17.0.2",
         "react-icons": "^4.2.0",
+        "react-refresh": "^0.10.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "^4.0.3",
         "shelljs": "^0.8.3",
@@ -76,8 +78,7 @@
         "ts-loader": "^9.2.3",
         "typescript": "^4.0.5",
         "web-vitals": "^2.0.1",
-        "webpack": "4.44.2",
-        "webpack-cli": "^4.7.2"
+        "webpack": "4.44.2"
     },
     "browserslist": {
         "production": [

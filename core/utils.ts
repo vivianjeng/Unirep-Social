@@ -161,6 +161,7 @@ const genEpochKey = (identityNullifier: SnarkBigInt, epoch: number, nonce: numbe
     let epochKey = hash5(values)
     // Adjust epoch key size according to epoch tree depth
     const epochKeyModed = BigInt(epochKey) % BigInt(2 ** _epochTreeDepth)
+
     return epochKeyModed
 }
 
