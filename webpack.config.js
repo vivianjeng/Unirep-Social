@@ -6,6 +6,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
   },
+  mode: 'development',
   output: {
     path: path.join(__dirname, '/build'),
     filename: 'bundle.js'
@@ -14,7 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
+        loader: "ts-loader"
       },
       {
           test: /\.(css|scss)$/,
