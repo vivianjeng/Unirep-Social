@@ -1,4 +1,4 @@
-include "../node_modules/circomlib/circuits/mux1.circom";
+include "../../node_modules/circomlib/circuits/mux1.circom";
 include "./hasherPoseidon.circom";
 
 template VerifyHashChain(NUM_ELEMENT) {
