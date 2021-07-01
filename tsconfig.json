@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "module": "commonJs",
+    "target": "es5",
+    "module": "esnext",
     "strict": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -21,7 +21,7 @@
     "moduleResolution": "node",
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "noEmit": true
+    "noEmit": true,
   },
   "include": [
     "./crypto",

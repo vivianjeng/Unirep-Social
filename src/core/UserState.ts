@@ -691,8 +691,10 @@ class UserState {
 }
 
 export {
-    IReputation,
-    IUserStateLeaf,
     Reputation,
-    UserState,
+    UserState
+}
+export type {
+    IReputation,
+    IUserStateLeaf
 }

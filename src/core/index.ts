@@ -18,14 +18,16 @@ import {
 } from './utils'
 
 export {
-    Attestation,
-    IAttestation,
-    IEpochTreeLeaf,
-    IUserStateLeaf,
+    Attestation, 
     Reputation,
     UnirepState,
     UserState,
     genUnirepStateFromContract,
     genUserStateFromContract,
-    genUserStateFromParams,
+    genUserStateFromParams
+}
+export type {
+    IAttestation,
+    IEpochTreeLeaf,
+    IUserStateLeaf
 }

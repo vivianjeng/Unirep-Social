@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { WebContext } from '../context/WebContext';
 import * as Constants from '../constants';
 import { FaTwitter, FaCheck } from 'react-icons/fa';
-// import { deploy } from '../../cli/deploy';
+// import { deploy } from '../cli/deploy';
 
 const SignUp = () => {
     const { setUser, setPageStatus } = useContext(WebContext);
@@ -22,23 +22,23 @@ const SignUp = () => {
     const nextStep = (event) => {
         event.stopPropagation();
         setStep((prevState) => (prevState + 1));
-        console.log('sign up step: ' + step);
+        // console.log('sign up step: ' + step);
     }
 
     const previousStep = (event) => {
         event.stopPropagation();
         setStep((prevState) => (prevState > 0? prevState - 1 : 0));
-        console.log('sign up step: ' + step);
+        // console.log('sign up step: ' + step);
     }
 
     const copyPrivateKey = (event) => {
         event.stopPropagation();
-        console.log('copy private key: ' + privateKey);
+        // console.log('copy private key: ' + privateKey);
     }
 
     const downloadPrivateKey = (event) => {
         event.stopPropagation();
-        console.log('download private key: ' + privateKey);
+        // console.log('download private key: ' + privateKey);
     }
 
     const handleUserInput = (event) => {

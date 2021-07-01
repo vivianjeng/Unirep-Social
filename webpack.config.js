@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/index.tsx',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.tsx', '.js', '.json']
   },
   mode: 'development',
   output: {
@@ -25,7 +25,11 @@ module.exports = {
           test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
           use: ["file-loader"],
       },
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+      {
+        test: /\.js$/,
+        enforce: "pre",
+        use: ["source-map-loader"],
+      },
     ]
   },
   plugins: [

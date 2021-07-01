@@ -321,8 +321,11 @@ class UnirepState {
 }
 
 export {
-    Attestation,
+    Attestation, 
+    UnirepState
+}
+
+export type {
     IAttestation,
-    IEpochTreeLeaf,
-    UnirepState,
+    IEpochTreeLeaf
 }

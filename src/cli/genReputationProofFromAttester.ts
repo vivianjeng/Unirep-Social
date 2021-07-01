@@ -15,7 +15,7 @@ import { hashLeftRight, hashOne, stringifyBigInts } from 'maci-crypto'
 import { add0x } from '../crypto/SMT'
 import { identityPrefix, reputationProofFromAttesterPrefix } from './prefix'
 import { genProveReputationFromAttesterCircuitInputsFromDB } from '../database/utils'
-import { compileAndLoadCircuit, executeCircuit } from '../test/circuits/utils'
+// import { compileAndLoadCircuit, executeCircuit } from '../circuits/utils'
 
 const configureSubparser = (subparsers: any) => {
     const parser = subparsers.addParser(

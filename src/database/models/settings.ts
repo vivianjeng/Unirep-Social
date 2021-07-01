@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
 import { Schema, Document } from 'mongoose';
 import { ethers } from 'ethers'
-import { hashLeftRight } from 'maci-crypto'
-import { computeEmptyUserStateRoot } from '../../test/utils'
+// import { hashLeftRight } from 'maci-crypto'
+// import { computeEmptyUserStateRoot } from '../../test/utils'
 
 export interface ISettings extends Document {
     globalStateTreeDepth: number

@@ -14,7 +14,7 @@ import EpochTreeLeaves, { IEpochTreeLeaf } from '../database/models/epochTreeLea
 import NullifierTreeLeaves from '../database/models/nullifierTreeLeaf'
 
 import { hash5, hashLeftRight, IncrementalQuinTree, stringifyBigInts } from 'maci-crypto'
-import { computeEmptyUserStateRoot, defaultUserStateLeaf, genAttestationNullifier, genEpochKey, genEpochKeyNullifier, genNewSMT, SMT_ONE_LEAF, SMT_ZERO_LEAF } from '../test/utils'
+import { computeEmptyUserStateRoot, defaultUserStateLeaf, genAttestationNullifier, genEpochKey, genEpochKeyNullifier, genNewSMT, SMT_ONE_LEAF, SMT_ZERO_LEAF } from '../core/utils'
 
 import { assert } from 'console'
 import Unirep from "../artifacts/contracts/Unirep.sol/Unirep.json"
@@ -505,8 +505,10 @@ const genProveReputationCircuitInputsFromDB = async (
     const hashedLeaf = hash5([
         genIdentityCommitment(id),
         userStateTree.getRootHash(),
-        BigInt(userState[epoch].transitionedPosRep),
-        BigInt(userState[epoch].transitionedNegRep),
+        // BigInt(userState[epoch].transitionedPosRep),
+        // BigInt(userState[epoch].transitionedNegRep),
+        BigInt(0), 
+        BigInt(0),
         BigInt(0)
     ])
     const selectors: BigInt[] = []
@@ -597,8 +599,10 @@ const genProveReputationFromAttesterCircuitInputsFromDB = async (
     const hashedLeaf = hash5([
         genIdentityCommitment(id),
         userStateTree.getRootHash(),
-        BigInt(transitionedPosRep),
-        BigInt(transitionedNegRep),
+        // BigInt(transitionedPosRep),
+        // BigInt(transitionedNegRep),
+        BigInt(0), 
+        BigInt(0),
         BigInt(0)
     ])
     const GSTree = await genGSTreeFromDB(epoch)
@@ -630,8 +634,10 @@ const genProveReputationFromAttesterCircuitInputsFromDB = async (
         neg_rep: negRep,
         graffiti: graffiti,
         UST_path_elements: USTPathElements,
-        positive_karma: BigInt(transitionedPosRep),
-        negative_karma: BigInt(transitionedNegRep),
+        // positive_karma: BigInt(transitionedPosRep),
+        // negative_karma: BigInt(transitionedNegRep),
+        positive_karma: BigInt(0),
+        negative_karma: BigInt(0),
         prove_pos_rep: provePosRep,
         prove_neg_rep: proveNegRep,
         prove_rep_diff: proveRepDiff,
@@ -695,7 +701,8 @@ const genUserStateTransitionCircuitInputsFromDB = async (
     // User state tree
     const userStateTreeRoot = userState[fromEpoch].userStateTree.getRootHash()
     const transitionedPosRep = userState[fromEpoch].transitionedPosRep
-    const transitionedNegRep = BigInt(userState[fromEpoch].transitionedNegRep)
+    // const transitionedNegRep = BigInt(userState[fromEpoch].transitionedNegRep)
+    const transitionedNegRep = BigInt(0)
 
     const hashedLeaf = hash5([
         genIdentityCommitment(id),
