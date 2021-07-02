@@ -21,7 +21,7 @@
     "moduleResolution": "node",
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "noEmit": true,
+    "noEmit": true
   },
   "include": [
     "./crypto",

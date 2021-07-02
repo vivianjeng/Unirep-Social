@@ -5,15 +5,18 @@
 // color //
 $main-font-color: #000;
 $background-color: #E5E5E5;
+$purple: #9B51E0;
+$grey: #F2F2F2;
 $large-font-size: 32px;
 $big-font-size: 24px;
-$body-font-size: 21px;
+$body-font-size: 16px;
+$smaller-font-size: 14px;
 $small-font-size: 12px;
 // color //
 
 // widgets //
 @mixin myButton($width:0, $height:0, $radius:0, $color:$main-font-color, $block-color:#FFF, 
-    $margin-horizontal: 5px, $font-size:$body-font-size, $font-weight:500, $text-align:center) {
+    $margin-horizontal: 5px, $font-size:$body-font-size, $font-weight:400, $text-align:center) {
   
   @if $width > 0 { width:$width; }
   @if $height > 0 { height:$height; }
@@ -36,13 +39,17 @@ $small-font-size: 12px;
   }
 }
 
-@mixin popupBox($width, $height, $block-color:#fff,) {
+@mixin popupBox($width, $height, $block-color:#fff, $border-width: 0) {
   width:$width;
   height:$height;
   margin: 10% auto;
   padding: 32px;
   
   background-color: $block-color;
+
+  @if $border-width > 0 {
+    border: $border-width solid #000;
+  }
 }
 // widgets//
 
@@ -50,7 +57,7 @@ body {
     background: $background-color;
     font-family: sans-serif;
     color: $main-font-color;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     padding: 5px;
     min-height: 100vh;
   }
@@ -70,6 +77,7 @@ body {
       flex: 3;
       text-transform: uppercase;
       font-size: 150%;
+      font-weight: 700;
       
       .link:link,
       .link:visited {
@@ -135,7 +143,7 @@ body {
     background-color: rgba(242, 242, 242, 0.8);
 
     .signBox {
-      @include popupBox(536px, 449px);
+      @include popupBox(536px, 287px, $border-width: 1px);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -177,8 +185,9 @@ body {
       .sign-message {
         width: 440px;
         line-height: 140%;
-        font-size: $body-font-size;
+        font-size: $smaller-font-size;
         margin: 25px auto;
+        font-weight: 400;
       }
 
       .sign-error-message {
@@ -188,15 +197,19 @@ body {
         margin: 0 auto;
       }
 
-      .sign-button-black {
-        @include myButton(275px, 45px, $color: #fff, $block-color: #000);
-        margin: auto;
+      .sign-buttons {
+        display: flex;
+        flex-direction: row;
+        width: 440px;
+        height: 32px;
       }
 
-      .sign-button-white {
-        @include myButton($height:35px);
-        margin: 40px auto;
-        text-decoration: underline;
+      .sign-button-purple {
+        @include myButton($width: 207px, $height: 32px, $color: #fff, $block-color: $purple, $radius: 20px);
+      }
+
+      .sign-button-grey {
+        @include myButton($width: 78px, $height: 32px, $block-color: $grey, $radius: 20px);
       }
     }
   }
@@ -285,6 +298,10 @@ body {
         }
       }
     }
+  }
+
+  .margin-box {
+    flex-grow: 100;
   }
   
   .main {

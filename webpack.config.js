@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.tsx',
+  entry: ['./src/index.tsx'],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json']
   },
@@ -15,7 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: "ts-loader"
+        loader: "ts-loader",
       },
       {
           test: /\.(css|scss)$/,

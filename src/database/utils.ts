@@ -505,10 +505,8 @@ const genProveReputationCircuitInputsFromDB = async (
     const hashedLeaf = hash5([
         genIdentityCommitment(id),
         userStateTree.getRootHash(),
-        // BigInt(userState[epoch].transitionedPosRep),
-        // BigInt(userState[epoch].transitionedNegRep),
-        BigInt(0), 
-        BigInt(0),
+        userState[epoch].transitionedPosRep,
+        userState[epoch].transitionedNegRep,
         BigInt(0)
     ])
     const selectors: BigInt[] = []
@@ -599,10 +597,8 @@ const genProveReputationFromAttesterCircuitInputsFromDB = async (
     const hashedLeaf = hash5([
         genIdentityCommitment(id),
         userStateTree.getRootHash(),
-        // BigInt(transitionedPosRep),
-        // BigInt(transitionedNegRep),
-        BigInt(0), 
-        BigInt(0),
+        transitionedPosRep,
+        transitionedNegRep,
         BigInt(0)
     ])
     const GSTree = await genGSTreeFromDB(epoch)
