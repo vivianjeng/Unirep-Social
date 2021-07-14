@@ -2,10 +2,13 @@ import React, { useState, useContext } from 'react';
 import { WebContext } from '../context/WebContext';
 import * as Constants from '../constants';
 import { FaTwitter, FaCheck } from 'react-icons/fa';
+import base64url from 'base64url';
+// import { genIdentity, genIdentityCommitment, serialiseIdentity } from 'libsemaphore';
+import { ethers } from 'ethers';
+import UnirepSocial from "../artifacts/contracts/UnirepSocial.sol/UnirepSocial.json";
 
 const SignUp = () => {
     const { setUser, setPageStatus } = useContext(WebContext);
-    
     
     // step 0: sign up with twitter / others
     // step 1: private key randomly generated
@@ -15,14 +18,60 @@ const SignUp = () => {
     const [userInput, setUserInput] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
 
+    const DEFAULT_ETH_PROVIDER = 'http://localhost:8545';
+    const identityPrefix = 'Unirep.identity.';
+    const identityCommitmentPrefix = 'Unirep.identityCommitment.';
+    const unirepSocial = '0xa513E6E4b8f2a923D98304ec87F64353C4D5C853';
+    const deployerPrivateKey = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
+    const id = 'WyJlOGQ2NGU5OThhM2VmNjAxZThjZTNkNDQwOWQyZjc3MjEwOGJkMGI1NTgwODAzYjY2MDk0YTllZWExMzYxZjA2IiwiODZiYjk5ZGQ4MzA2ZGVkZDgxYTE4MzBiNmVjYmRlZjk5ZmVjYTU3M2RiNjIxMjk5NGMyMmJlMWEwMWZmMTEiLCIzMGE3M2MxMjE4ODQwNjE0MWQwYmI4NWRjZDY5ZjdhMjEzMWM1NWRkNDQzYWNmMGVhZTEwNjI2NzBjNDhmYSJd278';
+    const commitment = 'MTI0ZWQ1YTc4NjYzMWVhODViY2YzZDI4NWFhOTA5MzFjMjUwOTEzMzljYzAzODU3YTVlMzY5ZWYxZmI2NTAzNw';
+
     const preventCloseBox = (event: any) => {
         event.stopPropagation();
     }
 
-    const nextStep = (event: any) => {
+    const add0x = (str: string): string => {
+        str = str.padStart(64,"0")
+        return str.startsWith('0x') ? str : '0x' + str
+    }
+
+    const nextStep = async (event: any) => {
         event.stopPropagation();
+
+        if (step === 0) {
+            console.log(id);
+            console.log(commitment);
+
+            const provider = new ethers.providers.JsonRpcProvider(DEFAULT_ETH_PROVIDER);
+            const wallet = new ethers.Wallet(deployerPrivateKey, provider);
+            const unirepSocialContract = new ethers.Contract(
+                unirepSocial,
+                UnirepSocial.abi,
+                wallet,
+            );
+            const decodedCommitment = base64url.decode(commitment);
+            const signupCommitment = add0x(decodedCommitment);
+
+            let tx
+            try {
+                tx = await unirepSocialContract.userSignUp(
+                    signupCommitment,
+                    { gasLimit: 1000000 }
+                )
+
+            } catch(e) {
+                console.error('Error: the transaction failed')
+                if (e.message) {
+                    console.error(e.message)
+                }
+                return
+            }
+
+            const receipt = await tx.wait()
+            console.log(receipt.hash)
+        }
+
         setStep((prevState) => (prevState + 1));
-        // console.log('sign up step: ' + step);
     }
 
     const previousStep = (event: any) => {
