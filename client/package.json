@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "@unirep-social/frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,6 +11,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "bootstrap": "^5.0.2",
+    "ethers": "^5.4.1",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
