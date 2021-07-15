@@ -295,6 +295,10 @@ body {
         }
       }
     }
+
+    .new-post-button {
+      @include myButton($height: 50px, $text-align: center, $color: #fff, $block-color: $purple,);
+    }
   }
 
   .margin-box {
