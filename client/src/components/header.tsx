@@ -19,7 +19,7 @@ const Header = () => {
 
     const printUser = () => {
         if (user != null) {
-            console.log('user is ' + user.private_key);
+            console.log('user is ' + user.commitment);
         }
     }
 
@@ -30,7 +30,7 @@ const Header = () => {
                     UNIREP SOCIAL
                 </NavLink>
             </div>
-            {user && user.private_key? 
+            {user && user.commitment? 
                 <div className="navButtons">
                     <div className="userInfo" onClick={printUser}><FaUser /></div>
                 </div> :

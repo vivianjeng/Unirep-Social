@@ -20,7 +20,7 @@ const SignIn = () => {
 
     const closeBox = () => {
         setPageStatus(Constants.PageStatus.None);
-        setUser({ private_key: userInput }); // check if the user exists and login with the private identity
+        setUser({ identity: 'require from commitment', commitment: userInput }); // check if the user exists and login with the private identity
     }
 
     return (
