@@ -95,8 +95,33 @@ body {
       }
     }
 
-    .searchBar {
+    .search-bar {
       flex: 4;
+      padding-left: 8px;
+      width: 640px;
+      height: 45px;
+      line-height: 45px;
+      vertical-align: middle;
+      background-color: #fff;
+      border-radius: 20px;
+      border: 1px solid #bdbdbd;
+      display: flex;
+      flex-direction: row;
+
+      form {
+        flex: 15;
+
+        input {
+          outline: none;
+          border: none;
+          background-color:transparent;
+          width: 100%;
+        }
+      }
+
+      .search-icon {
+        flex: 1;
+      } 
     }
 
     .navButtons {
@@ -221,34 +246,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    .search-bar {
-      padding-left: 8px;
-      width: 640px;
-      height: 45px;
-      line-height: 45px;
-      vertical-align: middle;
-      background-color: #fff;
-      border-radius: 20px;
-      border: 1px solid #bdbdbd;
-      display: flex;
-      flex-direction: row;
-
-      form {
-        flex: 15;
-
-        input {
-          outline: none;
-          border: none;
-          background-color:transparent;
-          width: 100%;
-        }
-      }
-
-      .search-icon {
-        flex: 1;
-      } 
-    }
   }
 
   .post-list {

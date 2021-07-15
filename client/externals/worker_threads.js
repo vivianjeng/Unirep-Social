@@ -1,0 +1,1 @@
+export default window.worker_threads;

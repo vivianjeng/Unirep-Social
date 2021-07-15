@@ -12,8 +12,7 @@ const SignUp = () => {
     // step 0: sign up with twitter / others
     // step 1: private key randomly generated
     // step 2: confirm private key
-    const [step, setStep] = useState(0);
-    const [privateKey, setPrivateKey] = useState("75av86YRG34MG9297388723987"); // got from api
+    const [step, setStep] = useState(0);// got from api
     const [userInput, setUserInput] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
     const [identity, setIdentity] = useState("WyJlOGQ2NGU5OThhM2VmNjAxZThjZTNkNDQwOWQyZjc3MjEwOGJkMGI1NTgwODAzYjY2MDk0YTllZWExMzYxZjA2IiwiODZiYjk5ZGQ4MzA2ZGVkZDgxYTE4MzBiNmVjYmRlZjk5ZmVjYTU3M2RiNjIxMjk5NGMyMmJlMWEwMWZmMTEiLCIzMGE3M2MxMjE4ODQwNjE0MWQwYmI4NWRjZDY5ZjdhMjEzMWM1NWRkNDQzYWNmMGVhZTEwNjI2NzBjNDhmYSJd278");
@@ -26,11 +25,11 @@ const SignUp = () => {
     const nextStep = async (event: any) => {
         event.stopPropagation();
         
-        // if (step === 0) {
-        //     const {encodedIdentity, encodedIdentityCommitment} = genUserIdentity();
-        //     setIdentity(encodedIdentity);
-        //     setCommitment(encodedIdentityCommitment);
-        // } else 
+        if (step === 0) {
+            // const {encodedIdentity, encodedIdentityCommitment} = genUserIdentity();
+            // setIdentity(encodedIdentity);
+            // setCommitment(encodedIdentityCommitment);
+        } else 
         if (step === 1) {
             userSignUp(commitment);
         }
@@ -57,7 +56,7 @@ const SignUp = () => {
     const handleUserInput = (event: any) => {
         event.stopPropagation();
         setUserInput(event.target.value);
-        if (event.target.value !== privateKey) {
+        if (event.target.value !== commitment) {
             setErrorMsg("wrong private key");
         } else {
             setErrorMsg("");
@@ -89,7 +88,7 @@ const SignUp = () => {
                 </div> : step === 1?
                 <div>
                     <div className="sign-private-key" onClick={copyPrivateKey}>
-                        <div className="signup-private-key-text">{privateKey}</div>
+                        <div className="signup-private-key-text">{commitment}</div>
                         <div className="signup-private-key-status"><FaCheck /></div>
                     </div>
                     <div className="sign-message">

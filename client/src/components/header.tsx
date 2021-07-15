@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { WebContext } from '../context/WebContext';
-import { FaUser } from 'react-icons/fa';
+import { FaUser, FaSearch } from 'react-icons/fa';
 import * as Constants from '../constants';
 
 const Header = () => {
     const { user, setUser, pageStatus, setPageStatus } = useContext(WebContext);
+
+    const [searchInput, setSearchInput] = useState<string>("");
 
     const signUp = () => {
         console.log('open sign up! set ' + Constants.PageStatus.SignUp);
@@ -23,12 +25,22 @@ const Header = () => {
         }
     }
 
+    const handleSearchInput = (event: any) => {
+        console.log("search input : " + event.target.value);
+    }
+
     return (
         <header>
             <div className="navLinks">
                 <NavLink to="/" className="link" activeClassName="active" exact>
                     UNIREP SOCIAL
                 </NavLink>
+            </div>
+            <div className="search-bar">
+                <form>
+                    <input type="text" name="searchInput" placeholder="Search" onChange={handleSearchInput} />
+                </form>
+                <div className="search-icon"><FaSearch /></div>
             </div>
             {user && user.commitment? 
                 <div className="navButtons">

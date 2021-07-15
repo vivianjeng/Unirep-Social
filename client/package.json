@@ -2,6 +2,10 @@
   "name": "@unirep-social/frontend",
   "version": "0.1.0",
   "private": true,
+  "main": "index.tsx",
+  "alias": {
+    "worker_threads": "./externals/worker_threads.js"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -10,6 +14,8 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@web3-react/core": "^6.1.9",
+    "@web3-react/injected-connector": "^6.0.7",
     "babel-loader": "8.1.0",
     "base64url": "^3.0.1",
     "bootstrap": "^5.0.2",
@@ -26,7 +32,8 @@
     "style-loader": "^3.1.0",
     "ts-loader": "^9.2.3",
     "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "web3-react": "^5.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -55,6 +62,6 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.1.8",
     "node-sass": "^6.0.0",
-    "sass-loader": "^12.0.0"
+    "sass-loader": "^12.1.0"
   }
 }
