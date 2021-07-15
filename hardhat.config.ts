@@ -18,6 +18,11 @@ const config: HardhatUserConfig = {
       optimizer: { enabled: true, runs: 200 }
     }
   },
+  paths: {
+    sources: "./src/contracts",
+    tests: "./src/test",
+    artifacts: "./src/artifacts",
+  },
 }
 
 export default config;

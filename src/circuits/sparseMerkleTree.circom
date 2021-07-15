@@ -1,5 +1,5 @@
-include "../node_modules/circomlib/circuits/bitify.circom";
-include "../node_modules/circomlib/circuits/mux1.circom";
+include "../../node_modules/circomlib/circuits/bitify.circom";
+include "../../node_modules/circomlib/circuits/mux1.circom";
 include "./hasherPoseidon.circom";
 
 template SMTInclusionProof(n_levels) {

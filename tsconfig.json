@@ -6,8 +6,8 @@
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "noImplicitAny": false,
-        "outDir": "./build",
+        "outDir": "./src/build",
     },
-    "include": ["./crypto", "./core", "./cli", "./test"],
+    "include": ["./src/crypto", "./src/core", "./src/cli", "./src/test"],
     "files": ["./hardhat.config.ts"]
 }

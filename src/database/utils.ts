@@ -6,13 +6,13 @@ import { numAttestationsPerEpochKey} from '../config/testLocal'
 import Settings, { ISettings } from './models/settings'
 import UserSignUp, { IUserSignUp } from './models/userSignUp'
 import Attestations, { IAttestation } from './models/attestation'
-import Post, { IPost } from "../database/models/post";
-import Comment, { IComment } from "../database/models/comment";
-import ReputationNullifier, { IReputationNullifier } from "../database/models/reputationNullifier";
-import UserTransitionedState, { IUserTransitionedState } from "../database/models/userTransitionedState";
-import GSTLeaves, { IGSTLeaf, IGSTLeaves } from '../database/models/GSTLeaf'
-import EpochTreeLeaves, { IEpochTreeLeaf } from '../database/models/epochTreeLeaf'
-import NullifierTreeLeaves from '../database/models/nullifierTreeLeaf'
+import Post, { IPost } from "./models/post";
+import Comment, { IComment } from "./models/comment";
+import ReputationNullifier, { IReputationNullifier } from "./models/reputationNullifier";
+import UserTransitionedState, { IUserTransitionedState } from "./models/userTransitionedState";
+import GSTLeaves, { IGSTLeaf, IGSTLeaves } from './models/GSTLeaf'
+import EpochTreeLeaves, { IEpochTreeLeaf } from './models/epochTreeLeaf'
+import NullifierTreeLeaves from './models/nullifierTreeLeaf'
 
 import { hash5, hashLeftRight, IncrementalQuinTree, stringifyBigInts } from 'maci-crypto'
 import { computeEmptyUserStateRoot, defaultUserStateLeaf, genAttestationNullifier, genEpochKey, genEpochKeyNullifier, genNewSMT, SMT_ONE_LEAF, SMT_ZERO_LEAF } from '../test/utils'

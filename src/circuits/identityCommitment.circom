@@ -1,6 +1,6 @@
-include "../node_modules/circomlib/circuits/babyjub.circom";
-include "../node_modules/circomlib/circuits/bitify.circom";
-include "../node_modules/circomlib/circuits/pedersen.circom";
+include "../../node_modules/circomlib/circuits/babyjub.circom";
+include "../../node_modules/circomlib/circuits/bitify.circom";
+include "../../node_modules/circomlib/circuits/pedersen.circom";
 
 template CalculateIdentityCommitment(IDENTITY_PK_SIZE_IN_BITS, NULLIFIER_TRAPDOOR_SIZE_IN_BITS) {
 
