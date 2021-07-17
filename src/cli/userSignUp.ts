@@ -1,5 +1,5 @@
 import base64url from 'base64url'
-import { ethers as hardhatEthers } from 'hardhat'
+// import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 
 import {
@@ -75,7 +75,7 @@ const userSignup = async (args: any) => {
     // Unirep Social contract
     if (!validateEthAddress(args.contract)) {
         console.error('Error: invalid contract address')
-        return
+        return {}
     }
 
     const unirepSocialAddress = args.contract
@@ -95,20 +95,21 @@ const userSignup = async (args: any) => {
 
     if (!validateEthSk(ethSk)) {
         console.error('Error: invalid Ethereum private key')
-        return
+        return {}
     }
 
     if (! (await checkDeployerProviderConnection(ethSk, ethProvider))) {
         console.error('Error: unable to connect to the Ethereum provider at', ethProvider)
-        return
+        return {}
     }
 
-    const provider = new hardhatEthers.providers.JsonRpcProvider(ethProvider)
+    // const provider = new hardhatEthers.providers.JsonRpcProvider(ethProvider)
+    const provider = new ethers.providers.JsonRpcProvider(ethProvider)
     const wallet = new ethers.Wallet(ethSk, provider)
 
     if (! await contractExists(provider, unirepSocialAddress)) {
         console.error('Error: there is no contract deployed at the specified address')
-        return
+        return {}
     }
 
     const unirepSocialContract = new ethers.Contract(
@@ -133,13 +134,15 @@ const userSignup = async (args: any) => {
         if (e.message) {
             console.error(e.message)
         }
-        return
+        return {}
     }
 
     const receipt = await tx.wait()
     const epoch = unirepSocialContract.interface.parseLog(receipt.logs[2]).args._epoch
     console.log('Transaction hash:', tx.hash)
     console.log('Sign up epoch:', epoch.toString())
+
+    return {transaction: tx.hash, epoch: epoch.toString()};
 }
 
 export {

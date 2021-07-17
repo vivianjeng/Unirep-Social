@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "description": "",
     "scripts": {
+        "start": "nodemon src/app.ts",
         "build": "yarn run installZkutil && yarn run buildVerifyEpochKeySnark && yarn run buildUserStateTransitionSnark && yarn run buildProveReputationSnark && yarn run buildProveReputationFromAttesterSnark && yarn compile",
         "compile": "npx hardhat compile && yarn run moveArtifacts && npx ts-node ./src/scripts/buildPoseidon.ts",
         "installZkutil": "./src/scripts/installZkutil.sh",
@@ -31,12 +32,14 @@
         "@nomiclabs/hardhat-ethers": "^2.0.2",
         "@nomiclabs/hardhat-waffle": "^2.0.1",
         "@types/chai": "^4.2.14",
+        "@types/express": "^4.17.13",
         "@types/mocha": "^8.0.4",
-        "@types/node": "^14.14.7",
+        "@types/node": "^16.3.3",
         "chai": "^4.2.0",
         "ethereum-waffle": "^3.3.0",
         "hardhat": "^2.3.0",
         "keyv": "^4.0.3",
+        "nodemon": "^2.0.12",
         "ts-node": "^9.0.0"
     },
     "dependencies": {
@@ -45,7 +48,9 @@
         "base64url": "^3.0.1",
         "circom": "^0.5.38",
         "circomlib": "^0.5.1",
+        "dotenv": "^10.0.0",
         "ethers": "^5.2.0",
+        "express": "^4.17.1",
         "libsemaphore": "^1.0.15",
         "maci-config": "^0.7.4",
         "maci-crypto": "^0.7.4",

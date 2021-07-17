@@ -21,6 +21,11 @@ const genUnirepIdentity = async (args: any) => { // eslint-disable-line @typescr
     const serializedIdentityCommitment = commitment.toString(16)
     const encodedIdentityCommitment = base64url.encode(serializedIdentityCommitment)
     console.log(identityCommitmentPrefix + encodedIdentityCommitment)
+
+    const identityRet = identityPrefix + encodedIdentity
+    const commitmentRet = identityCommitmentPrefix + encodedIdentityCommitment
+
+    return {id: identityRet, commitment: commitmentRet}
 }
 
 export {
