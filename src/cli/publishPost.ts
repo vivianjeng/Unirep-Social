@@ -1,5 +1,5 @@
 import base64url from 'base64url'
-import { ethers as hardhatEthers } from 'hardhat'
+// import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 import { genIdentityCommitment, unSerialiseIdentity } from 'libsemaphore'
 import { stringifyBigInts } from 'maci-crypto'
@@ -121,7 +121,7 @@ const publishPost = async (args: any) => {
     // Unirep Social contract
     if (!validateEthAddress(args.contract)) {
         console.error('Error: invalid contract address')
-        return
+        return {}
     }
 
     const unirepSocialAddress = args.contract
@@ -141,20 +141,20 @@ const publishPost = async (args: any) => {
 
     if (!validateEthSk(ethSk)) {
         console.error('Error: invalid Ethereum private key')
-        return
+        return {}
     }
 
     if (! (await checkDeployerProviderConnection(ethSk, ethProvider))) {
         console.error('Error: unable to connect to the Ethereum provider at', ethProvider)
-        return
+        return {}
     }
 
-    const provider = new hardhatEthers.providers.JsonRpcProvider(ethProvider)
+    const provider = new ethers.providers.JsonRpcProvider(ethProvider)
     const wallet = new ethers.Wallet(ethSk, provider)
 
     if (! await contractExists(provider, unirepSocialAddress)) {
         console.error('Error: there is no contract deployed at the specified address')
-        return
+        return {}
     }
 
     const startBlock = (args.start_block) ? args.start_block : DEFAULT_START_BLOCK
@@ -177,7 +177,7 @@ const publishPost = async (args: any) => {
     const numEpochKeyNoncePerEpoch = await unirepContract.numEpochKeyNoncePerEpoch()
     if (epkNonce >= numEpochKeyNoncePerEpoch) {
         console.error('Error: epoch key nonce must be less than max epoch key nonce')
-        return
+        return {}
     }
     const encodedIdentity = args.identity.slice(identityPrefix.length)
     const decodedIdentity = base64url.decode(encodedIdentity)
@@ -255,7 +255,7 @@ const publishPost = async (args: any) => {
     const isValid = await verifyProveReputationProof(results['proof'], results['publicSignals'])
     if(!isValid) {
         console.error('Error: reputation proof generated is not valid!')
-        return
+        return {}
     }
 
     const proof = formatProofForVerifierContract(results['proof'])
@@ -328,13 +328,15 @@ const publishPost = async (args: any) => {
             console.log(res)
             db.disconnect();
         }
-        return
+        return {}
     }
     
     console.log('Post ID:', newpost._id.toString())
     console.log(`Epoch key of epoch ${currentEpoch} and nonce ${epkNonce}: ${epk}`)
     console.log(reputationProofPrefix + encodedProof)
     console.log('Transaction hash:', tx.hash)
+
+    return {pid: newpost._id.toString(), epk, transaction: tx.hash, proof: reputationProofPrefix + encodedProof};
 }
 
 export {

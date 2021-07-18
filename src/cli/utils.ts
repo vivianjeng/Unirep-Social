@@ -1,6 +1,6 @@
 import prompt from 'prompt-async'
 // import { ethers as hardhatEthers } from 'hardhat'
-import { ethers } from 'ethers'
+import { ethers, ContractFactory } from 'ethers'
 
 prompt.colors = false
 prompt.message = ''
@@ -17,10 +17,10 @@ class JSONRPCDeployer {
         this.options = options
     }
 
-    // async deploy(abi: any, bytecode: any, ...args): Promise<ethers.Contract> {
-    //     const factory = await hardhatEthers.getContractFactory(abi, bytecode, this.signer)
-    //     return await factory.deploy(...args)
-    // }
+    async deploy(abi: any, bytecode: any, ...args): Promise<ethers.Contract> {
+        const factory = new ContractFactory(abi, bytecode, this.signer)
+        return await factory.deploy(...args)
+    }
 }
 
 const genJsonRpcDeployer = (

@@ -12,7 +12,7 @@ import {
 } from 'maci-crypto'
 
 const zkutilPath = "~/.cargo/bin/zkutil"
-const buildPath = "../build"
+const buildPath = "../build/"
 
 /*
  * @param circuitPath The subpath to the circuit file (e.g.

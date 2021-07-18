@@ -1,9 +1,11 @@
 import { Router } from 'express';
 import SignUpRouter from './SignUpRouter';
+import PostRouter from './PostRouter';
 
 class MasterRouter {
   private _router = Router();
   private _signupRouter = SignUpRouter;
+  private _postRouter = PostRouter;
 
   get router() {
     return this._router;
@@ -18,6 +20,7 @@ class MasterRouter {
    */
   private _configure() {
     this._router.use('/signup', this._signupRouter);
+    this._router.use('/post', this._postRouter);
   }
 }
 

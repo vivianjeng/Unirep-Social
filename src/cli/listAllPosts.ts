@@ -1,4 +1,4 @@
-import { ethers as hardhatEthers } from 'hardhat'
+// import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 
 import {
@@ -40,7 +40,7 @@ const listAllPosts = async (args: any) => {
     // Unirep Social contract
     if (!validateEthAddress(args.contract)) {
         console.error('Error: invalid contract address')
-        return
+        return []
     }
 
     const unirepSocialAddress = args.contract
@@ -48,11 +48,11 @@ const listAllPosts = async (args: any) => {
     // Ethereum provider
     const ethProvider = args.eth_provider ? args.eth_provider : DEFAULT_ETH_PROVIDER
 
-    const provider = new hardhatEthers.providers.JsonRpcProvider(ethProvider)
+    const provider = new ethers.providers.JsonRpcProvider(ethProvider)
 
     if (! await contractExists(provider, unirepSocialAddress)) {
         console.error('Error: there is no contract deployed at the specified address')
-        return
+        return []
     }
     
     const unirepSocialContract = new ethers.Contract(
@@ -70,6 +70,8 @@ const listAllPosts = async (args: any) => {
         console.log('Epoch key ', postEvents[i].args._epochKey.toString())
         console.log('Content ', postEvents[i].args._hahsedContent)
     }
+
+    return postEvents;
 }
 
 export {
