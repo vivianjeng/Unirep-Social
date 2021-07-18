@@ -3,6 +3,7 @@ import ErrorHandler from '../ErrorHandler';
 import { DEPLOYER_PRIV_KEY, UNIREP_SOCIAL } from '../constants';
 import { genUnirepIdentity } from '../cli/genUnirepIdentity';
 import { userSignup } from '../cli/userSignUp';
+import { attesterSignup } from '../cli/attesterSignUp';
 
 class SignUpController {
     defaultMethod() {
@@ -30,8 +31,17 @@ class SignUpController {
         epoch = (ret.epoch != null) ? ret.epoch : 'error';
       });
 
-      console.log({id, commitment, transaction, epoch});
-      return {id, commitment, transaction, epoch};
+      let transaction_att: any;
+      let attester_id: any;
+      await attesterSignup({
+        contract: UNIREP_SOCIAL,
+        eth_privkey: DEPLOYER_PRIV_KEY,
+      }).then((ret) => {
+        transaction_att = (ret.transaction != null) ? ret.transaction : 'error';
+        attester_id = (ret.attester_id != null) ? ret.attester_id : 'error';
+      });
+
+      return {id, commitment, transaction, epoch, attester_id, transaction_att};
     }
   }
 

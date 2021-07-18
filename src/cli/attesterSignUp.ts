@@ -1,4 +1,4 @@
-import { ethers as hardhatEthers } from 'hardhat'
+// import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 
 import {
@@ -63,7 +63,7 @@ const attesterSignup = async (args: any) => {
     // Unirep Social contract
     if (!validateEthAddress(args.contract)) {
         console.error('Error: invalid contract address')
-        return
+        return {}
     }
 
     const unirepSocialAddress = args.contract
@@ -83,20 +83,20 @@ const attesterSignup = async (args: any) => {
 
     if (!validateEthSk(ethSk)) {
         console.error('Error: invalid Ethereum private key')
-        return
+        return {}
     }
 
     if (! (await checkDeployerProviderConnection(ethSk, ethProvider))) {
         console.error('Error: unable to connect to the Ethereum provider at', ethProvider)
-        return
+        return {}
     }
 
-    const provider = new hardhatEthers.providers.JsonRpcProvider(ethProvider)
+    const provider = new ethers.providers.JsonRpcProvider(ethProvider)
     const wallet = new ethers.Wallet(ethSk, provider)
 
     if (! await contractExists(provider, unirepSocialAddress)) {
         console.error('Error: there is no contract deployed at the specified address')
-        return
+        return {}
     }
 
     const unirepSocialContract = new ethers.Contract(
@@ -125,7 +125,7 @@ const attesterSignup = async (args: any) => {
         if (e.message) {
             console.error(e.message)
         }
-        return
+        return {}
     }
 
     const ethAddr = ethers.utils.computeAddress(ethSk)
@@ -135,6 +135,8 @@ const attesterSignup = async (args: any) => {
     }
     console.log('Transaction hash:', tx.hash)
     console.log('Attester sign up with attester id:', attesterId.toNumber())
+
+    return {transaction: tx.hash, attester_id: attesterId.toNumber()};
 }
 
 export {
