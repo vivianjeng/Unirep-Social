@@ -1,5 +1,5 @@
 import base64url from 'base64url'
-import { ethers as hardhatEthers } from 'hardhat'
+// import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 import { genIdentityCommitment, unSerialiseIdentity } from 'libsemaphore'
 import { stringifyBigInts } from 'maci-crypto'
@@ -146,19 +146,19 @@ const vote = async (args: any) => {
     // Unirep Social contract
     if (!validateEthAddress(args.contract)) {
         console.error('Error: invalid contract address')
-        return
+        return {}
     }
 
     // Should input upvote or downvote value
     if(!args.upvote_value && !args.downvote_value){
         console.error('Error: either upvote value or downvote value is required')
-        return
+        return {}
     }
     
     // Upvote and downvote cannot be at the same time
     if(args.upvote_value && args.downvote_value){
         console.error('Error: upvote and downvote cannot be at the same time')
-        return
+        return {}
     }
     const unirepSocialAddress = args.contract
 
@@ -177,20 +177,20 @@ const vote = async (args: any) => {
 
     if (!validateEthSk(ethSk)) {
         console.error('Error: invalid Ethereum private key')
-        return
+        return {}
     }
 
     if (! (await checkDeployerProviderConnection(ethSk, ethProvider))) {
         console.error('Error: unable to connect to the Ethereum provider at', ethProvider)
-        return
+        return {}
     }
 
-    const provider = new hardhatEthers.providers.JsonRpcProvider(ethProvider)
+    const provider = new ethers.providers.JsonRpcProvider(ethProvider)
     const wallet = new ethers.Wallet(ethSk, provider)
 
     if (! await contractExists(provider, unirepSocialAddress)) {
         console.error('Error: there is no contract deployed at the specified address')
-        return
+        return {}
     }
 
     const unirepSocialContract = new ethers.Contract(
@@ -211,7 +211,7 @@ const vote = async (args: any) => {
     const attesterId = await unirepContract.attesters(ethAddr)
     if (attesterId.toNumber() == 0) {
         console.error('Error: attester has not registered yet')
-        return
+        return {}
     }
 
     // upvote / downvote user 
@@ -227,7 +227,7 @@ const vote = async (args: any) => {
     const numEpochKeyNoncePerEpoch = await unirepContract.numEpochKeyNoncePerEpoch()
     if (epkNonce >= numEpochKeyNoncePerEpoch) {
         console.error('Error: epoch key nonce must be less than max epoch key nonce')
-        return
+        return {}
     }
     const encodedIdentity = args.identity.slice(identityPrefix.length)
     const decodedIdentity = base64url.decode(encodedIdentity)
@@ -305,7 +305,7 @@ const vote = async (args: any) => {
     const isValid = await verifyProveReputationProof(results['proof'], results['publicSignals'])
     if(!isValid) {
         console.error('Error: reputation proof generated is not valid!')
-        return
+        return {}
     }
 
     const proof = formatProofForVerifierContract(results['proof'])
@@ -360,12 +360,14 @@ const vote = async (args: any) => {
         if (e.message) {
             console.error(e.message)
         }
-        return
+        return {}
     }
 
     console.log(`Epoch key of epoch ${currentEpoch} and nonce ${epkNonce}: ${fromEpochKey.toString(16)}`)
     console.log(reputationProofPrefix + encodedProof)
     console.log('Transaction hash:', tx.hash)
+
+    return {transaction: tx.hash, epk: fromEpochKey.toString(16), proof: reputationProofPrefix + encodedProof};
 }
 
 export {
