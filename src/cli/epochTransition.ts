@@ -1,4 +1,4 @@
-import { ethers as hardhatEthers } from 'hardhat'
+// import { ethers as hardhatEthers } from 'hardhat'
 import { ethers } from 'ethers'
 
 import {
@@ -71,7 +71,7 @@ const epochTransition = async (args: any) => {
     // Unirep Social contract
     if (!validateEthAddress(args.contract)) {
         console.error('Error: invalid contract address')
-        return
+        return {}
     }
 
     const unirepSocialAddress = args.contract
@@ -91,20 +91,20 @@ const epochTransition = async (args: any) => {
 
     if (!validateEthSk(ethSk)) {
         console.error('Error: invalid Ethereum private key')
-        return
+        return {}
     }
 
     if (! (await checkDeployerProviderConnection(ethSk, ethProvider))) {
         console.error('Error: unable to connect to the Ethereum provider at', ethProvider)
-        return
+        return {}
     }
 
-    const provider = new hardhatEthers.providers.JsonRpcProvider(ethProvider)
+    const provider = new ethers.providers.JsonRpcProvider(ethProvider)
     const wallet = new ethers.Wallet(ethSk, provider)
 
     if (! await contractExists(provider, unirepSocialAddress)) {
         console.error('Error: there is no contract deployed at the specified address')
-        return
+        return {}
     }
 
     const unirepSocialContract = new ethers.Contract(
@@ -141,11 +141,13 @@ const epochTransition = async (args: any) => {
         if (e.message) {
             console.error(e.message)
         }
-        return
+        return {}
     }
 
     console.log('Transaction hash:', tx.hash)
     console.log('End of epoch:', currentEpoch.toString())
+
+    return {transaction: tx.hash, currentEpoch: currentEpoch.toString()}
 }
 
 export {

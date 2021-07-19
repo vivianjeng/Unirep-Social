@@ -1,5 +1,5 @@
 import base64url from 'base64url'
-import { ethers as hardhatEthers } from 'hardhat'
+// import { ethers as hardhatEthers } from 'hardhat'
 import { BigNumber, ethers } from 'ethers'
 import { genIdentityCommitment, unSerialiseIdentity } from 'libsemaphore'
 
@@ -96,7 +96,7 @@ const userStateTransition = async (args: any) => {
     // Unirep Social contract
     if (!validateEthAddress(args.contract)) {
         console.error('Error: invalid contract address')
-        return
+        return {}
     }
 
     const unirepSocialAddress = args.contract
@@ -116,20 +116,20 @@ const userStateTransition = async (args: any) => {
 
     if (!validateEthSk(ethSk)) {
         console.error('Error: invalid Ethereum private key')
-        return
+        return {}
     }
 
     if (! (await checkDeployerProviderConnection(ethSk, ethProvider))) {
         console.error('Error: unable to connect to the Ethereum provider at', ethProvider)
-        return
+        return {}
     }
 
-    const provider = new hardhatEthers.providers.JsonRpcProvider(ethProvider)
+    const provider = new ethers.providers.JsonRpcProvider(ethProvider)
     const wallet = new ethers.Wallet(ethSk, provider)
 
     if (! await contractExists(provider, unirepSocialAddress)) {
         console.error('Error: there is no contract deployed at the specified address')
-        return
+        return {}
     }
 
     const unirepSocialContract = new ethers.Contract(
@@ -184,13 +184,13 @@ const userStateTransition = async (args: any) => {
     const newState = await userState.genNewUserStateAfterTransition()
     if (newGSTLeaf != newState.newGSTLeaf) {
         console.error('Error: Computed new GST leaf should match')
-        return
+        return {}
     }
     
     const isValid = await verifyUserStateTransitionProof(results['proof'], results['publicSignals'])
     if (!isValid) {
         console.error('Error: user state transition proof generated is not valid!')
-        return
+        return {}
     }
 
     const fromEpoch = userState.latestTransitionedEpoch
@@ -206,7 +206,7 @@ const userStateTransition = async (args: any) => {
         const modedOutputNullifier = BigInt(outputNullifier) % BigInt(2 ** nullifierTreeDepth)
         if (modedOutputNullifier != attestationNullifiers[i]) {
             console.error(`Error: nullifier outputted by circuit(${modedOutputNullifier}) does not match the ${i}-th computed attestation nullifier(${attestationNullifiers[i]})`)
-            return
+            return {}
         }
         outputAttestationNullifiers.push(outputNullifier)
     }
@@ -216,7 +216,7 @@ const userStateTransition = async (args: any) => {
         const modedOutputNullifier = BigInt(outputNullifier) % BigInt(2 ** nullifierTreeDepth)
         if (modedOutputNullifier != epkNullifiers[i]) {
             console.error(`Error: nullifier outputted by circuit(${modedOutputNullifier}) does not match the ${i}-th computed attestation nullifier(${epkNullifiers[i]})`)
-            return
+            return {}
         }
         outputEPKNullifiers.push(outputNullifier)
     }
@@ -238,11 +238,13 @@ const userStateTransition = async (args: any) => {
         if (e.message) {
             console.error(e.message)
         }
-        return
+        return {}
     }
 
     console.log('Transaction hash:', tx.hash)
-    console.log(`User transitioned from epoch ${fromEpoch} to epoch ${currentEpoch}`)        
+    console.log(`User transitioned from epoch ${fromEpoch} to epoch ${currentEpoch}`)  
+    
+    return {transaction: tx.hash, currentEpoch}
 }
 
 export {

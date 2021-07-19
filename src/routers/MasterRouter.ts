@@ -3,6 +3,7 @@ import SignUpRouter from './SignUpRouter';
 import PostRouter from './PostRouter';
 import CommentRouter from './CommentRouter';
 import VoteRouter from './VoteRouter';
+import StateTransitionRouter from './StateTransitionRouter';
 
 class MasterRouter {
   private _router = Router();
@@ -10,6 +11,7 @@ class MasterRouter {
   private _postRouter = PostRouter;
   private _commentRouter = CommentRouter;
   private _voteRouter = VoteRouter;
+  private _transitionRouter = StateTransitionRouter;
 
   get router() {
     return this._router;
@@ -27,6 +29,7 @@ class MasterRouter {
     this._router.use('/post', this._postRouter);
     this._router.use('/comment', this._commentRouter);
     this._router.use('/vote', this._voteRouter);
+    this._router.use('/stateTransition', this._transitionRouter);
   }
 }
 
