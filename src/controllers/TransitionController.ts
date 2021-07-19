@@ -4,7 +4,7 @@ import { DEPLOYER_PRIV_KEY, UNIREP_SOCIAL } from '../constants';
 import { userStateTransition } from '../cli/userStateTransition';
 import { epochTransition } from '../cli/epochTransition';
 
-class StateTransitionController {
+class TransitionController {
     defaultMethod() {
       throw new ErrorHandler(501, 'API: Not implemented method');
     }
@@ -28,19 +28,19 @@ class StateTransitionController {
 
     epochTransition = async () => {
         
-        let current_epoch: any;
+        let end_epoch: any;
         let transaction: any;
         
         await epochTransition({
             contract: UNIREP_SOCIAL,
             eth_privkey: DEPLOYER_PRIV_KEY,
         }).then((ret) => {
-            current_epoch = (ret.currentEpoch != null) ? ret.currentEpoch : 'error';
+            end_epoch = (ret.currentEpoch != null) ? ret.currentEpoch : 'error';
             transaction = (ret.transaction != null) ? ret.transaction : 'error';
         });
 
-        return {current_epoch, transaction};
+        return {end_epoch, transaction};
     }
   }
 
-  export = new StateTransitionController();
+  export = new TransitionController();

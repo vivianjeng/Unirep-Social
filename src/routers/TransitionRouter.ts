@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { assert } from 'node:console';
-import StateTransitionController from '../controllers/StateTransitionController';
+import TransitionController from '../controllers/TransitionController';
 
-class StateTransitionRouter {
+class TransitionRouter {
   private _router = Router();
-  private _controller = StateTransitionController;
+  private _controller = TransitionController;
 
   get router() {
     return this._router;
@@ -37,4 +37,4 @@ class StateTransitionRouter {
   }
 }
 
-export = new StateTransitionRouter().router;
+export = new TransitionRouter().router;
