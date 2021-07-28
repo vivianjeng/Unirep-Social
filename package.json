@@ -20,7 +20,8 @@
         "test": "yarn run contractUintTests && yarn run circuitUintTests && yarn run integrationTest",
         "contractUintTests": "NODE_OPTIONS=--max-old-space-size=4096 npx hardhat test --no-compile $(find test/contracts -name '*.ts')",
         "circuitUintTests": "NODE_OPTIONS=--max-old-space-size=4096 npx hardhat test --no-compile $(find test/circuits -name '*.ts')",
-        "integrationTest": " NODE_OPTIONS=--max-old-space-size=4096 npx hardhat test --no-compile $(find test/integration -name '*.ts')"
+        "integrationTest": " NODE_OPTIONS=--max-old-space-size=4096 npx hardhat test --no-compile $(find test/integration -name '*.ts')",
+        "postinstall": "link-module-alias"
     },
     "repository": {
         "type": "git",
@@ -28,6 +29,9 @@
     },
     "author": "",
     "license": "MIT",
+    "_moduleAliases": {
+        "worker_threads": "./externals/worker_threads.js"
+      },
     "devDependencies": {
         "@nomiclabs/hardhat-ethers": "^2.0.2",
         "@nomiclabs/hardhat-waffle": "^2.0.1",

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { WebContext } from '../context/WebContext';
 import * as Constants from '../constants';
 import { FaTwitter, FaCheck } from 'react-icons/fa';
+import { genUserIdentity } from '../test-api';
 
 const SignUp = () => {
     const { setUser, setPageStatus } = useContext(WebContext);
@@ -21,6 +22,11 @@ const SignUp = () => {
 
     const nextStep = (event) => {
         event.stopPropagation();
+
+        if (step === 0) {
+            genUserIdentity();
+        }
+
         setStep((prevState) => (prevState + 1));
         // console.log('sign up step: ' + step);
     }
