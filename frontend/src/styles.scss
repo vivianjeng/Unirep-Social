@@ -1,0 +1,433 @@
+// font //
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');// sans-serif
+// font //
+
+// color //
+$main-font-color: #000;
+$background-color: #E5E5E5;
+$purple: #9B51E0;
+$grey: #F2F2F2;
+$large-font-size: 32px;
+$big-font-size: 24px;
+$body-font-size: 16px;
+$smaller-font-size: 14px;
+$small-font-size: 12px;
+// color //
+
+// widgets //
+@mixin myButton($width:0, $height:0, $radius:0, $color:$main-font-color, $block-color:#FFF, 
+    $margin-horizontal: 5px, $font-size:$body-font-size, $font-weight:400, $text-align:center) {
+  
+  @if $width > 0 { width:$width; }
+  @if $height > 0 { height:$height; }
+  border-radius: $radius;
+
+  color: $color;
+  background-color: $block-color;
+
+  margin-left: $margin-horizontal;
+  margin-right: $margin-horizontal;
+
+  font-size: $font-size;
+  font-weight: $font-weight;
+  text-align: $text-align;
+  vertical-align: middle;
+  line-height: $height;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin popupBox($width, $height, $block-color:#fff, $border-width: 0) {
+  width:$width;
+  height:$height;
+  margin: 10% auto;
+  padding: 32px;
+  
+  background-color: $block-color;
+
+  @if $border-width > 0 {
+    border: $border-width solid #000;
+  }
+}
+// widgets//
+
+body {
+    background: $background-color;
+    font-family: sans-serif;
+    color: $main-font-color;
+    letter-spacing: 0;
+    padding: 5px;
+    min-height: 100vh;
+  }
+  
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    padding: 5px;
+    font-weight: 700;
+    background-color: $background-color;
+    
+    .navLinks {
+      flex: 3;
+      text-transform: uppercase;
+      font-size: 150%;
+      font-weight: 700;
+      
+      .link:link,
+      .link:visited {
+        padding: 5px 10px;
+        margin: 1rem;
+        color: $main-font-color;
+        text-decoration: none;
+        text-transform: uppercase;
+        border-bottom: 2px solid transparent;
+      }
+  
+      .link:hover,
+      .link:active {
+        color: #757575;
+      }
+    }
+
+    .searchBar {
+      flex: 4;
+    }
+
+    .navButtons {
+      flex: 3;
+      justify-content: flex-end;
+      align-items: center;
+      display: flex;
+      padding-right: 10px;
+
+      .signupButton {
+        @include myButton(85px, 45px, $color: #FFF, $block-color: #000, $font-weight: 300);
+      }
+
+      .signinButton {
+        @include myButton(85px, 45px, $font-weight: 300);
+      }
+
+      .userInfo {
+        @include myButton(45px, 45px, $radius: 22px);
+      }
+    }
+  }
+  
+  h1 {
+    font-size: $large-font-size;
+  }
+
+  h2 {
+    font-size: $big-font-size;
+  }
+
+  h3 {
+    font-size: $body-font-size;
+    font-weight: 700;
+  }
+
+  .overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(242, 242, 242, 0.8);
+
+    .signBox {
+      @include popupBox(536px, 287px, $border-width: 1px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .sign-title {
+        width: 100%;
+        text-align:left;
+        margin-bottom: 20px;
+      }
+
+      .signup-with-twitter {
+        @include myButton(300px, 45px, $block-color:#1DA1F2, $radius:5px, $color:#fff, $font-size: $big-font-size);
+      }
+
+      .sign-private-key {
+        @include myButton(440px, 45px, $block-color:#F2F2F2, $radius:8px, $font-size: $small-font-size);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-left: 8px;
+
+        .signup-private-key-text {
+          text-align: left;
+          flex: 9;
+        }
+
+        .signup-private-key-status {
+          flex: 1;
+        }
+
+        input {
+          outline: none;
+          border: none;
+          background-color:transparent;
+          width: 420px;
+        }
+      }
+
+      .sign-message {
+        width: 440px;
+        line-height: 140%;
+        font-size: $smaller-font-size;
+        margin: 25px auto;
+        font-weight: 400;
+      }
+
+      .sign-error-message {
+        width: 440px;
+        font-size: $small-font-size;
+        color: #f00;
+        margin: 0 auto;
+      }
+
+      .sign-buttons {
+        display: flex;
+        flex-direction: row;
+        width: 440px;
+        height: 32px;
+      }
+
+      .sign-button-purple {
+        @include myButton($width: 207px, $height: 32px, $color: #fff, $block-color: $purple, $radius: 20px);
+      }
+
+      .sign-button-grey {
+        @include myButton($width: 78px, $height: 32px, $block-color: $grey, $radius: 20px);
+      }
+    }
+  }
+  
+  .main-content {
+    width: 80%;
+    margin: 50px auto 100px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .search-bar {
+      padding-left: 8px;
+      width: 640px;
+      height: 45px;
+      line-height: 45px;
+      vertical-align: middle;
+      background-color: #fff;
+      border-radius: 20px;
+      border: 1px solid #bdbdbd;
+      display: flex;
+      flex-direction: row;
+
+      form {
+        flex: 15;
+
+        input {
+          outline: none;
+          border: none;
+          background-color:transparent;
+          width: 100%;
+        }
+      }
+
+      .search-icon {
+        flex: 1;
+      } 
+    }
+  }
+
+  .post-list {
+    margin-top: 20px;
+  }
+
+  .post-block {
+    width: 640px;
+    height: 250px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    margin: 10px auto;
+
+    .post-block-vote {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .post-block-main {
+      flex: 9;
+      padding-left: 8px;
+      padding-right: 18px;
+
+      .post-block-title {
+        font-weight: bold;
+        font-size: $body-font-size;
+        margin: 15px auto;
+      }
+
+      .post-block-bottom-row {
+        display: flex;
+        flex-direction: row;
+        height: 60px;
+        align-items: center;
+
+        .post-block-button {
+          @include myButton($text-align: left);
+          flex: 1;
+
+          span {
+            margin-left: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  .margin-box {
+    flex-grow: 100;
+  }
+  
+  .main {
+    margin-left: 10px;
+  }
+  
+  .form {
+    width: 50%;
+    float: left;
+    margin-bottom: 50px;
+  }
+  
+  .book-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .book {
+    margin: 10px;
+    width: 288px;
+    overflow: hidden;
+  
+    .book-title {
+      font-weight: bold;
+    }
+  
+    .book-details {
+      margin-bottom: 1rem;
+  
+      & > div {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+  
+  .main-form {
+    color: #222222;
+    font-size: 18px;
+    width: 70%;
+    margin: auto;
+  }
+  
+  .input-control {
+    border: 1px solid #ccc;
+    color: #555555;
+    background-color: #fff;
+    height: 46px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 0;
+    display: block;
+    margin-bottom: 30px;
+    padding: 10px;
+    width: 100%;
+  
+    &:focus {
+      outline: none;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(23, 24, 24, 0.6);
+      border: 1px solid #cecece;
+    }
+  }
+  
+  button {
+    margin-right: 5px;
+  }
+  
+  .submit-btn {
+    margin-top: 1rem;
+  }
+  
+  .login {
+    text-align: center;
+    padding: 10px;
+    height: 200px;
+    line-height: 200px;
+  
+    button {
+      font-size: 20px;
+    }
+  }
+  
+  .errorMsg {
+    color: #f21e08;
+    background: #fff0f0;
+    padding: 10px;
+  }
+  
+  .successMsg {
+    color: #00ff00;
+    background: #077707;
+    padding: 10px;
+  }
+  
+  .centered-message {
+    width: 500px;
+    margin: auto;
+  }
+  
+  .message {
+    color: #0e1b1e;
+    font-size: 25px;
+    margin-left: 10px;
+  }
+  
+  @media screen and (max-width: 400px) {
+    h1 {
+      font-size: 30px;
+    }
+  
+    header {
+      .links {
+        a {
+          font-size: 1.2rem;
+        }
+  
+        .link:link,
+        .link:visited {
+          margin: unset;
+        }
+      }
+    }
+  
+    .main-form {
+      width: 100%;
+    }
+  }
