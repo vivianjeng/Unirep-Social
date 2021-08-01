@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { WebContext } from '../context/WebContext';
 import * as Constants from '../constants';
 import { FaTwitter, FaCheck } from 'react-icons/fa';
+import { genUserIdentity } from '../utils';
 
 const SignUp = () => {
     const { setUser, setPageStatus } = useContext(WebContext);
@@ -11,9 +12,10 @@ const SignUp = () => {
     // step 1: private key randomly generated
     // step 2: confirm private key
     const [step, setStep] = useState(0);
-    const [privateKey, setPrivateKey] = useState("75av86YRG34MG9297388723987"); // got from api
     const [userInput, setUserInput] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
+    const [identity, setIdentity] = useState("");
+    const [commitment, setCommitment] = useState("");
 
     const preventCloseBox = (event: any) => {
         event.stopPropagation();
@@ -21,8 +23,14 @@ const SignUp = () => {
 
     const nextStep = (event: any) => {
         event.stopPropagation();
+
+        if (step === 0) {
+            const {i, c} = genUserIdentity();
+            setIdentity(i);
+            setCommitment(c);
+        }
+
         setStep((prevState) => (prevState + 1));
-        // console.log('sign up step: ' + step);
     }
 
     const previousStep = (event: any) => {
@@ -44,7 +52,7 @@ const SignUp = () => {
     const handleUserInput = (event: any) => {
         event.stopPropagation();
         setUserInput(event.target.value);
-        if (event.target.value !== privateKey) {
+        if (event.target.value !== identity) {
             setErrorMsg("wrong private key");
         } else {
             setErrorMsg("");
@@ -53,7 +61,7 @@ const SignUp = () => {
 
     const closeBox = async () => {
         setPageStatus(Constants.PageStatus.None);
-        setUser({ private_key: privateKey });
+        setUser({ identity: identity });
     }
 
     return (
@@ -76,7 +84,7 @@ const SignUp = () => {
                 </div> : step === 1?
                 <div>
                     <div className="sign-private-key" onClick={copyPrivateKey}>
-                        <div className="signup-private-key-text">{privateKey}</div>
+                        <div className="signup-private-key-text">{identity}</div>
                         <div className="signup-private-key-status"><FaCheck /></div>
                     </div>
                     <div className="sign-message">

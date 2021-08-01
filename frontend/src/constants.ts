@@ -9,7 +9,7 @@ export interface WebState {
 }
 
 export interface User {
-    private_key: string,
+    identity: string,
 }
 
 export interface Post {
