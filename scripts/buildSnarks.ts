@@ -14,6 +14,8 @@ const fileExists = (filepath: string): boolean => {
 }
 
 const zkutilPath = "~/.cargo/bin/zkutil"
+const snarkjsCmd = "node " + path.join(__dirname, '../node_modules/snarkjs/build/cli.cjs')
+const ptauFile = path.join(__dirname, '../circuits/powersOfTau28_hez_final_17.ptau')
 
 const main = () => {
     const parser = new argparse.ArgumentParser({ 
@@ -102,6 +104,14 @@ const main = () => {
         }
     )
 
+    parser.add_argument(
+        '-zk', '--zkey-out',
+        {
+            help: 'The filepath to save the zkey file',
+            required: true
+        }
+    )
+
     const args = parser.parse_args()
     const vkOut = args.vk_out
     const solOut = args.sol_out
@@ -113,6 +123,7 @@ const main = () => {
     const verifierName = args.verifier_name
     const paramsOut = args.params_out
     const pkOut = args.pk_out
+    const zkeyOut = args.zkey_out
 
     // Check if the input circom file exists
     const inputFileExists = fileExists(inputFile)
@@ -138,6 +149,7 @@ const main = () => {
         console.log('Generated', circuitOut, 'and', wasmOut)
     }
 
+    // setup
     const paramsFileExists = fileExists(paramsOut)
     if (!override && paramsFileExists) {
         console.log('params file exists. Skipping setup.')
@@ -146,6 +158,7 @@ const main = () => {
         shell.exec(`${zkutilPath} setup -c ${circuitOut} -p ${paramsOut}`)
     }
 
+    // export key
     console.log('Exporting verification key...')
     shell.exec(`${zkutilPath} export-keys -c ${circuitOut} -p ${paramsOut} -r ${pkOut} -v ${vkOut}`)
     console.log(`Generated ${pkOut} and ${vkOut}`)
@@ -156,6 +169,12 @@ const main = () => {
     )
 
     fs.writeFileSync(solOut, verifier)
+
+    // .zkey generate
+    console.log('Exporting zkey...')
+    shell.exec(`${snarkjsCmd} zkn ${circuitOut} ${ptauFile} ${zkeyOut}`)
+    console.log(`Generated ${zkeyOut}`)
+
     return 0
 }
 

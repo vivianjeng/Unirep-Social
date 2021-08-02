@@ -12,7 +12,10 @@
     "@types/react-dom": "^17.0.9",
     "base64url": "^3.0.1",
     "bootstrap": "^5.0.2",
+    "keyv": "^4.0.3",
     "libsemaphore": "^1.0.16",
+    "maci-crypto": "^0.9.1",
+    "n-readlines": "^1.0.1",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -50,7 +53,10 @@
     ]
   },
   "devDependencies": {
+    "@types/keyv": "^3.1.2",
+    "@types/n-readlines": "^1.0.2",
     "@types/react-router-dom": "^5.1.8",
+    "@types/shelljs": "^0.8.9",
     "dotenv": "^10.0.0",
     "typescript": "^4.3.5"
   }

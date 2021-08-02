@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { WebContext } from '../context/WebContext';
 import * as Constants from '../constants';
 import { FaTwitter, FaCheck } from 'react-icons/fa';
-import { genUserIdentity } from '../utils';
+import { userSignUp } from '../utils';
 
 const SignUp = () => {
     const { setUser, setPageStatus } = useContext(WebContext);
@@ -21,11 +21,11 @@ const SignUp = () => {
         event.stopPropagation();
     }
 
-    const nextStep = (event: any) => {
+    const nextStep = async (event: any) => {
         event.stopPropagation();
 
         if (step === 0) {
-            const {i, c} = genUserIdentity();
+            const {i, c} = await userSignUp();
             setIdentity(i);
             setCommitment(c);
         }
@@ -101,6 +101,7 @@ const SignUp = () => {
                         <form>
                             <input type="text" name="userInput" placeholder="enter your private key" onChange={handleUserInput} />
                         </form>
+                        
                     </div>
                     {errorMsg !== ''? 
                         <div className="sign-error-message">

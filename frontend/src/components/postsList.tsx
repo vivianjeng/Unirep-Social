@@ -1,5 +1,6 @@
 import React from 'react';
 import PostBlock from './postBlock';
+import PostField from './postField';
 import { Post } from '../constants';
 
 type Props = {
@@ -11,6 +12,7 @@ const PostsList = ({ posts }: Props) => {
 
     return (
         <div className="post-list">
+            <PostField />
             {sortedPosts.length > 0? (
                 sortedPosts.map((post) => (
                     <PostBlock key={post.id} post={post} />
