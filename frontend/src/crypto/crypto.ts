@@ -35,12 +35,11 @@ const wrappedPoseidonT3Hash = (...elements: SnarkBigInt[]): string => {
 
 export {
     NOTHING_UP_MY_SLEEVE,
-    SNARK_FIELD_SIZE,
-    SnarkBigInt,
-    genRandomSalt,
+    SNARK_FIELD_SIZE, genRandomSalt,
     hash5,
     hashOne,
     hashLeftRight,
     wrappedPoseidonT3Hash,
-    newWrappedPoseidonT3Hash,
+    newWrappedPoseidonT3Hash
 }
+export type { SnarkBigInt }

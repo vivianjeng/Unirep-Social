@@ -8,7 +8,7 @@ import {
 import { SparseMerkleTreeImpl } from '../crypto/SMT'
 import { genAttestationNullifier, defaultUserStateLeaf, genEpochKey, genNewSMT, genEpochKeyNullifier, genKarmaNullifier } from './utils'
 import { IAttestation, UnirepState } from './UnirepState'
-import { DEFAULT_AIRDROPPED_KARMA, MAX_KARMA_BUDGET } from '../config/socialMedia'
+import { DEFAULT_AIRDROPPED_KARMA, MAX_KARMA_BUDGET } from '../config'
 
 interface IUserStateLeaf {
     attesterId: BigInt;
@@ -109,8 +109,8 @@ class UserState {
 
     constructor(
         _unirepState: UnirepState,
-        _id,
-        _commitment,
+        _id: any,
+        _commitment: any,
         _hasSignedUp: boolean,
         _transitionedPosRep?: number,
         _transitionedNegRep?: number,
@@ -429,7 +429,7 @@ class UserState {
             BigInt(0)
         ])
 
-        let reputationRecords = {}
+        const reputationRecords: {[key: string]: any} = {}
         const selectors: number[] = []
         const attesterIds: BigInt[] = []
         const oldPosReps: BigInt[] = [], oldNegReps: BigInt[] = [], oldGraffities: BigInt[] = []
@@ -702,8 +702,10 @@ class UserState {
 }
 
 export {
-    IReputation,
-    IUserStateLeaf,
     Reputation,
-    UserState,
+    UserState
+}
+export type {
+    IReputation,
+    IUserStateLeaf
 }

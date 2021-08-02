@@ -4,7 +4,7 @@ import {
     IncrementalQuinTree,
     hash5,
 } from 'maci-crypto'
-import { DEFAULT_AIRDROPPED_KARMA } from '../config/socialMedia'
+import { DEFAULT_AIRDROPPED_KARMA } from '../config'
 import { SparseMerkleTreeImpl } from '../crypto/SMT'
 import { computeEmptyUserStateRoot, genNewSMT, SMT_ONE_LEAF, SMT_ZERO_LEAF } from './utils'
 
@@ -121,7 +121,7 @@ class UnirepState {
     }
 
     public toJSON = (space = 0): string => {
-        let latestEpochTreeLeaves
+        let latestEpochTreeLeaves: any
         if (this.currentEpoch == 1) latestEpochTreeLeaves = []
         else latestEpochTreeLeaves = this.epochTreeLeaves[this.currentEpoch - 1].map((l) => `${l.epochKey.toString()}: ${l.hashchainResult.toString()}`)
         return JSON.stringify(
@@ -321,8 +321,10 @@ class UnirepState {
 }
 
 export {
-    Attestation,
+    Attestation, 
+    UnirepState
+}
+export type {
     IAttestation,
-    IEpochTreeLeaf,
-    UnirepState,
+    IEpochTreeLeaf
 }
