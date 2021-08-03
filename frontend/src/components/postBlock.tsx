@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { FaArrowUp, FaArrowDown, FaComment, FaShare, FaCheck } from 'react-icons/fa';
 import { Post } from '../constants';
-import { vote } from '../utils';
+import { vote, leaveComment } from '../utils';
 import { WebContext } from '../context/WebContext'
 
 type Props = {
@@ -11,6 +11,8 @@ type Props = {
 const PostBlock = ({ post } : Props) => {
 
     const date = new Date(post.post_time).toUTCString();
+    const [ showComment, setShowComment ] = useState(false);
+    const [ comment, setComment ] = useState("");
     const { user, setUser } = useContext(WebContext);
 
     const upvote = async () => {
@@ -31,6 +33,22 @@ const PostBlock = ({ post } : Props) => {
         }
     }
 
+    const handleUserInput = (event: any) => {
+        setComment(event.target.value);
+    }
+
+    const submitComment = async () => {
+        if (user === null) {
+            console.error('user not login!');
+        } else {
+            const ret = await leaveComment(user.identity, comment, post.id)
+        }
+    }
+
+    const switchComment = () => {
+        setShowComment((prevState) => !prevState);
+    }
+
     return (
         <div className="post-block">
             <div className="post-block-vote">
@@ -43,10 +61,18 @@ const PostBlock = ({ post } : Props) => {
                 <div className="post-block-title">{post.title}</div>
                 <div className="post-block-content">{post.content}</div>
                 <div className="post-block-bottom-row">
-                    <div className="post-block-button"><FaComment /><span>Comment</span></div>
+                    <div className="post-block-button" onClick={switchComment}><FaComment /><span>Comment</span></div>
                     <div className="post-block-button"><FaShare /><span>Share</span></div>
                     <div className="post-block-button"><FaCheck /><span>Status</span></div>
                 </div>
+                { showComment? 
+                    <div>
+                        <form>
+                            <input type="text" name="userInput" placeholder="say something..." value={comment} onChange={handleUserInput} />
+                        </form>
+                        <div onClick={submitComment}>Comment</div>
+                    </div> : <div></div>
+                }
             </div>
         </div>
     );
