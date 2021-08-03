@@ -25,6 +25,7 @@ export const userSignUp = async () => {
 
     // call server user sign up
 
+
     return {i: Config.identityPrefix + encodedIdentity, c: Config.identityCommitmentPrefix + encodedIdentityCommitment}
 }
 
@@ -87,15 +88,12 @@ export const publishPost = async (content: string, epkNonce: number, identity: s
     
     GSTRoot = userState.getUnirepStateGSTree(currentEpoch).root
     nullifierTreeRoot = (await userState.getUnirepStateNullifierTree()).getRootHash()
-    // }
 
+    console.log('genVerifyReputationProofAndPublicSignals...')
     const results = await genVerifyReputationProofAndPublicSignals(stringifyBigInts(circuitInputs))
-    const nullifiers: BigInt[] = [] 
+    console.log(results)
     
-    for (let i = 0; i < Config.MAX_KARMA_BUDGET; i++) {
-        const variableName = 'main.karma_nullifiers['+i+']'
-        nullifiers.push(getSignalByNameViaSym('proveReputation', results['witness'], variableName))
-    }
+    const nullifiers = results['publicSignals'].slice(0, Config.MAX_KARMA_BUDGET)
     
     // TODO: Not sure if this validation is necessary
     const isValid = await verifyProveReputationProof(results['proof'], results['publicSignals'])
@@ -118,4 +116,5 @@ export const publishPost = async (content: string, epkNonce: number, identity: s
     ]
 
     // to backend: proof, publicSignals, content
+    return
 }

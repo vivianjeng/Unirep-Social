@@ -3,10 +3,8 @@ import assert from 'assert'
 import lineByLine from 'n-readlines'
 import * as path from 'path'
 import { SnarkProof, SnarkPublicSignals } from 'libsemaphore'
-import { stringifyBigInts, unstringifyBigInts } from 'maci-crypto'
 
 const snarkjs = require("snarkjs")
-const zkutilPath = "~/.cargo/bin/zkutil"
 const buildPath = "./build"
 
 /*
@@ -82,12 +80,7 @@ const genVerifyEpochKeyProofAndPublicSignals = (
 ) => {
     return genProofAndPublicSignals(
         inputs,
-        '/test/verifyEpochKey_test.circom',
-        'verifyEpochKeyCircuit.r1cs',
-        'verifyEpochKey.wasm',
-        'verifyEpochKey.params',
-        'verifyEpochKey.zkey',
-        false,
+        'verifyEpochKey'
     )
 }
 
@@ -96,12 +89,7 @@ const genVerifyUserStateTransitionProofAndPublicSignals = (
 ) => {
     return genProofAndPublicSignals(
         inputs,
-        '/test/userStateTransition_test.circom',
-        'userStateTransitionCircuit.r1cs',
-        'userStateTransition.wasm',
-        'userStateTransition.params',
-        'userStateTransition.zkey',
-        false,
+        'userStateTransition'
     )
 }
 
@@ -110,12 +98,7 @@ const genVerifyReputationProofAndPublicSignals = (
 ) => {
     return genProofAndPublicSignals(
         inputs,
-        '/test/proveReputation_test.circom',
-        'proveReputationCircuit.r1cs',
-        'proveReputation.wasm',
-        'proveReputation.params',
-        'proveReputation.zkey',
-        false,
+        'proveReputation'
     )
 }
 
@@ -124,53 +107,45 @@ const genVerifyReputationFromAttesterProofAndPublicSignals = (
 ) => {
     return genProofAndPublicSignals(
         inputs,
-        '/test/proveReputationFromAttester_test.circom',
-        'proveReputationFromAttesterCircuit.r1cs',
-        'proveReputationFromAttester.wasm',
-        'proveReputationFromAttester.params',
-        'proveReputationFromAttester.zkey',
-        false,
+        'proveReputationFromAttester'
     )
 }
 
 /// needs to re-write, no shelljs and file allowed, just store in memory ///
 const genProofAndPublicSignals = async (
     inputs: any,
-    circuitFilename: string,
-    circuitR1csFilename: string,
-    circuitWasmFilename: string,
-    paramsFilename: string,
-    zkeyFileName: string,
-    compileCircuit = true,
+    circuitName: string,
 ) => {
-    const date = Date.now()
-    const paramsPath = path.join(__dirname, buildPath, paramsFilename)
-    const circuitR1csPath = path.join(__dirname, buildPath, circuitR1csFilename)
-    const circuitWasmPath = path.join(__dirname, buildPath, circuitWasmFilename)
-    const inputJsonPath = path.join(__dirname, buildPath + date + '.input.json')
-    const witnessPath = path.join(__dirname, buildPath + date + '.witness.wtns')
-    const witnessJsonPath = path.join(__dirname, buildPath + date + '.witness.json')
-    const proofPath = path.join(__dirname, buildPath + date + '.proof.json')
-    const publicJsonPath = path.join(__dirname, buildPath + date + '.publicSignals.json')
-    const zkeyPath = path.join(__dirname, buildPath, zkeyFileName)
+    const circuitWasmPath = path.join(__dirname, buildPath, circuitName + '.wasm')
+    const zkeyPath = path.join(__dirname, buildPath, circuitName + '.zkey')
 
     const { proof, publicSignals } = await snarkjs.groth16.fullProve(inputs, circuitWasmPath, zkeyPath);
-    console.log("Proof: ");
-    console.log(JSON.stringify(proof, null, 1));
+    // console.log("Proof: ");
+    // console.log(JSON.stringify(proof, null, 1));
 
-    const witness = unstringifyBigInts(JSON.parse(fs.readFileSync(witnessJsonPath).toString()))
-
-    return { proof, publicSignals, witness } // proof, publicsignals should be on chain
+    return { proof, publicSignals } // proof, publicsignals should be on chain
 }
 
 const verifyProof = async (
-    vkeyFileName: string,
-    proof: SnarkProof,
-    publicSignals: SnarkPublicSignals,
+    circuitName: string,
+    proof: any,
+    publicSignals: any,
 ): Promise<boolean> => {
-    const vkey = path.join(__dirname, buildPath, vkeyFileName)
-    const res = await snarkjs.groth16.verify(vkey, publicSignals, proof)
 
+    const zkeyJsonPath = path.join(__dirname, buildPath ,`${circuitName}.zkey.json`)
+    console.log('zkey json path: ' + zkeyJsonPath)
+
+    const zKey = await fetch(zkeyJsonPath, {
+        'headers': {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }).then(function(response){
+        return response.json()
+    })
+    // console.log('zkey: ' + JSON.stringify(zKey, null, 1))
+    const res = await snarkjs.groth16.verify(zKey, publicSignals, proof)
+    
     return res
 }
 
@@ -178,100 +153,28 @@ const verifyEPKProof = (
     proof: any,
     publicSignals: any,
 ) => {
-    // const date = Date.now().toString()
-    // const proofFilename = `${date}.verifyEpochKey.proof.json`
-    // const publicSignalsFilename = `${date}.verifyEpochKey.publicSignals.json`
-
-    // fs.writeFileSync(
-    //     path.join(__dirname, buildPath, proofFilename),
-    //     JSON.stringify(
-    //         stringifyBigInts(proof)
-    //     )
-    // )
-
-    // fs.writeFileSync(
-    //     path.join(__dirname, buildPath, publicSignalsFilename),
-    //     JSON.stringify(
-    //         stringifyBigInts(publicSignals)
-    //     )
-    // )
-
-    return verifyProof('verifyEpochKeyVk.json', proof, publicSignals)
+    return verifyProof('verifyEpochKey', proof, publicSignals)
 }
 
 const verifyUserStateTransitionProof = (
     proof: any,
     publicSignals: any,
 ) => {
-    // const date = Date.now().toString()
-    // const proofFilename = `${date}.userStateTransition.proof.json`
-    // const publicSignalsFilename = `${date}.userStateTransition.publicSignals.json`
-
-    // fs.writeFileSync(
-    //     path.join(__dirname, buildPath, proofFilename),
-    //     JSON.stringify(
-    //         stringifyBigInts(proof)
-    //     )
-    // )
-
-    // fs.writeFileSync(
-    //     path.join(__dirname, buildPath, publicSignalsFilename),
-    //     JSON.stringify(
-    //         stringifyBigInts(publicSignals)
-    //     )
-    // )
-
-    return verifyProof('userStateTransitionVk.json', proof, publicSignals)
+    return verifyProof('userStateTransition', proof, publicSignals)
 }
 
 const verifyProveReputationProof = (
     proof: any,
     publicSignals: any,
 ) => {
-    // const date = Date.now().toString()
-    // const proofFilename = `${date}.proveReputation.proof.json`
-    // const publicSignalsFilename = `${date}.proveReputation.publicSignals.json`
-
-    // fs.writeFileSync(
-    //     path.join(__dirname, buildPath, proofFilename),
-    //     JSON.stringify(
-    //         stringifyBigInts(proof)
-    //     )
-    // )
-
-    // fs.writeFileSync(
-    //     path.join(__dirname, buildPath, publicSignalsFilename),
-    //     JSON.stringify(
-    //         stringifyBigInts(publicSignals)
-    //     )
-    // )
-
-    return verifyProof('proveReputationVk.json', proof, publicSignals)
+    return verifyProof('proveReputation', proof, publicSignals)
 }
 
 const verifyProveReputationFromAttesterProof = (
     proof: any,
     publicSignals: any,
 ) => {
-    // const date = Date.now().toString()
-    // const proofFilename = `${date}.proveReputationFromAttester.proof.json`
-    // const publicSignalsFilename = `${date}.proveReputationFromAttester.publicSignals.json`
-
-    // fs.writeFileSync(
-    //     path.join(__dirname, buildPath, proofFilename),
-    //     JSON.stringify(
-    //         stringifyBigInts(proof)
-    //     )
-    // )
-
-    // fs.writeFileSync(
-    //     path.join(__dirname, buildPath, publicSignalsFilename),
-    //     JSON.stringify(
-    //         stringifyBigInts(publicSignals)
-    //     )
-    // )
-
-    return verifyProof('proveReputationFromAttesterVk.json', proof, publicSignals)
+    return verifyProof('proveReputationFromAttester', proof, publicSignals)
 }
 
 const formatProofForVerifierContract = (

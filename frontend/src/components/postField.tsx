@@ -17,16 +17,21 @@ const PostField = () => {
         if (user === null) {
             console.log('not login yet');
         } else {
+            console.log('publish post');
             await publishPost(content, 0, user.identity, 0); // content, epkNonce, identity, minRep
         }
     }
 
     return (
         <div className="post-block">
-            <form onSubmit={submitPost}>
+            {/* <form onSubmit={submitPost}>
                 <input type="text" name="userInput" placeholder="say something..." value={content} onChange={handleUserInput} />
                 <input type="submit" value="Post" />
+            </form> */}
+            <form>
+                <input type="text" name="userInput" placeholder="say something..." value={content} onChange={handleUserInput} />
             </form>
+            <div onClick={submitPost}>Post</div>
         </div>
     );
 };
