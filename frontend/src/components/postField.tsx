@@ -23,7 +23,7 @@ const PostField = () => {
             const ret = await publishPost(content, 0, user.identity, 0); // content, epkNonce, identity, minRep
             if (ret !== undefined) {
                 const newPost = {
-                    id: Math.floor(Math.random() * 100000),
+                    id: ret.postId,
                     title: 'title',
                     content,
                     vote: 0,

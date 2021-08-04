@@ -82,7 +82,6 @@ const genProof = async (identity: string, epkNonce: number = 0, proveKarmaAmount
     }
 
     const proof = formatProofForVerifierContract(results['proof'])
-    const epochKey = BigInt(add0x(epk))
 
     // generate public signals
     const publicSignals = [
@@ -94,7 +93,7 @@ const genProof = async (identity: string, epkNonce: number = 0, proveKarmaAmount
         minRep !== 0 ? BigInt(minRep) : BigInt(0)
     ]
 
-    return {epochKey, proof, publicSignals, nullifiers}
+    return {epk, proof, publicSignals, nullifiers}
 }
 
 const makeURL = (action: string, data: any) => {
@@ -108,6 +107,7 @@ const makeURL = (action: string, data: any) => {
 }
 
 const header = {
+    'content-type': 'application/json',
     'Access-Control-Allow-Origin': config.SERVER,
     'Access-Control-Allow-Credentials': 'true',
 }
@@ -144,11 +144,38 @@ export const publishPost = async (content: string, epkNonce: number, identity: s
     }
 
      // to backend: proof, publicSignals, content
+     const apiURL = makeURL('post', {})
+     const data = {
+        content,
+        epk: ret.epk,
+        proof: ret.proof, 
+        minRep,
+        nullifiers: ret.nullifiers,
+        publicSignals: ret.publicSignals,
+     }
+     const stringifiedData = JSON.stringify(data, (key, value) => 
+        typeof value === "bigint" ? value.toString() + "n" : value
+     )
+     console.log('before publish post api: ' + stringifiedData)
+     
+     let transaction: string = ''
+     let postId: string = ''
+     await fetch(apiURL, {
+         headers: header,
+         body: stringifiedData,
+         method: 'POST',
+     }).then(response => response.json())
+        .then(function(data){
+            console.log(JSON.stringify(data))
+            transaction = data.transaction
+            postId = data.postId
+        });
     
-    return {epk: ret.epochKey.toString()}
+    const epochKey = BigInt(add0x(ret.epk))
+    return {epk: epochKey.toString(), transaction, postId}
 }
 
-export const vote = async(identity: string, upvote: number|undefined, downvote: number|undefined, postId: number, receiver: string, epkNonce: number = 0, minRep: number = 0) => {
+export const vote = async(identity: string, upvote: number|undefined, downvote: number|undefined, postId: string, receiver: string, epkNonce: number = 0, minRep: number = 0) => {
     // upvote / downvote user 
     const graffiti = BigInt(0)
     const overwriteGraffiti = false
@@ -163,11 +190,11 @@ export const vote = async(identity: string, upvote: number|undefined, downvote: 
     }
 
     // send publicsignals, proof, voted post id, receiver epoch key, graffiti to backend  
-
-    return {epk: ret.epochKey.toString()} 
+    const epochKey = BigInt(add0x(ret.epk))
+    return {epk: epochKey.toString()} 
 }
 
-export const leaveComment = async(identity: string, content: string, postId: number, epkNonce: number = 0, minRep: number = 0) => {
+export const leaveComment = async(identity: string, content: string, postId: string, epkNonce: number = 0, minRep: number = 0) => {
     const ret = await genProof(identity, epkNonce, config.DEFAULT_COMMENT_KARMA, minRep)
     if (ret === undefined) {
         console.error('genProof error, ret is undefined.')
@@ -175,6 +202,6 @@ export const leaveComment = async(identity: string, content: string, postId: num
     }
 
     // send proof, publicSignals, postid, content, epockKey to backend
-
-    return {epk: ret.epochKey.toString()}
+    const epochKey = BigInt(add0x(ret.epk))
+    return {epk: epochKey.toString()}
 }

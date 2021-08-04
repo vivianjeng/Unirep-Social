@@ -22,6 +22,7 @@ class Server {
 // initialize server app
 const server = new Server();
 server.app.use(cors());
+server.app.use(express.json());
 
 // make server app handle any route starting with '/api'
 server.app.use('/api', server.router);
