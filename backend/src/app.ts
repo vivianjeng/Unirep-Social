@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
 
 import ErrorHandler from './ErrorHandler';
 import MasterRouter from './routers/MasterRouter';
@@ -20,6 +21,7 @@ class Server {
 
 // initialize server app
 const server = new Server();
+server.app.use(cors());
 
 // make server app handle any route starting with '/api'
 server.app.use('/api', server.router);

@@ -1,47 +1,53 @@
-import ErrorHandler from '../ErrorHandler';
+import base64url from 'base64url';
 
-import { DEPLOYER_PRIV_KEY, UNIREP_SOCIAL } from '../constants';
-// import { genUnirepIdentity } from '../cli/genUnirepIdentity';
-// import { userSignup } from '../cli/userSignUp';
-// import { attesterSignup } from '../cli/attesterSignUp';
+import ErrorHandler from '../ErrorHandler';
+import { DEFAULT_ETH_PROVIDER, DEPLOYER_PRIV_KEY, UNIREP_SOCIAL, identityCommitmentPrefix, add0x } from '../constants';
+import { ethers } from 'ethers';
+import UnirepSocial from '../artifacts/contracts/UnirepSocial.sol/UnirepSocial.json'
 
 class SignUpController {
     defaultMethod() {
       throw new ErrorHandler(501, 'API: Not implemented method');
     }
 
-    signUp = async () => {
-      // genUnirepIdentity
-    //   let id: any;
-    //   let commitment: any;
-    //   await genUnirepIdentity('test').then((ret) => {
-    //     id = ret.id;
-    //     commitment = ret.commitment;
-    //   });
+    signUp = async (uploadedCommitment: string) => {
+      // user sign up
+      const provider = new ethers.providers.JsonRpcProvider(DEFAULT_ETH_PROVIDER)
+      const wallet = new ethers.Wallet(DEPLOYER_PRIV_KEY, provider)
 
-    //   // userSignup
-    //   let transaction: any;
-    //   let epoch: any;
-    //   await userSignup({
-    //     contract: UNIREP_SOCIAL,
-    //     identity_commitment: commitment,
-    //     eth_privkey: DEPLOYER_PRIV_KEY,
-    //   }).then((ret) => {
-    //     transaction = (ret.transaction != null) ? ret.transaction : 'error';
-    //     epoch = (ret.epoch != null) ? ret.epoch : 'error';
-    //   });
+      const unirepSocialContract = new ethers.Contract(
+          UNIREP_SOCIAL,
+          UnirepSocial.abi,
+          wallet,
+      )
 
-    //   let transaction_att: any;
-    //   let attester_id: any;
-    //   await attesterSignup({
-    //     contract: UNIREP_SOCIAL,
-    //     eth_privkey: DEPLOYER_PRIV_KEY,
-    //   }).then((ret) => {
-    //     transaction_att = (ret.transaction != null) ? ret.transaction : 'error';
-    //     attester_id = (ret.attester_id != null) ? ret.attester_id : 'error';
-    //   });
+      const encodedCommitment = uploadedCommitment.slice(identityCommitmentPrefix.length)
+      const decodedCommitment = base64url.decode(encodedCommitment)
+      const commitment = add0x(decodedCommitment)
 
-    //   return {id, commitment, transaction, epoch, attester_id, transaction_att};
+      let tx
+      try {
+          tx = await unirepSocialContract.userSignUp(
+              commitment,
+              { gasLimit: 1000000 }
+          )
+
+      } catch(e) {
+          console.error('Error: the transaction failed')
+          if (e.message) {
+              console.error(e.message)
+          }
+          return
+      }
+
+      const receipt = await tx.wait()
+      const epoch = unirepSocialContract.interface.parseLog(receipt.logs[2]).args._epoch
+      console.log('Sign up Transaction hash:', tx.hash)
+      console.log('Sign up epoch:', epoch.toString())
+
+      /// TODO:  attester sign up ///
+
+      return {transaction: tx.hash, epoch};
     }
   }
 

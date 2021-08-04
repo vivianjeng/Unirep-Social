@@ -10,6 +10,7 @@ import Unirep from "./artifacts/contracts/Unirep.sol/Unirep.json"
 import { genEpochKey, genUserStateFromContract } from './core/utils'
 import { add0x } from './crypto/SMT'
 import { genVerifyReputationProofAndPublicSignals, getSignalByNameViaSym, verifyProveReputationProof, formatProofForVerifierContract } from './circuits'
+import { defaultMaxListeners } from 'node:stream'
 
 const genProof = async (identity: string, epkNonce: number = 0, proveKarmaAmount: number, minRep: number = 0) => {
     const provider = new ethers.providers.JsonRpcProvider(config.DEFAULT_ETH_PROVIDER)
@@ -96,6 +97,21 @@ const genProof = async (identity: string, epkNonce: number = 0, proveKarmaAmount
     return {epochKey, proof, publicSignals, nullifiers}
 }
 
+const makeURL = (action: string, data: any) => {
+    let dataStr: string = ''
+
+    for (let k of Object.keys(data)) {
+        dataStr = dataStr + k + '=' + data[k] + '&'
+    }
+
+    return config.SERVER + '/api/' + action + '?' + dataStr
+}
+
+const header = {
+    'Access-Control-Allow-Origin': config.SERVER,
+    'Access-Control-Allow-Credentials': 'true',
+}
+
 export const userSignUp = async () => {
     const id = genIdentity()
     const commitment = genIdentityCommitment(id)
@@ -109,6 +125,12 @@ export const userSignUp = async () => {
     console.log(config.identityCommitmentPrefix + encodedIdentityCommitment)
 
     // call server user sign up
+    const apiURL = makeURL('signup', {commitment: config.identityCommitmentPrefix + encodedIdentityCommitment})
+    await fetch(apiURL)
+        .then(response => response.json())
+        .then(function(data){
+            console.log(JSON.stringify(data))
+        });
 
     return {i: config.identityPrefix + encodedIdentity, c: config.identityCommitmentPrefix + encodedIdentityCommitment}
 }

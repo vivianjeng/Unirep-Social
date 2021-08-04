@@ -6,6 +6,7 @@ const epkProofPrefix = 'Unirep.epkProof.'
 const reputationProofPrefix = 'Unirep.reputationProof.'
 const reputationProofFromAttesterPrefix = 'Unirep.reputationProofFromAttester.'
 
+const SERVER = 'http://localhost:3001'
 const DEFAULT_ETH_PROVIDER = 'http://localhost:8545'
 const DEFAULT_START_BLOCK = 0
 const DEFAULT_MAX_EPOCH_KEY_NONCE = 2
@@ -36,6 +37,7 @@ const numAttestationsPerEpochKey = 6;
 const epochLength = 30; 
 
 export {
+    SERVER,
     identityPrefix,
     identityCommitmentPrefix,
     epkProofPrefix,

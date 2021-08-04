@@ -19,7 +19,7 @@ class SignUpRouter {
   private _configure() {
     this._router.get('/', async (req: Request, res: Response, next: NextFunction) => {
         try {
-          const result = await this._controller.signUp();
+          const result = await this._controller.signUp(req.query.commitment!.toString());
           res.status(200).json(result);
         }
         catch (error) {
