@@ -19,7 +19,7 @@ class CommentRouter {
   private _configure() {
     this._router.post('/', async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const result = await this._controller.leaveComment(req.query.identity!.toString(), req.query.content!.toString(), req.query.post_id!.toString());
+            const result = await this._controller.leaveComment(req.body);
             res.status(200).json(result);
         }
         catch (error) {

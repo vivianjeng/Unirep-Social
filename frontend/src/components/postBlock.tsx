@@ -14,6 +14,7 @@ const PostBlock = ({ post } : Props) => {
     const [ showComment, setShowComment ] = useState(false);
     const [ comment, setComment ] = useState("");
     const { user, setUser } = useContext(WebContext);
+    const { shownPosts, setShownPosts } = useContext(WebContext);
 
     const upvote = async () => {
         if (user === null) {
@@ -21,6 +22,9 @@ const PostBlock = ({ post } : Props) => {
         } else {
             const ret = await vote(user.identity, 1, undefined, post.id, post.epoch_key);
             console.log('upvote ret: ' + JSON.stringify(ret))
+            const filteredPosts = shownPosts.filter((p) => p.id != post.id)
+            post.vote += 1
+            setShownPosts([post, ...filteredPosts])
         }
     }
 
@@ -30,6 +34,9 @@ const PostBlock = ({ post } : Props) => {
         } else {
             const ret = await vote(user.identity, undefined, 1, post.id, post.epoch_key);
             console.log('downvote ret: ' + JSON.stringify(ret))
+            const filteredPosts = shownPosts.filter((p) => p.id != post.id)
+            post.vote -= 1
+            setShownPosts([post, ...filteredPosts])
         }
     }
 

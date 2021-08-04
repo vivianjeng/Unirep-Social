@@ -190,8 +190,37 @@ export const vote = async(identity: string, upvote: number|undefined, downvote: 
     }
 
     // send publicsignals, proof, voted post id, receiver epoch key, graffiti to backend  
+    const apiURL = makeURL('vote', {})
+    const data = {
+       upvote: upvoteValue,
+       downvote: downvoteValue,
+       graffiti,
+       overwriteGraffiti,
+       epk: ret.epk,
+       proof: ret.proof, 
+       minRep,
+       nullifiers: ret.nullifiers,
+       publicSignals: ret.publicSignals,
+       receiver
+    }
+    const stringifiedData = JSON.stringify(data, (key, value) => 
+       typeof value === "bigint" ? value.toString() + "n" : value
+    )
+    console.log('before vote api: ' + stringifiedData)
+    
+    let transaction: string = ''
+    await fetch(apiURL, {
+        headers: header,
+        body: stringifiedData,
+        method: 'POST',
+    }).then(response => response.json())
+       .then(function(data){
+           console.log(JSON.stringify(data))
+           transaction = data.transaction
+       });
+
     const epochKey = BigInt(add0x(ret.epk))
-    return {epk: epochKey.toString()} 
+    return {epk: epochKey.toString(), transaction} 
 }
 
 export const leaveComment = async(identity: string, content: string, postId: string, epkNonce: number = 0, minRep: number = 0) => {
@@ -202,6 +231,34 @@ export const leaveComment = async(identity: string, content: string, postId: str
     }
 
     // send proof, publicSignals, postid, content, epockKey to backend
+    const apiURL = makeURL('comment', {})
+     const data = {
+        content,
+        epk: ret.epk,
+        proof: ret.proof, 
+        minRep,
+        postId,
+        nullifiers: ret.nullifiers,
+        publicSignals: ret.publicSignals,
+     }
+     const stringifiedData = JSON.stringify(data, (key, value) => 
+        typeof value === "bigint" ? value.toString() + "n" : value
+     )
+     console.log('before leave comment api: ' + stringifiedData)
+     
+     let transaction: string = ''
+     let commentId: string = ''
+     await fetch(apiURL, {
+         headers: header,
+         body: stringifiedData,
+         method: 'POST',
+     }).then(response => response.json())
+        .then(function(data){
+            console.log(JSON.stringify(data))
+            transaction = data.transaction
+            commentId = data.commentId
+        });
+
     const epochKey = BigInt(add0x(ret.epk))
-    return {epk: epochKey.toString()}
+    return {epk: epochKey.toString(), commentId}
 }
