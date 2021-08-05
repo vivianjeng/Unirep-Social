@@ -88,7 +88,7 @@ const genProof = async (identity: string, epkNonce: number = 0, proveKarmaAmount
         GSTRoot,
         nullifierTreeRoot,
         BigInt(true),
-        config.DEFAULT_POST_KARMA,
+        proveKarmaAmount,
         minRep !== 0 ? BigInt(1) : BigInt(0),
         minRep !== 0 ? BigInt(minRep) : BigInt(0)
     ]
@@ -136,7 +136,7 @@ export const userSignUp = async () => {
 }
 
 export const publishPost = async (content: string, epkNonce: number, identity: string, minRep: number = 0) => {
-    const ret = await genProof(identity, epkNonce, config.DEFAULT_POST_KARMA, minRep)
+    const ret = await genProof(identity, epkNonce, config.DEFAULT_POST_KARMA, minRep, )
     
     if (ret === undefined) {
         console.error('genProof error, ret is undefined.')

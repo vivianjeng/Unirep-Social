@@ -22,7 +22,7 @@ class PostController {
         // return posts;
     }
 
-    publishPost = async (d: any) => { // should have content, epk, proof, minRep, nullifiers, publicSignals
+    publishPost = async (d: any) => { // should have content, epk, proof, minRep, nullifiers, publicSignals  
       // decode data from d
       const data = JSON.parse(JSON.stringify(d), (key, value) => {
         if (typeof value === 'string' && /^\d+n$/.test(value)) {

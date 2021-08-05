@@ -4,7 +4,7 @@ import { DEPLOYER_PRIV_KEY, UNIREP_SOCIAL, DEFAULT_ETH_PROVIDER, add0x } from '.
 import Unirep from "../artifacts/contracts/Unirep.sol/Unirep.json";
 import UnirepSocial from '../artifacts/contracts/UnirepSocial.sol/UnirepSocial.json';
 import { ethers } from 'ethers';
-import { Attestation } from '../core'
+import { Attestation } from '../database/models/vote'
 
 class VoteController {
     defaultMethod() {
