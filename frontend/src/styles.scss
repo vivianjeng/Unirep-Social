@@ -4,8 +4,10 @@
 
 // color //
 $main-font-color: #000;
-$background-color: #E5E5E5;
-$purple: #9B51E0;
+$background-color: #FFFFFF;
+$purple1: #9B51E0;
+$purple2: #BC2FEE;
+$purple-gradient: linear-gradient(to bottom, $purple2, $purple1);
 $grey: #F2F2F2;
 $large-font-size: 32px;
 $big-font-size: 24px;
@@ -15,15 +17,20 @@ $small-font-size: 12px;
 // color //
 
 // widgets //
-@mixin myButton($width:0, $height:0, $radius:0, $color:$main-font-color, $block-color:#FFF, 
-    $margin-horizontal: 5px, $font-size:$body-font-size, $font-weight:400, $text-align:center) {
+@mixin myButton(
+  $width:0, $height:0, $radius:0, $border: 0,
+  $color:$main-font-color, $block-color1:#FFF, $block-color2:#FFF, $border-color: #FFF,
+  $margin-horizontal: 5px, 
+  $font-size:$body-font-size, $font-weight:400, $text-align:center) {
   
   @if $width > 0 { width:$width; }
   @if $height > 0 { height:$height; }
   border-radius: $radius;
+  @if $border > 0 { border: $border solid $border-color }
 
   color: $color;
-  background-color: $block-color;
+  @if $block-color2 == #FFF { background-color: $block-color1; }
+  @else { background: linear-gradient($block-color1, $block-color2); }
 
   margin-left: $margin-horizontal;
   margin-right: $margin-horizontal;
@@ -69,14 +76,17 @@ body {
     display: flex;
     flex-direction: row;
     text-align: left;
-    padding: 5px;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
     font-weight: 700;
     background-color: $background-color;
     
     .navLinks {
-      flex: 3;
+      flex: 1;
       text-transform: uppercase;
-      font-size: 150%;
+      font-size: $big-font-size;
       font-weight: 700;
       
       .link:link,
@@ -95,23 +105,49 @@ body {
       }
     }
 
-    .searchBar {
-      flex: 4;
+    .search-bar {
+      flex: 2;
+      padding-left: 8px;
+      width: 700px;
+      height: 32px;
+      line-height: 32px;
+      vertical-align: middle;
+      background-color: #fff;
+      border-radius: 20px;
+      border: 1px solid #bdbdbd;
+      display: flex;
+      flex-direction: row;
+
+      form {
+        flex: 15;
+
+        .search-icon {
+          flex: 1;
+        } 
+
+        input {
+          outline: none;
+          border: none;
+          background-color:transparent;
+          width: 100%;
+          font-size: 12px;
+        }
+      }
     }
 
     .navButtons {
-      flex: 3;
+      flex: 1;
       justify-content: flex-end;
       align-items: center;
       display: flex;
       padding-right: 10px;
 
       .signupButton {
-        @include myButton(85px, 45px, $color: #FFF, $block-color: #000, $font-weight: 300);
+        @include myButton(102px, 32px, $color: #FFF, $block-color1: $purple2, $block-color2: $purple1, $radius: 20px);
       }
 
       .signinButton {
-        @include myButton(85px, 45px, $font-weight: 300);
+        @include myButton(94px, 32px, $color: $purple1, $radius: 20px, $border: 2px, $border-color: $purple1);
       }
 
       .userInfo {
@@ -155,11 +191,11 @@ body {
       }
 
       .signup-with-twitter {
-        @include myButton(300px, 45px, $block-color:#1DA1F2, $radius:5px, $color:#fff, $font-size: $big-font-size);
+        @include myButton(300px, 45px, $block-color1:#1DA1F2, $radius:5px, $color:#fff, $font-size: $big-font-size);
       }
 
       .sign-private-key {
-        @include myButton(440px, 45px, $block-color:#F2F2F2, $radius:8px, $font-size: $small-font-size);
+        @include myButton(440px, 45px, $block-color1:#F2F2F2, $radius:8px, $font-size: $small-font-size);
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -205,11 +241,11 @@ body {
       }
 
       .sign-button-purple {
-        @include myButton($width: 207px, $height: 32px, $color: #fff, $block-color: $purple, $radius: 20px);
+        @include myButton($width: 207px, $height: 32px, $color: #fff, $block-color1: $purple2, $block-color2: $purple1, $radius: 20px);
       }
 
       .sign-button-grey {
-        @include myButton($width: 78px, $height: 32px, $block-color: $grey, $radius: 20px);
+        @include myButton($width: 78px, $height: 32px, $block-color1: $grey, $block-color2: $grey, $radius: 20px);
       }
     }
   }
@@ -221,34 +257,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    .search-bar {
-      padding-left: 8px;
-      width: 640px;
-      height: 45px;
-      line-height: 45px;
-      vertical-align: middle;
-      background-color: #fff;
-      border-radius: 20px;
-      border: 1px solid #bdbdbd;
-      display: flex;
-      flex-direction: row;
-
-      form {
-        flex: 15;
-
-        input {
-          outline: none;
-          border: none;
-          background-color:transparent;
-          width: 100%;
-        }
-      }
-
-      .search-icon {
-        flex: 1;
-      } 
-    }
   }
 
   .post-list {
@@ -263,6 +271,7 @@ body {
     flex-direction: row;
     padding: 8px;
     margin: 10px auto;
+    background-color: $grey;
 
     .post-block-vote {
       flex: 1;
