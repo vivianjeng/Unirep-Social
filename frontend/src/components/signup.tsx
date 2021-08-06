@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { WebContext } from '../context/WebContext';
 import * as Constants from '../constants';
-import { FaTwitter, FaCheck } from 'react-icons/fa';
+import { FaTwitter } from 'react-icons/fa';
 import { userSignUp } from '../utils';
 
 const SignUp = () => {
@@ -84,8 +84,7 @@ const SignUp = () => {
                 </div> : step === 1?
                 <div>
                     <div className="sign-private-key" onClick={copyPrivateKey}>
-                        <div className="signup-private-key-text">{identity}</div>
-                        <div className="signup-private-key-status"><FaCheck /></div>
+                        {identity}
                     </div>
                     <div className="sign-message">
                         Record this private key and store it safely. You will need it to regain access to your reputation score.
@@ -96,12 +95,11 @@ const SignUp = () => {
                         <div className="sign-button-grey" onClick={nextStep}>Next</div>
                     </div>
                 </div> : step === 2?
-                <div className="sign-confirm">
+                <div>
                     <div className="sign-private-key">
                         <form>
                             <input type="text" name="userInput" placeholder="enter your private key" onChange={handleUserInput} />
                         </form>
-                        
                     </div>
                     {errorMsg !== ''? 
                         <div className="sign-error-message">

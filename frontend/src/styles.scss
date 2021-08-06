@@ -179,7 +179,7 @@ body {
     background-color: rgba(242, 242, 242, 0.8);
 
     .signBox {
-      @include popupBox(536px, 287px, $border-width: 1px);
+      @include popupBox(536px, 407px, $border-width: 1px);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -188,6 +188,8 @@ body {
         width: 100%;
         text-align:left;
         margin-bottom: 20px;
+        font-weight: 700;
+        font-size: 18px;
       }
 
       .signup-with-twitter {
@@ -195,20 +197,14 @@ body {
       }
 
       .sign-private-key {
-        @include myButton(440px, 45px, $block-color1:#F2F2F2, $radius:8px, $font-size: $small-font-size);
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding-left: 8px;
-
-        .signup-private-key-text {
-          text-align: left;
-          flex: 9;
-        }
-
-        .signup-private-key-status {
-          flex: 1;
-        }
+        width: 440px;
+        height: 152px;
+        background-color: #F2F2F2;
+        border-radius: 8px;
+        font-size: $smaller-font-size;
+        text-align: left;
+        word-wrap: break-word;
+        padding: 16px 20px;
 
         input {
           outline: none;
@@ -241,11 +237,12 @@ body {
       }
 
       .sign-button-purple {
-        @include myButton($width: 207px, $height: 32px, $color: #fff, $block-color1: $purple2, $block-color2: $purple1, $radius: 20px);
+        @include myButton($width: 207px, $height: 32px, $color: #fff, $block-color1: $purple1, $radius: 20px);
       }
 
       .sign-button-grey {
         @include myButton($width: 78px, $height: 32px, $block-color1: $grey, $block-color2: $grey, $radius: 20px);
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
       }
     }
   }
