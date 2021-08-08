@@ -4,9 +4,9 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import useLocalStorage from './useLocalStorage';
 import * as Constants from './constants';
 
-import Header from './components/header';
-import Overlay from './components/overlay';
-import MainPage from './components/mainPage';
+import Header from './components/header/header';
+import Overlay from './components/overlay/overlay';
+import MainPage from './components/mainPage/mainPage';
 
 import { WebContext } from './context/WebContext';
 

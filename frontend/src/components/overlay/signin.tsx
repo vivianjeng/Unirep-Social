@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { WebContext } from '../context/WebContext';
-import * as Constants from '../constants';
+import { WebContext } from '../../context/WebContext';
+import * as Constants from '../../constants';
+import './overlay.scss';
 
 const SignUp = () => {
     const { setUser, setPageStatus } = useContext(WebContext);

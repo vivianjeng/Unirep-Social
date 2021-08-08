@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { FaArrowUp, FaArrowDown, FaComment, FaShare, FaCheck } from 'react-icons/fa';
-import { Post } from '../constants';
-import { vote, leaveComment } from '../utils';
-import { WebContext } from '../context/WebContext'
+import { Post } from '../../constants';
+import { vote, leaveComment } from '../../utils';
+import { WebContext } from '../../context/WebContext';
+import './mainPage.scss';
+
 
 type Props = {
     post: Post,

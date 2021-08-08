@@ -1,0 +1,80 @@
+@import '../../styles.scss';
+
+.overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(242, 242, 242, 0.8);
+
+    .signBox {
+      @include popupBox(536px, 407px, $border-width: 1px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .sign-title {
+        width: 100%;
+        text-align:left;
+        margin-bottom: 20px;
+        font-weight: 700;
+        font-size: 18px;
+      }
+
+      .signup-with-twitter {
+        @include myButton(300px, 45px, $block-color1:#1DA1F2, $radius:5px, $color:#fff, $font-size: $big-font-size);
+      }
+
+      .sign-private-key {
+        width: 440px;
+        height: 152px;
+        background-color: #F2F2F2;
+        border-radius: 8px;
+        font-size: $smaller-font-size;
+        text-align: left;
+        word-wrap: break-word;
+        padding: 16px 12px;
+
+        textarea {
+          outline: none;
+          border: none;
+          background-color:transparent;
+          width: 416px;
+          height: 152px;
+        }
+      }
+
+      .sign-message {
+        width: 440px;
+        line-height: 140%;
+        font-size: $smaller-font-size;
+        margin: 25px auto;
+        font-weight: 400;
+      }
+
+      .sign-error-message {
+        width: 440px;
+        font-size: $small-font-size;
+        color: #f00;
+        margin: 0 auto;
+      }
+
+      .sign-buttons {
+        display: flex;
+        flex-direction: row;
+        width: 440px;
+        height: 32px;
+      }
+
+      .sign-button-purple {
+        @include myButton($width: 207px, $height: 32px, $color: #fff, $block-color1: $purple1, $radius: 20px);
+      }
+
+      .sign-button-grey {
+        @include myButton($width: 78px, $height: 32px, $block-color1: $grey, $block-color2: $grey, $radius: 20px);
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+      }
+    }
+}

@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { WebContext } from '../context/WebContext';
+import { WebContext } from '../../context/WebContext';
 import { FaUser, FaSearch } from 'react-icons/fa';
-import * as Constants from '../constants';
+import * as Constants from '../../constants';
+import './header.scss';
 
 const Header = () => {
     const { user, setUser, pageStatus, setPageStatus } = useContext(WebContext);

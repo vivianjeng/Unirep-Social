@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { WebContext } from '../context/WebContext';
+import { WebContext } from '../../context/WebContext';
 import PostsList from './postsList';
+import PostField from './postField';
+import './mainPage.scss';
 
 const MainPage = () => {
 
@@ -13,6 +15,7 @@ const MainPage = () => {
 
     return (
         <div className="main-content">
+            <PostField />
             <div className="post-list"><PostsList posts={shownPosts} /></div>
             <div className="main-page-button" onClick={loadMorePosts}>Load More Posts</div>
         </div>
