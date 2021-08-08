@@ -204,13 +204,14 @@ body {
         font-size: $smaller-font-size;
         text-align: left;
         word-wrap: break-word;
-        padding: 16px 20px;
+        padding: 16px 12px;
 
-        input {
+        textarea {
           outline: none;
           border: none;
           background-color:transparent;
-          width: 420px;
+          width: 416px;
+          height: 152px;
         }
       }
 

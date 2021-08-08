@@ -97,9 +97,7 @@ const SignUp = () => {
                 </div> : step === 2?
                 <div>
                     <div className="sign-private-key">
-                        <form>
-                            <input type="text" name="userInput" placeholder="enter your private key" onChange={handleUserInput} />
-                        </form>
+                        <textarea name="userInput" placeholder="enter your private key" onChange={handleUserInput} />
                     </div>
                     {errorMsg !== ''? 
                         <div className="sign-error-message">
@@ -109,8 +107,11 @@ const SignUp = () => {
                     <div className="sign-message">
                         ... some message
                     </div>
-                    <div className="sign-button-black" onClick={closeBox}>Confirm</div>
-                    <div className="sign-button-white" onClick={previousStep}>{"<<Back"}</div>
+                    <div className="sign-buttons">
+                        <div className="sign-button-grey" onClick={previousStep}>{"<<Back"}</div>
+                        <div className="margin-box"></div>
+                        <div className="sign-button-purple" onClick={closeBox}>Confirm</div>
+                    </div>
                 </div> : <div>{errorMsg}</div>
             } 
         </div>
