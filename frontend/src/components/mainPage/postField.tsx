@@ -87,12 +87,18 @@ const PostField = () => {
                         <div className="setting-reputation">
                             <label>Show Reputation</label>
                             {isReputationDropdown? <div className="reputation-dropdown">
-                                <div className="reputation-choice" onClick={switchReputationDropdown}>{"> "}{reputation}</div>
+                                <div className="reputation-choice" onClick={switchReputationDropdown}>
+                                    <span>{"> "}{reputation}</span>
+                                    <img src="/images/arrow-down.png"/>
+                                </div>
                                 <div className="divider"></div>
                                 <div className="reputation-choice" onClick={() => changeReputation(0)}>{">"} 0</div>
                                 <div className="reputation-choice" onClick={() => changeReputation(10)}>{">"} 10</div>
                                 <div className="reputation-choice" onClick={() => changeReputation(20)}>{">"} 20</div>
-                            </div> : <div className="reputation" onClick={switchReputationDropdown}>{"> "}{reputation}</div>}
+                            </div> : <div className="reputation" onClick={switchReputationDropdown}>
+                                    <span>{"> "}{reputation}</span>
+                                    <img src="/images/arrow-down.png"/>
+                                </div>}
                         </div>
                         <div className="setting-epk">
                             <label>Show Epoch Key</label>

@@ -158,8 +158,25 @@
           flex: 1;
 
           .reputation {
-            @include myButton(93px, 32px, $block-color1: #fff, $radius: 8px);
+            width: 93px;
+            height: 32px;
+            padding: 0px 8px;
+            border-radius: 8px;
+            background-color: #fff;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            cursor: pointer;
+
+            span {
+              flex: 4;
+            }
+
+            img {
+              flex: 1;
+              height: 6px;
+            }
           }
 
           .reputation-dropdown {
@@ -171,10 +188,26 @@
             cursor: pointer;
 
             .reputation-choice {
+              width: 100%;
+              height: 32px;
+              line-height: 32px;
+              vertical-align: middle;
               padding: 0px 8px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
 
               &:hover {
                 background-color: $light-grey;
+              }
+
+              span {
+                flex: 4;
+              }
+
+              img {
+                flex: 1;
+                height: 6px;
               }
             }
           }
@@ -207,6 +240,7 @@
         }
 
         .submit-btn {
+          flex: 1;
           @include myButton(86px, 32px, $color: #fff, $block-color1: $purple1, $radius: 20px);
         }
       }

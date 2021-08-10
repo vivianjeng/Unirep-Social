@@ -62,6 +62,20 @@ $smallest-font-size: 10px;
     border: $border-width solid #000;
   }
 }
+
+@mixin arrowLine($width, $height, $direction: 0) {
+  width: $width;
+  height: $height;
+  position: absolute;
+  left: 75%;
+  right: 0%;
+  top: 62.5%;
+  bottom: -12.5%;
+  border: 1px solid #000;
+  box-sizing: border-box;
+  border-radius: 2px;
+  transform: matrix(0, -1, -1, 0, 0, 0);
+}
 // widgets//
 
 body {
