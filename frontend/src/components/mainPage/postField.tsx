@@ -12,6 +12,8 @@ const PostField = () => {
     const [errorMsg, setErrorMsg] = useState("");
     const [isReputationDropdown, setIsReputationDropdown] = useState(false);
     const [reputation, setReputation] = useState(0);
+    const [isEpkDropdown, setIsEpkDropdown] = useState(false);
+    const [epk, setEpk] = useState("choose an epoch key");
 
     const { user, setUser } = useContext(WebContext);
     const { shownPosts, setShownPosts } = useContext(WebContext);
@@ -31,6 +33,15 @@ const PostField = () => {
     const changeReputation = (r: number) => {
         setReputation(r);
         switchReputationDropdown();
+    }
+
+    const switchEpkDropdown = () => {
+        setIsEpkDropdown((prevState) => !prevState);
+    }
+
+    const changeEpk = (epk: string) => {
+        setEpk(epk);
+        switchEpkDropdown();
     }
 
     const submitPost = async () => {
@@ -85,6 +96,12 @@ const PostField = () => {
                         </div>
                         <div className="setting-epk">
                             <label>Show Epoch Key</label>
+                            {isEpkDropdown? <div className="epk-dropdown">
+                                <div className="epk-choice" onClick={switchEpkDropdown}>{"> "}{epk}</div>
+                                <div className="divider"></div>
+                                <div className="epk-choice" onClick={() => changeEpk('epoch key 1')}>epoch key 1</div>
+                                <div className="epk-choice" onClick={() => changeEpk('epoch key 2')}>epoch key 2</div>
+                            </div> : <div className="epk" onClick={switchEpkDropdown}>{epk}</div>}
                         </div>
                         <div className="submit-btn">
                             Share
