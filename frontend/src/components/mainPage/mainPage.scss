@@ -76,6 +76,7 @@
         margin-top: 40px;
         display: flex;
         flex-direction: row;
+        align-items: bottom;
 
         label {
           font-size: $smallest-font-size;
@@ -149,6 +150,34 @@
 
         .setting-reputation {
           flex: 1;
+
+          .reputation {
+            @include myButton(93px, 32px, $block-color1: #fff, $radius: 8px);
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+          }
+
+          .reputation-dropdown {
+            display: block;
+            width: 93px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+
+            .divider {
+              width: 77px;
+              height: 1px;
+              background-color: $light-grey;
+            }
+
+            .reputation-choice {
+              padding: 0px 8px;
+
+              &:hover {
+                background-color: $light-grey;
+              }
+            }
+          }
         }
 
         .setting-epk {

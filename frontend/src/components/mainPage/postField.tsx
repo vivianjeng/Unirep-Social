@@ -10,6 +10,9 @@ const PostField = () => {
     const [isActive, setIsActive] = useState(false);
     const [content, setContent] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
+    const [isReputationDropdown, setIsReputationDropdown] = useState(false);
+    const [reputation, setReputation] = useState(0);
+
     const { user, setUser } = useContext(WebContext);
     const { shownPosts, setShownPosts } = useContext(WebContext);
     
@@ -19,6 +22,15 @@ const PostField = () => {
 
     const handleUserInput = (event: any) => {
         setContent(event.target.value);
+    }
+
+    const switchReputationDropdown = () => {
+        setIsReputationDropdown((prevState) => !prevState);
+    }
+
+    const changeReputation = (r: number) => {
+        setReputation(r);
+        switchReputationDropdown();
     }
 
     const submitPost = async () => {
@@ -63,6 +75,13 @@ const PostField = () => {
                         </div>
                         <div className="setting-reputation">
                             <label>Show Reputation</label>
+                            {isReputationDropdown? <div className="reputation-dropdown">
+                                <div className="reputation-choice" onClick={switchReputationDropdown}>{"> "}{reputation}</div>
+                                <div className="divider"></div>
+                                <div className="reputation-choice" onClick={() => changeReputation(0)}>{">"} 0</div>
+                                <div className="reputation-choice" onClick={() => changeReputation(10)}>{">"} 10</div>
+                                <div className="reputation-choice" onClick={() => changeReputation(20)}>{">"} 20</div>
+                            </div> : <div className="reputation" onClick={switchReputationDropdown}>{"> "}{reputation}</div>}
                         </div>
                         <div className="setting-epk">
                             <label>Show Epoch Key</label>
