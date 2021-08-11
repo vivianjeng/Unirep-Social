@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { FaArrowUp, FaArrowDown, FaComment, FaShare, FaCheck } from 'react-icons/fa';
 import { Post } from '../../constants';
 import { vote, leaveComment } from '../../utils';
 import { WebContext } from '../../context/WebContext';
@@ -25,7 +24,7 @@ const PostBlock = ({ post } : Props) => {
             const ret = await vote(user.identity, 1, undefined, post.id, post.epoch_key);
             console.log('upvote ret: ' + JSON.stringify(ret))
             const filteredPosts = shownPosts.filter((p) => p.id != post.id)
-            post.vote += 1
+            post.upvote += 1
             setShownPosts([post, ...filteredPosts])
         }
     }
@@ -37,7 +36,7 @@ const PostBlock = ({ post } : Props) => {
             const ret = await vote(user.identity, undefined, 1, post.id, post.epoch_key);
             console.log('downvote ret: ' + JSON.stringify(ret))
             const filteredPosts = shownPosts.filter((p) => p.id != post.id)
-            post.vote -= 1
+            post.downvote += 1
             setShownPosts([post, ...filteredPosts])
         }
     }
@@ -60,20 +59,14 @@ const PostBlock = ({ post } : Props) => {
 
     return (
         <div className="post-block">
-            <div className="post-block-vote">
-                <div onClick={upvote}><FaArrowUp /></div>
-                <div>{post.vote}</div>
-                <div onClick={downvote}><FaArrowDown /></div>
+            <div className="post-block-header">
+
             </div>
+            <div className="divider"></div>
             <div className="post-block-main">
                 <div className="post-block-info">posted by {post.epoch_key}, {date}</div>
                 <div className="post-block-title">{post.title}</div>
                 <div className="post-block-content">{post.content}</div>
-                <div className="post-block-bottom-row">
-                    <div className="post-block-button" onClick={switchComment}><FaComment /><span>Comment</span></div>
-                    <div className="post-block-button"><FaShare /><span>Share</span></div>
-                    <div className="post-block-button"><FaCheck /><span>Status</span></div>
-                </div>
                 { showComment? 
                     <div>
                         <form>

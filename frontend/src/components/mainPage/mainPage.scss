@@ -1,171 +1,204 @@
 @import '../../styles.scss';
   
-  .main-content {
-    width: 50%;
-    margin: 50px auto 100px auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+.main-content {
+  width: 50%;
+  margin: 50px auto 100px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  .post-field {
+.post-field {
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 32px;
+  border-radius: 8px;
+  background-color: $grey;
+
+  .post-field-before {
     width: 100%;
-    margin-top: 50px;
-    margin-bottom: 32px;
-    border-radius: 8px;
-    background-color: $grey;
+    height: 120px;
+    padding: 16px 32px 32px 32px;
 
-    .post-field-before {
+    .row-before {
       width: 100%;
-      height: 120px;
-      padding: 16px 32px 32px 32px;
-  
-      .row-before {
-        width: 100%;
-        height: 32px;
-        margin-top: 16px;
-        display: flex;
-        flex-direction: row;
-  
-        .user-image {
-          flex: 1;
-          text-align: center;
-        }
-  
-        .input-field {
-          flex: 18;
-          height: 100%;
-          padding: 7px 16px;
-  
-          font-size: $small-font-size;
-          font-weight: 400;
-          vertical-align: middle;
-  
-          color: $dark-grey;
-          background-color: #FFFFFF;
-          border-radius: 4px;
-          border: 1px solid #E0E0E0;
-  
-          &:hover {
-            cursor: text;
-          }
-        }
+      height: 32px;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: row;
+
+      .user-image {
+        flex: 1;
+        text-align: center;
       }
-    }
 
-    .post-field-after {
-      width: 100%;
-      height: 240px;
-      padding: 24px 32px 56px 32px;
-
-      textarea {
-        width: 100%;
-        height: 32px;
-        border-radius: 4px;
-        border: 1px solid #E0E0E0;
-        outline: none;
+      .input-field {
+        flex: 18;
+        height: 100%;
+        padding: 7px 16px;
 
         font-size: $small-font-size;
         font-weight: 400;
-        padding: 7px 16px;
+        vertical-align: middle;
+
+        color: $dark-grey;
+        background-color: #FFFFFF;
+        border-radius: 4px;
+        border: 1px solid #E0E0E0;
+
+        &:hover {
+          cursor: text;
+        }
+      }
+    }
+  }
+
+  .post-field-after {
+    width: 100%;
+    height: 240px;
+    padding: 24px 32px 56px 32px;
+
+    textarea {
+      width: 100%;
+      height: 32px;
+      border-radius: 4px;
+      border: 1px solid #E0E0E0;
+      outline: none;
+
+      font-size: $small-font-size;
+      font-weight: 400;
+      padding: 7px 16px;
+    }
+
+    .setting-area {
+      height: 70px;
+      margin-top: 40px;
+      display: flex;
+      flex-direction: row;
+      align-items: bottom;
+
+      label {
+        font-size: $smallest-font-size;
+        color: $dark-grey;
       }
 
-      .setting-area {
-        height: 70px;
-        margin-top: 40px;
-        display: flex;
-        flex-direction: row;
-        align-items: bottom;
+      .divider {
+        width: 77px;
+        height: 1px;
+        background-color: $light-grey;
+        margin: 0 auto;
+      }
 
-        label {
-          font-size: $smallest-font-size;
-          color: $dark-grey;
-        }
+      .setting-username {
+        flex: 1;
 
-        .divider {
-          width: 77px;
-          height: 1px;
-          background-color: $light-grey;
-          margin: 0 auto;
-        }
+        .setting-username-row {
+          margin-top: 20px;
+          display: flex;
+          flex-direction: row;
+          align-items: bottom;
 
-        .setting-username {
-          flex: 1;
+          p {
+            font-size: $small-font-size;
+          }
 
-          .setting-username-row {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: row;
-            align-items: bottom;
+          .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+            margin-left: 8px;
 
-            p {
-              font-size: $small-font-size;
-            }
+            input {
+              opacity: 0;
+              width: 0;
+              height: 0;
 
-            .switch {
-              position: relative;
-              display: inline-block;
-              width: 40px;
-              height: 20px;
-              margin-left: 8px;
-
-              input {
-                opacity: 0;
-                width: 0;
-                height: 0;
-
-                &:checked + .slider {
-                  background-color: $purple1;
-                }
-
-                &:checked + .slider:before {
-                  -webkit-transform: translateX(21px);
-                  -ms-transform: translateX(21px);
-                  transform: translateX(21px);
-                }
+              &:checked + .slider {
+                background-color: $purple1;
               }
 
-              .slider {
+              &:checked + .slider:before {
+                -webkit-transform: translateX(21px);
+                -ms-transform: translateX(21px);
+                transform: translateX(21px);
+              }
+            }
+
+            .slider {
+              position: absolute;
+              cursor: pointer;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-color: $dark-grey;
+              -webkit-transition: .4s;
+              transition: .4s;
+              border-radius: 12.5px;
+
+              &:before {
                 position: absolute;
-                cursor: pointer;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: $dark-grey;
+                content: "";
+                height: 17.5px;
+                width: 17.5px;
+                left: 1.25px;
+                bottom: 1.25px;
+                background-color: white;
                 -webkit-transition: .4s;
                 transition: .4s;
                 border-radius: 12.5px;
-
-                &:before {
-                  position: absolute;
-                  content: "";
-                  height: 17.5px;
-                  width: 17.5px;
-                  left: 1.25px;
-                  bottom: 1.25px;
-                  background-color: white;
-                  -webkit-transition: .4s;
-                  transition: .4s;
-                  border-radius: 12.5px;
-                }
               }
             }
           }
         }
+      }
 
-        .setting-reputation {
-          flex: 1;
+      .setting-reputation {
+        flex: 1;
 
-          .reputation {
-            @include myButton(93px, 32px, $block-color1: #fff, $radius: 8px);
-            margin-top: 8px;
+        .reputation {
+          @include myButton(93px, 32px, $block-color1: #fff, $radius: 8px);
+          margin-top: 8px;
+          padding: 0px 8px;
+          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          span {
+            flex: 4;
+          }
+
+          img {
+            flex: 1;
+            height: 6px;
+          }
+        }
+
+        .reputation-dropdown {
+          display: block;
+          width: 93px;
+          margin: 8px 5px 0px 5px;
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+          cursor: pointer;
+
+          .reputation-choice {
+            width: 100%;
+            height: 32px;
+            line-height: 32px;
+            vertical-align: middle;
             padding: 0px 8px;
-            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: row;
             align-items: center;
+
+            &:hover {
+              background-color: $light-grey;
+            }
 
             span {
               flex: 4;
@@ -176,149 +209,128 @@
               height: 6px;
             }
           }
-
-          .reputation-dropdown {
-            display: block;
-            width: 93px;
-            margin: 8px 5px 0px 5px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-
-            .reputation-choice {
-              width: 100%;
-              height: 32px;
-              line-height: 32px;
-              vertical-align: middle;
-              padding: 0px 8px;
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-
-              &:hover {
-                background-color: $light-grey;
-              }
-
-              span {
-                flex: 4;
-              }
-
-              img {
-                flex: 1;
-                height: 6px;
-              }
-            }
-          }
-        }
-
-        .setting-epk {
-          flex: 3;
-
-          .epk {
-            @include myButton(341px, 32px, $block-color1: #fff, $radius: 8px);
-            margin-top: 8px;
-            padding: 0px 8px;
-            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-
-            span {
-              flex: 20;
-            }
-
-            img {
-              flex: 1;
-              height: 6px;
-            }
-          }
-
-          .epk-dropdown {
-            display: block;
-            width: 341px;
-            margin: 8px 5px 0px 5px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-
-            .epk-choice {
-              height: 32px;
-              line-height: 32px;
-              padding: 0px 8px;
-
-              &:hover {
-                background-color: $light-grey;
-              }
-            }
-          }
-        }
-
-        .submit-btn {
-          flex: 1;
-          margin-top: 30px;
-          @include myButton(86px, 32px, $color: #fff, $block-color1: $purple1, $radius: 20px);
         }
       }
-    }
-  }
 
-  .post-list {
-    margin-top: 20px;
-    border-radius: 8px;
-    background-color: $grey;
-  }
+      .setting-epk {
+        flex: 3;
 
-  .post-block {
-    height: 250px;
-    background-color: #fff;
-    display: flex;
-    flex-direction: row;
-    padding: 8px;
-    margin: 10px auto;
-    background-color: $grey;
-
-    .post-block-vote {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .post-block-main {
-      flex: 9;
-      padding-left: 8px;
-      padding-right: 18px;
-
-      .post-block-title {
-        font-weight: bold;
-        font-size: $body-font-size;
-        margin: 15px auto;
-      }
-
-      .post-block-bottom-row {
-        display: flex;
-        flex-direction: row;
-        height: 60px;
-        align-items: center;
-
-        .post-block-button {
-          @include myButton($text-align: left);
-          flex: 1;
+        .epk {
+          @include myButton(341px, 32px, $block-color1: #fff, $radius: 8px);
+          margin-top: 8px;
+          padding: 0px 8px;
+          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+          display: flex;
+          flex-direction: row;
+          align-items: center;
 
           span {
-            margin-left: 8px;
+            flex: 20;
+          }
+
+          img {
+            flex: 1;
+            height: 6px;
+          }
+        }
+
+        .epk-dropdown {
+          display: block;
+          width: 341px;
+          margin: 8px 5px 0px 5px;
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+          cursor: pointer;
+
+          .epk-choice {
+            height: 32px;
+            line-height: 32px;
+            padding: 0px 8px;
+
+            &:hover {
+              background-color: $light-grey;
+            }
           }
         }
       }
+
+      .submit-btn {
+        flex: 1;
+        margin-top: 30px;
+        @include myButton(86px, 32px, $color: #fff, $block-color1: $purple1, $radius: 20px);
+      }
+    }
+  }
+}
+
+.post-list {
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 8px;
+  background-color: $grey;
+}
+
+.post-block {
+  width: 640px;
+  background-color: #fff;
+  border-radius: 8px;
+  display: block;
+  flex-direction: row;
+  padding: 8px;
+  margin: 10px auto;
+
+  .divider {
+    width: 95%;
+    height: 1px;
+    background-color: $light-grey;
+    margin: 0 auto;
+  }
+
+  .post-block-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .post-block-info {
+    display: flex;
+  }
+
+  .post-block-main {
+    padding-left: 8px;
+    padding-right: 18px;
+  }
+
+  .post-block-comment {
+    display: block;
+    margin: auto 33px;
+
+    .comment-btn {
+      @include myButton(138px, 32px, $radius: 4px, $block-color1: $light-grey);
+    }
+
+    .comment-block {
+      background-color: $light-grey;
     }
   }
 
-  .margin-box {
-    flex-grow: 100;
+  .post-block-comment-list {
+    display: block;
+    margin: auto 33px;
+
+    .comment {
+      border-radius: 8px;
+      border: 1px solid $light-grey;
+    }
   }
-  
-  .main {
-    margin-left: 10px;
-  }
+}
+
+.margin-box {
+  flex-grow: 100;
+}
+
+.main {
+  margin-left: 10px;
+}
