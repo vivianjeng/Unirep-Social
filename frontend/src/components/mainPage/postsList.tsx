@@ -12,14 +12,11 @@ const PostsList = ({ posts }: Props) => {
 
     return (
         <div>
-            
-            <div className="post-list">
-                {sortedPosts.length > 0? (
-                    sortedPosts.map((post) => (
-                        <PostBlock key={post.id} post={post} />
-                    ))
-                ) : <p>No posts are available.</p>}
-            </div>
+            {sortedPosts.length > 0? (
+                sortedPosts.map((post) => (
+                    <PostBlock key={post.id} post={post} />
+                ))
+            ) : <p>No posts are available.</p>}
         </div>
     );
 }

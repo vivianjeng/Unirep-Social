@@ -60,7 +60,11 @@ const PostBlock = ({ post } : Props) => {
     return (
         <div className="post-block">
             <div className="post-block-header">
-
+                <img src="/images/arrow-down.png"></img>
+                <div className="rep">80M</div>
+                <div className="epk">{post.epoch_key}</div>
+                <div className="upvote"><img src="/images/upvote.png"></img>{post.upvote}</div>
+                <div className="downvote"><img src="/images/downvote.png"></img>{post.downvote}</div>
             </div>
             <div className="divider"></div>
             <div className="post-block-main">
