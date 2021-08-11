@@ -60,6 +60,7 @@ const PostField = () => {
                     epoch_key: ret.epk,
                     username: 'username',
                     post_time: Date.now(),
+                    transaction_done: false,
                 }
                 setShownPosts([newPost, ...shownPosts]);
             } else {

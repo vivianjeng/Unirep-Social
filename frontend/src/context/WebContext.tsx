@@ -10,6 +10,7 @@ const examplePost = {
     epoch_key: 'xyz',
     username: 'cutie',
     post_time: Date.now(),
+    transaction_done: false,
 };
 
 type GlobalContent = {

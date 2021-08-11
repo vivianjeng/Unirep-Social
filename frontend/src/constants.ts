@@ -21,6 +21,7 @@ export interface Post {
     epoch_key: string,
     username: string,
     post_time: number,
+    transaction_done: boolean,
 }
 
 export enum PageStatus {

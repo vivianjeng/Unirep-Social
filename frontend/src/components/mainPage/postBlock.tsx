@@ -11,7 +11,7 @@ type Props = {
 
 const PostBlock = ({ post } : Props) => {
 
-    const date = new Date(post.post_time).toUTCString();
+    const date = new Date(post.post_time).toLocaleString();
     const [ showComment, setShowComment ] = useState(false);
     const [ comment, setComment ] = useState("");
     const { user, setUser } = useContext(WebContext);
@@ -67,11 +67,17 @@ const PostBlock = ({ post } : Props) => {
                 <div className="downvote"><img src="/images/downvote.png"></img>{post.downvote}</div>
             </div>
             <div className="divider"></div>
+            <div className="post-block-info">
+                <div className={post.transaction_done? "transaction-text done":"transaction-text pending"}>
+                    {post.transaction_done? "Confirmed":"Pending"}
+                </div>
+                <div className="datetime-text">{date}</div>
+                <img src="/images/share.png"></img>
+            </div>
             <div className="post-block-main">
-                <div className="post-block-info">posted by {post.epoch_key}, {date}</div>
-                <div className="post-block-title">{post.title}</div>
-                <div className="post-block-content">{post.content}</div>
-                { showComment? 
+                {post.content}
+            </div>
+            { showComment? 
                     <div>
                         <form>
                             <input type="text" name="userInput" placeholder="say something..." value={comment} onChange={handleUserInput} />
@@ -79,7 +85,6 @@ const PostBlock = ({ post } : Props) => {
                         <div onClick={submitComment}>Comment</div>
                     </div> : <div></div>
                 }
-            </div>
         </div>
     );
 };

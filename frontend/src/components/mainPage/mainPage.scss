@@ -336,6 +336,37 @@
 
   .post-block-info {
     display: flex;
+    padding-left: 33px;
+    padding-right: 33px;
+    margin-top: 16.5px;
+    margin-bottom: 16.5px;
+
+    .transaction-text {
+      font-size: $small-font-size;
+      text-decoration: underline;
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    .done {
+      color: $green;
+    }
+
+    .pending {
+      color: $yellow;
+    }
+
+    .datetime-text {
+      color: $lighter-grey;
+      font-size: $small-font-size;
+    }
+
+    img {
+      margin-left: 10px;
+      width: 13px;
+      height: 13px;
+      cursor: pointer;
+    }
   }
 
   .post-block-main {

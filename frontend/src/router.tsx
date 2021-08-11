@@ -21,6 +21,7 @@ const AppRouter = () => {
         epoch_key: 'xyz',
         username: 'cutie',
         post_time: Date.now(),
+        transaction_done: true,
     };
 
     const [user, setUser] = useLocalStorage(Constants.userKey, {});
