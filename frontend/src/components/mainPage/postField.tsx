@@ -89,7 +89,6 @@ const PostField = () => {
                             {isReputationDropdown? <div className="reputation-dropdown">
                                 <div className="reputation-choice" onClick={switchReputationDropdown}>
                                     <span>{"> "}{reputation}</span>
-                                    <img src="/images/arrow-down.png"/>
                                 </div>
                                 <div className="divider"></div>
                                 <div className="reputation-choice" onClick={() => changeReputation(0)}>{">"} 0</div>
@@ -103,11 +102,14 @@ const PostField = () => {
                         <div className="setting-epk">
                             <label>Show Epoch Key</label>
                             {isEpkDropdown? <div className="epk-dropdown">
-                                <div className="epk-choice" onClick={switchEpkDropdown}>{"> "}{epk}</div>
+                                <div className="epk-choice" onClick={switchEpkDropdown}>{epk}</div>
                                 <div className="divider"></div>
                                 <div className="epk-choice" onClick={() => changeEpk('epoch key 1')}>epoch key 1</div>
                                 <div className="epk-choice" onClick={() => changeEpk('epoch key 2')}>epoch key 2</div>
-                            </div> : <div className="epk" onClick={switchEpkDropdown}>{epk}</div>}
+                            </div> : <div className="epk" onClick={switchEpkDropdown}>
+                                <span>{epk}</span>
+                                <img src="/images/arrow-down.png"/>
+                            </div>}
                         </div>
                         <div className="submit-btn">
                             Share
