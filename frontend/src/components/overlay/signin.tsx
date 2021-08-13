@@ -21,7 +21,7 @@ const SignUp = () => {
 
     const closeBox = () => {
         setPageStatus(Constants.PageStatus.None);
-        setUser({ identity: userInput }); // check if the user exists and login with the private identity
+        // setUser({ identity: userInput }); // check if the user exists and login with the private identity
     }
 
     return (

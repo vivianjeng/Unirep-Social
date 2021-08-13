@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { WebContext } from '../../context/WebContext';
 import * as Constants from '../../constants';
 import { FaTwitter } from 'react-icons/fa';
-import { userSignUp } from '../../utils';
+import { userSignUp, getEpochKeys } from '../../utils';
 import './overlay.scss';
 
 const SignUp = () => {
@@ -17,6 +17,7 @@ const SignUp = () => {
     const [errorMsg, setErrorMsg] = useState("");
     const [identity, setIdentity] = useState("");
     const [commitment, setCommitment] = useState("");
+    const [epks, setEpks] = useState<string[]>([]);
 
     const preventCloseBox = (event: any) => {
         event.stopPropagation();
@@ -29,6 +30,8 @@ const SignUp = () => {
             const {i, c} = await userSignUp();
             setIdentity(i);
             setCommitment(c);
+            const epks = await getEpochKeys(identity);
+            setEpks(epks);
         }
 
         setStep((prevState) => (prevState + 1));
@@ -62,7 +65,7 @@ const SignUp = () => {
 
     const closeBox = async () => {
         setPageStatus(Constants.PageStatus.None);
-        setUser({ identity: identity });
+        setUser({ identity: identity, epoch_keys: epks });
     }
 
     return (

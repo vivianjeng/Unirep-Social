@@ -10,6 +10,7 @@ export interface WebState {
 
 export interface User {
     identity: string,
+    epoch_keys: string[],
 }
 
 export interface Post {

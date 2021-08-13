@@ -10,9 +10,8 @@ import Unirep from "./artifacts/contracts/Unirep.sol/Unirep.json"
 import { genEpochKey, genUserStateFromContract } from './core/utils'
 import { add0x } from './crypto/SMT'
 import { genVerifyReputationProofAndPublicSignals, getSignalByNameViaSym, verifyProveReputationProof, formatProofForVerifierContract } from './circuits'
-import { defaultMaxListeners } from 'node:stream'
 
-const genProof = async (identity: string, epkNonce: number = 0, proveKarmaAmount: number, minRep: number = 0) => {
+const getUserState = async (identity: string) => {
     const provider = new ethers.providers.JsonRpcProvider(config.DEFAULT_ETH_PROVIDER)
 
     const unirepSocialContract = new ethers.Contract(
@@ -27,28 +26,14 @@ const genProof = async (identity: string, epkNonce: number = 0, proveKarmaAmount
         Unirep.abi,
         provider,
     )
-    
-    // Validate epoch key nonce
-    const numEpochKeyNoncePerEpoch = await unirepContract.numEpochKeyNoncePerEpoch()
-    if (epkNonce >= numEpochKeyNoncePerEpoch) {
-        console.error('Error: epoch key nonce must be less than max epoch key nonce')
-        return
-    }
 
+    const numEpochKeyNoncePerEpoch = await unirepContract.numEpochKeyNoncePerEpoch()
     const encodedIdentity = identity.slice(config.identityPrefix.length)
     const decodedIdentity = base64url.decode(encodedIdentity)
     const id = unSerialiseIdentity(decodedIdentity)
     const commitment = genIdentityCommitment(id)
     const currentEpoch = (await unirepContract.currentEpoch()).toNumber()
     const treeDepths = await unirepContract.treeDepths()
-    const epochTreeDepth = treeDepths.epochTreeDepth
-    const epk = genEpochKey(id.identityNullifier, currentEpoch, epkNonce, epochTreeDepth).toString(16)
-
-    let circuitInputs: any
-    let GSTRoot: any
-    let nullifierTreeRoot: any
-
-    console.log('generating proving circuit from contract...')
     
     // Gen epoch key proof and reputation proof from Unirep contract
     const userState = await genUserStateFromContract(
@@ -58,6 +43,39 @@ const genProof = async (identity: string, epkNonce: number = 0, proveKarmaAmount
         id,
         commitment,
     )
+
+    return {userState, id, currentEpoch, treeDepths, numEpochKeyNoncePerEpoch}
+}
+
+export const getEpochKeys = async (identity: string) => {
+    const {userState, id, currentEpoch, treeDepths, numEpochKeyNoncePerEpoch} = await getUserState(identity);
+    const epochTreeDepth = treeDepths.epochTreeDepth
+    let epks: string[] = []
+
+    for (let i = 0; i < numEpochKeyNoncePerEpoch; i++) {
+        const tmp = genEpochKey(id.identityNullifier, currentEpoch, i, epochTreeDepth).toString(16)
+        epks = [...epks, tmp]
+    }
+    console.log(epks)
+
+    return epks
+}
+
+const genProof = async (identity: string, epkNonce: number = 0, proveKarmaAmount: number, minRep: number = 0) => {
+    const {userState, id, currentEpoch, treeDepths, numEpochKeyNoncePerEpoch} = await getUserState(identity);
+
+    if (epkNonce >= numEpochKeyNoncePerEpoch) {
+        console.error('no such epknonce available')
+    }
+
+    const epochTreeDepth = treeDepths.epochTreeDepth
+    const epk = genEpochKey(id.identityNullifier, currentEpoch, epkNonce, epochTreeDepth).toString(16)
+
+    let circuitInputs: any
+    let GSTRoot: any
+    let nullifierTreeRoot: any
+
+    console.log('generating proving circuit from contract...')
 
     circuitInputs = await userState.genProveReputationCircuitInputs(
         epkNonce,                       // generate epoch key from epoch nonce
