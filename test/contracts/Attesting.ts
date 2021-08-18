@@ -12,8 +12,7 @@ import Unirep from "../../artifacts/contracts/Unirep.sol/Unirep.json"
 import { Attestation, UnirepState, UserState } from "../../core"
 import { DEFAULT_AIRDROPPED_KARMA, MAX_KARMA_BUDGET } from '../../config/socialMedia'
 import { IncrementalQuinTree, stringifyBigInts } from 'maci-crypto'
-import { formatProofForVerifierContract, genVerifyReputationProofAndPublicSignals, getSignalByNameViaSym } from '../circuits/utils'
-
+import { formatProofForVerifierContract, genVerifyReputationProofAndPublicSignals } from '../circuits/utils'
 
 describe('Attesting', function (){
     this.timeout(600000)
@@ -134,10 +133,7 @@ describe('Attesting', function (){
         const GSTRoot = unirepState.genGSTree(epoch).root
         const nullifierTree = await unirepState.genNullifierTree()
         const nullifierTreeRoot = nullifierTree.getRootHash()
-        for (let i = 0; i < MAX_KARMA_BUDGET; i++) {
-            const variableName = 'main.karma_nullifiers['+i+']'
-            nullifiers.push(getSignalByNameViaSym('proveReputation', results['witness'], variableName))
-        }
+        nullifiers = results['publicSignals'].slice(0, MAX_KARMA_BUDGET)
         publicSignals = [
             GSTRoot,
             nullifierTreeRoot,
@@ -217,10 +213,7 @@ describe('Attesting', function (){
         const GSTRoot = unirepState.genGSTree(epoch).root
         const nullifierTree = await unirepState.genNullifierTree()
         const nullifierTreeRoot = nullifierTree.getRootHash()
-        for (let i = 0; i < MAX_KARMA_BUDGET; i++) {
-            const variableName = 'main.karma_nullifiers['+i+']'
-            nullifiers.push(getSignalByNameViaSym('proveReputation', results['witness'], variableName))
-        }
+        nullifiers = results['publicSignals'].slice(0, MAX_KARMA_BUDGET)
         publicSignals = [
             GSTRoot,
             nullifierTreeRoot,
@@ -264,10 +257,7 @@ describe('Attesting', function (){
         const GSTRoot = unirepState.genGSTree(epoch).root
         const nullifierTree = await unirepState.genNullifierTree()
         const nullifierTreeRoot = nullifierTree.getRootHash()
-        for (let i = 0; i < MAX_KARMA_BUDGET; i++) {
-            const variableName = 'main.karma_nullifiers['+i+']'
-            nullifiers.push(getSignalByNameViaSym('proveReputation', results['witness'], variableName))
-        }
+        nullifiers = results['publicSignals'].slice(0, MAX_KARMA_BUDGET)
         publicSignals = [
             GSTRoot,
             nullifierTreeRoot,
@@ -358,10 +348,7 @@ describe('Attesting', function (){
         const GSTRoot = unirepState.genGSTree(epoch).root
         const nullifierTree = await unirepState.genNullifierTree()
         const nullifierTreeRoot = nullifierTree.getRootHash()
-        for (let i = 0; i < MAX_KARMA_BUDGET; i++) {
-            const variableName = 'main.karma_nullifiers['+i+']'
-            nullifiers.push(getSignalByNameViaSym('proveReputation', results['witness'], variableName))
-        }
+        nullifiers = results['publicSignals'].slice(0, MAX_KARMA_BUDGET)
         publicSignals = [
             GSTRoot,
             nullifierTreeRoot,
@@ -467,10 +454,7 @@ describe('Attesting', function (){
         const GSTRoot = unirepState.genGSTree(epoch).root
         const nullifierTree = await unirepState.genNullifierTree()
         const nullifierTreeRoot = nullifierTree.getRootHash()
-        for (let i = 0; i < MAX_KARMA_BUDGET; i++) {
-            const variableName = 'main.karma_nullifiers['+i+']'
-            nullifiers.push(getSignalByNameViaSym('proveReputation', results['witness'], variableName))
-        }
+        nullifiers = results['publicSignals'].slice(0, MAX_KARMA_BUDGET)
         publicSignals = [
             GSTRoot,
             nullifierTreeRoot,

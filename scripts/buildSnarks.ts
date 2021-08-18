@@ -85,6 +85,7 @@ const main = () => {
     )
 
     parser.add_argument(
+
         '-zk', '--zkey-out',
         {
             help: 'The filepath to save the zkey',
