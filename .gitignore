@@ -11,3 +11,6 @@ EpochKeyValidityVerifier.sol
 ReputationVerifier.sol
 ReputationFromAttesterVerifier.sol
 UserStateTransitionVerifier.sol
+
+# ptau
+circuits/powersOfTau28_hez_final_17.ptau
