@@ -18,8 +18,7 @@
         "contractUintTests": "NODE_OPTIONS=--max-old-space-size=4096 npx hardhat test --no-compile $(find test/contracts -name '*.ts')",
         "circuitUintTests": "NODE_OPTIONS=--max-old-space-size=4096 npx hardhat test --no-compile $(find test/circuits -name '*.ts')",
         "databaseTests": "NODE_OPTIONS=--max-old-space-size=4096 npx hardhat test --no-compile $(find test/database -name '*.ts')",
-        "integrationTest": " NODE_OPTIONS=--max-old-space-size=4096 npx hardhat test --no-compile $(find test/integration -name '*.ts')",
-        "postinstall": "link-module-alias"
+        "integrationTest": " NODE_OPTIONS=--max-old-space-size=4096 npx hardhat test --no-compile $(find test/integration -name '*.ts')"
     },
     "repository": {
         "type": "git",
@@ -27,9 +26,6 @@
     },
     "author": "",
     "license": "MIT",
-    "_moduleAliases": {
-        "worker_threads": "./externals/worker_threads.js"
-    },
     "bugs": {
         "url": "https://github.com/vivianjeng/Unirep-Social/issues"
     },
