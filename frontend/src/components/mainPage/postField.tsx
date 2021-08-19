@@ -13,7 +13,7 @@ const PostField = () => {
     const [isReputationDropdown, setIsReputationDropdown] = useState(false);
     const [reputation, setReputation] = useState(0);
     const [isEpkDropdown, setIsEpkDropdown] = useState(false);
-    const [epk, setEpk] = useState("choose an epoch key");
+    const [epkNonce, setEpkNonce] = useState(-1); // maybe it should be the first available epk
 
     const { user, setUser } = useContext(WebContext);
     const { shownPosts, setShownPosts } = useContext(WebContext);
@@ -39,8 +39,8 @@ const PostField = () => {
         setIsEpkDropdown((prevState) => !prevState);
     }
 
-    const changeEpk = (epk: string) => {
-        setEpk(epk);
+    const changeEpk = (index: number) => {
+        setEpkNonce(index);
         switchEpkDropdown();
     }
 
@@ -49,7 +49,7 @@ const PostField = () => {
             console.log('not login yet');
         } else {
             console.log('publish post');
-            const ret = await publishPost(content, 0, user.identity, 0); // content, epkNonce, identity, minRep
+            const ret = await publishPost(content, epkNonce, user.identity, 0); // content, epkNonce, identity, minRep
             if (ret !== undefined) {
                 const newPost = {
                     id: ret.postId,
@@ -104,19 +104,19 @@ const PostField = () => {
                         <div className="setting-epk">
                             <label>Show Epoch Key</label>
                             {isEpkDropdown? <div className="epk-dropdown">
-                                <div className="epk-choice" onClick={switchEpkDropdown}>{epk}</div>
+                                <div className="epk-choice" onClick={switchEpkDropdown}>{epkNonce >= 0? user.epoch_keys[epkNonce] : 'Choose an epock key'}</div>
                                 <div className="divider"></div>
                                 {
-                                    user.epoch_keys.map((epk) => (
-                                        <div className="epk-choice" key={epk} onClick={() => changeEpk(epk)}>{epk}</div>
+                                    user.epoch_keys.map((epk, index) => (
+                                        <div className="epk-choice" key={epk} onClick={() => changeEpk(index)}>{user.epoch_keys[index]}</div>
                                     ))
                                 }
                             </div> : <div className="epk" onClick={switchEpkDropdown}>
-                                <span>{epk}</span>
+                                <span>{epkNonce >= 0? user.epoch_keys[epkNonce] : 'Choose an epock key'}</span>
                                 <img src="/images/arrow-down.png"/>
                             </div>}
                         </div>
-                        <div className="submit-btn">
+                        <div className="submit-btn" onClick={submitPost}>
                             Share
                         </div>
                     </div>
