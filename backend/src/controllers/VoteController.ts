@@ -35,8 +35,7 @@ class VoteController {
       )
 
       const attestingFee = await unirepContract.attestingFee()
-      const ethAddr = ethers.utils.computeAddress(DEPLOYER_PRIV_KEY)
-      const attesterId = await unirepContract.attesters(ethAddr)
+      const attesterId = await unirepContract.attesters(unirepSocialContract.address)
       if (attesterId.toNumber() == 0) {
           console.error('Error: attester has not registered yet')
           return

@@ -71,7 +71,7 @@ const PostField = () => {
 
     return (
         <div className="post-field">
-            {isActive?
+            {isActive && user && user.identity ?
                 <div className="post-field-after">
                     <h3>Post</h3>
                     <textarea name="userInput" placeholder="Share something!" onChange={handleUserInput}></textarea>
@@ -106,8 +106,11 @@ const PostField = () => {
                             {isEpkDropdown? <div className="epk-dropdown">
                                 <div className="epk-choice" onClick={switchEpkDropdown}>{epk}</div>
                                 <div className="divider"></div>
-                                <div className="epk-choice" onClick={() => changeEpk('epoch key 1')}>epoch key 1</div>
-                                <div className="epk-choice" onClick={() => changeEpk('epoch key 2')}>epoch key 2</div>
+                                {
+                                    user.epoch_keys.map((epk) => (
+                                        <div className="epk-choice" key={epk} onClick={() => changeEpk(epk)}>{epk}</div>
+                                    ))
+                                }
                             </div> : <div className="epk" onClick={switchEpkDropdown}>
                                 <span>{epk}</span>
                                 <img src="/images/arrow-down.png"/>

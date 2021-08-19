@@ -147,7 +147,7 @@ export const userSignUp = async () => {
     await fetch(apiURL)
         .then(response => response.json())
         .then(function(data){
-            console.log(JSON.stringify(data))
+            console.log(data)
         });
 
     return {i: config.identityPrefix + encodedIdentity, c: config.identityCommitmentPrefix + encodedIdentityCommitment}
