@@ -1,18 +1,6 @@
 import { createContext } from 'react';
 import { Post, User } from '../constants';
 
-const examplePost = {
-    id: '19348297',
-    title: 'Post Title',
-    content: 'Iaculis a consequat ut laoreet pretium, neque, at. Pellentesque a sapien rhoncus ut tincidunt phasellus laoreet nisl, et. Id cursus viverra lobortis pharetra tortor curabitur id. Mauris tincidunt duis vulputate eget posuere adipiscing.',
-    upvote: 200,
-    downvote: 100,
-    epoch_key: 'xyz',
-    username: 'cutie',
-    post_time: Date.now(),
-    transaction_done: false,
-};
-
 type GlobalContent = {
     user: User | null;
     setUser: (u: User | null) => void;
@@ -27,6 +15,6 @@ export const WebContext = createContext<GlobalContent>({
     setUser: () => {},
     pageStatus: 'none',
     setPageStatus: () => {},
-    shownPosts: [examplePost],
+    shownPosts: [],
     setShownPosts: () => {},
 });

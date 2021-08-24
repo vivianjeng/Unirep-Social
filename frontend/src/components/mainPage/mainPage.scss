@@ -1,5 +1,15 @@
 @import '../../styles.scss';
   
+.overlay {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 50px;
+  left: 0;
+  background-color: transparent;
+}
+
 .main-content {
   width: 50%;
   margin: 50px auto 100px auto;

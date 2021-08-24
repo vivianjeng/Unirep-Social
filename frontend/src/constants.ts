@@ -2,12 +2,6 @@ export const pageStatusKey = "pageStatus";
 export const userKey = "user";
 export const shownPostsKey = "shownPosts";
 
-export interface WebState {
-    user: { private_key: string };
-    pageStatus: string;
-    shownPosts: Post[];
-}
-
 export interface User {
     identity: string,
     epoch_keys: string[],

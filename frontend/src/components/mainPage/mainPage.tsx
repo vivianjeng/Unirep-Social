@@ -1,23 +1,38 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { WebContext } from '../../context/WebContext';
+import { MainPageContext } from '../../context/MainPageContext';
 import PostsList from './postsList';
 import PostField from './postField';
 import './mainPage.scss';
 
 const MainPage = () => {
 
-    const { shownPosts, setShownPosts } = useContext(WebContext);
+    const { shownPosts } = useContext(WebContext);
+
+    const [isPostFieldActive, setIsPostFieldActive] = useState(false);
+    const [isPostFieldRepDropdown, setIsPostFieldRepDropdown] = useState(false);
+    const [isPostFieldEpkDropdown, setIsPostFieldEpkDropdown] = useState(false);
 
     const loadMorePosts = () => {
         // setShownPosts([...shownPosts, examplePost]);
         console.log("load more posts, now posts: " + shownPosts.length);
     }
 
+    const closeAll = () => {
+        setIsPostFieldActive(false);
+        setIsPostFieldRepDropdown(false);
+        setIsPostFieldEpkDropdown(false);
+    }
+
     return (
-        <div className="main-content">
-            <PostField />
-            <div className="post-list"><PostsList posts={shownPosts} /></div>
-            <div className="main-page-button" onClick={loadMorePosts}>Load More Posts</div>
+        <div className="overlay" onClick={closeAll}>
+            <div className="main-content">
+                <MainPageContext.Provider value={{isPostFieldActive, setIsPostFieldActive, isPostFieldRepDropdown, setIsPostFieldRepDropdown, isPostFieldEpkDropdown, setIsPostFieldEpkDropdown}}>
+                    <PostField />
+                    <div className="post-list"><PostsList posts={shownPosts} /></div>
+                    <div className="main-page-button" onClick={loadMorePosts}>Load More Posts</div>
+                </MainPageContext.Provider>
+            </div>
         </div>
     );
 };

@@ -14,8 +14,7 @@ const PostBlock = ({ post } : Props) => {
     const date = new Date(post.post_time).toLocaleString();
     const [ showComment, setShowComment ] = useState(false);
     const [ comment, setComment ] = useState("");
-    const { user, setUser } = useContext(WebContext);
-    const { shownPosts, setShownPosts } = useContext(WebContext);
+    const { user, shownPosts, setShownPosts } = useContext(WebContext);
 
     const upvote = async () => {
         if (user === null) {

@@ -1,52 +1,75 @@
 import React, { useState, useContext }  from 'react';
 import { publishPost } from '../../utils';
 import { WebContext } from '../../context/WebContext';
+import { MainPageContext } from '../../context/MainPageContext';
 import { FaUser } from 'react-icons/fa';
 import './mainPage.scss';
+import Choice from './choices';
 
 const PostField = () => {
 
     const date = new Date().toUTCString();
-    const [isActive, setIsActive] = useState(false);
     const [content, setContent] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
-    const [isReputationDropdown, setIsReputationDropdown] = useState(false);
     const [reputation, setReputation] = useState(0);
-    const [isEpkDropdown, setIsEpkDropdown] = useState(false);
     const [epkNonce, setEpkNonce] = useState(-1); // maybe it should be the first available epk
 
-    const { user, setUser } = useContext(WebContext);
-    const { shownPosts, setShownPosts } = useContext(WebContext);
-    
+    const { user, shownPosts, setShownPosts } = useContext(WebContext);
+    const { 
+        isPostFieldActive, 
+        setIsPostFieldActive, 
+        isPostFieldRepDropdown, 
+        setIsPostFieldRepDropdown, 
+        isPostFieldEpkDropdown, 
+        setIsPostFieldEpkDropdown 
+    } = useContext(MainPageContext);
+
+    const shrinkDropdown = (event:any) => {
+        event.stopPropagation();
+        setIsPostFieldRepDropdown(false);
+        setIsPostFieldEpkDropdown(false);
+    }
+
     const activateInput = (event: any) => {
-        setIsActive(true);
+        event.stopPropagation();
+        setIsPostFieldActive(true);
     }
 
     const handleUserInput = (event: any) => {
         setContent(event.target.value);
     }
 
-    const switchReputationDropdown = () => {
-        setIsReputationDropdown((prevState) => !prevState);
+    const switchReputationDropdown = (event: any|null) => {
+        if (event != null) {
+            event.stopPropagation();
+        }
+        setIsPostFieldRepDropdown(!isPostFieldRepDropdown);
     }
 
-    const changeReputation = (r: number) => {
-        setReputation(r);
-        switchReputationDropdown();
+    const changeReputation = (r: string) => {
+        setReputation(Number(r));
+        switchReputationDropdown(null);
     }
 
-    const switchEpkDropdown = () => {
-        setIsEpkDropdown((prevState) => !prevState);
+    const switchEpkDropdown = (event: any|null) => {
+        if (event != null) {
+            event.stopPropagation();
+        }
+        setIsPostFieldEpkDropdown(!isPostFieldEpkDropdown);
     }
 
-    const changeEpk = (index: number) => {
-        setEpkNonce(index);
-        switchEpkDropdown();
+    const changeEpk = (epk: string) => {
+        if (user != null) {
+            setEpkNonce(user.epoch_keys.indexOf(epk));
+            switchEpkDropdown(null);
+        }  
     }
 
     const submitPost = async () => {
         if (user === null) {
-            console.log('not login yet');
+            console.log('not login yet.');
+        } else if (content == "") {
+            console.log('not enter anything yet.');
         } else {
             console.log('publish post');
             const ret = await publishPost(content, epkNonce, user.identity, 0); // content, epkNonce, identity, minRep
@@ -67,12 +90,13 @@ const PostField = () => {
                 console.error('publish post error.');
             }
         }
+        // after submit, all input are cleared and initialized
     }
 
     return (
         <div className="post-field">
-            {isActive && user && user.identity ?
-                <div className="post-field-after">
+            {isPostFieldActive && user && user.identity ?
+                <div className="post-field-after" onClick={shrinkDropdown}>
                     <h3>Post</h3>
                     <textarea name="userInput" placeholder="Share something!" onChange={handleUserInput}></textarea>
                     <div className="setting-area">
@@ -88,14 +112,14 @@ const PostField = () => {
                         </div>
                         <div className="setting-reputation">
                             <label>Show Reputation</label>
-                            {isReputationDropdown? <div className="reputation-dropdown">
+                            {isPostFieldRepDropdown? <div className="reputation-dropdown">
                                 <div className="reputation-choice" onClick={switchReputationDropdown}>
                                     <span>{"> "}{reputation}</span>
                                 </div>
                                 <div className="divider"></div>
-                                <div className="reputation-choice" onClick={() => changeReputation(0)}>{">"} 0</div>
-                                <div className="reputation-choice" onClick={() => changeReputation(10)}>{">"} 10</div>
-                                <div className="reputation-choice" onClick={() => changeReputation(20)}>{">"} 20</div>
+                                <Choice className="reputation-choice" setState={(value) => changeReputation(value)} value="0" />
+                                <Choice className="reputation-choice" setState={(value) => changeReputation(value)} value="10" />
+                                <Choice className="reputation-choice" setState={(value) => changeReputation(value)} value="20" />
                             </div> : <div className="reputation" onClick={switchReputationDropdown}>
                                     <span>{"> "}{reputation}</span>
                                     <img src="/images/arrow-down.png"/>
@@ -103,12 +127,12 @@ const PostField = () => {
                         </div>
                         <div className="setting-epk">
                             <label>Show Epoch Key</label>
-                            {isEpkDropdown? <div className="epk-dropdown">
+                            {isPostFieldEpkDropdown? <div className="epk-dropdown">
                                 <div className="epk-choice" onClick={switchEpkDropdown}>{epkNonce >= 0? user.epoch_keys[epkNonce] : 'Choose an epock key'}</div>
                                 <div className="divider"></div>
                                 {
                                     user.epoch_keys.map((epk, index) => (
-                                        <div className="epk-choice" key={epk} onClick={() => changeEpk(index)}>{user.epoch_keys[index]}</div>
+                                        <Choice className="epk-choice" key={epk} setState={(value) => changeEpk(value)} value={user.epoch_keys[index]}/>
                                     ))
                                 }
                             </div> : <div className="epk" onClick={switchEpkDropdown}>

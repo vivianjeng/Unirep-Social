@@ -11,22 +11,10 @@ import MainPage from './components/mainPage/mainPage';
 import { WebContext } from './context/WebContext';
 
 const AppRouter = () => {
-    
-    const examplePost = {
-        id: 19348297,
-        title: 'Post Title',
-        content: 'Iaculis a consequat ut laoreet pretium, neque, at. Pellentesque a sapien rhoncus ut tincidunt phasellus laoreet nisl, et. Id cursus viverra lobortis pharetra tortor curabitur id. Mauris tincidunt duis vulputate eget posuere adipiscing.',
-        upvote: 200,
-        downvote: 100,
-        epoch_key: 'xyz',
-        username: 'cutie',
-        post_time: Date.now(),
-        transaction_done: true,
-    };
 
     const [user, setUser] = useLocalStorage(Constants.userKey, {});
     const [pageStatus, setPageStatus] = useLocalStorage(Constants.pageStatusKey, Constants.PageStatus.None);
-    const [shownPosts, setShownPosts] = useLocalStorage(Constants.shownPostsKey, [examplePost]);
+    const [shownPosts, setShownPosts] = useLocalStorage(Constants.shownPostsKey, []);
 
     return (
         <BrowserRouter>
