@@ -10,7 +10,6 @@ const MainPage = () => {
     const { shownPosts } = useContext(WebContext);
 
     const [isPostFieldActive, setIsPostFieldActive] = useState(false);
-    const [isPostFieldRepDropdown, setIsPostFieldRepDropdown] = useState(false);
     const [isPostFieldEpkDropdown, setIsPostFieldEpkDropdown] = useState(false);
 
     const loadMorePosts = () => {
@@ -20,14 +19,13 @@ const MainPage = () => {
 
     const closeAll = () => {
         setIsPostFieldActive(false);
-        setIsPostFieldRepDropdown(false);
         setIsPostFieldEpkDropdown(false);
     }
 
     return (
         <div className="overlay" onClick={closeAll}>
             <div className="main-content">
-                <MainPageContext.Provider value={{isPostFieldActive, setIsPostFieldActive, isPostFieldRepDropdown, setIsPostFieldRepDropdown, isPostFieldEpkDropdown, setIsPostFieldEpkDropdown}}>
+                <MainPageContext.Provider value={{isPostFieldActive, setIsPostFieldActive, isPostFieldEpkDropdown, setIsPostFieldEpkDropdown}}>
                     <PostField />
                     <div className="post-list"><PostsList posts={shownPosts} /></div>
                     <div className="main-page-button" onClick={loadMorePosts}>Load More Posts</div>

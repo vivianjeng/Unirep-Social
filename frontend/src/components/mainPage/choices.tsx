@@ -15,7 +15,8 @@ const Choice = (props: Props) => {
 
     return (
         <div className={props.className} onClick={doSetState}>
-            {props.value}
+            <img src="/images/arrow-down.png"/>
+            <span>{props.value}</span>
         </div>
     );
 }

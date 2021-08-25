@@ -21,53 +21,46 @@
 
 .post-field {
   width: 100%;
-  margin-top: 50px;
   margin-bottom: 32px;
-  border-radius: 8px;
-  background-color: $grey;
+
+  .post-title {
+    margin-bottom: 32px;
+    color: #000;
+    font-size: $smaller-font-size;
+  }
 
   .post-field-before {
     width: 100%;
-    height: 120px;
-    padding: 16px 32px 32px 32px;
+    height: 53px;
+    padding: 10px 8px 10px 8px;
+    background-image: radial-gradient(99.12% 159.6% at 92.94% 95.93%, #E4D3FF 0%, #E5EEFF 62.33%, #EEE1FF 69.62%, #DAD7F8 81.02%);
+    border-radius: 8px;
 
-    .row-before {
-      width: 100%;
-      height: 32px;
-      margin-top: 16px;
-      display: flex;
-      flex-direction: row;
+    .input-field {
+      height: 100%;
+      padding: 7px 16px;
 
-      .user-image {
-        flex: 1;
-        text-align: center;
-      }
+      font-size: $small-font-size;
+      font-weight: 400;
+      vertical-align: middle;
 
-      .input-field {
-        flex: 18;
-        height: 100%;
-        padding: 7px 16px;
+      color: $dark-grey;
+      background-color: #FFFFFF;
+      border-radius: 4px;
+      border: 1px solid #E0E0E0;
 
-        font-size: $small-font-size;
-        font-weight: 400;
-        vertical-align: middle;
-
-        color: $dark-grey;
-        background-color: #FFFFFF;
-        border-radius: 4px;
-        border: 1px solid #E0E0E0;
-
-        &:hover {
-          cursor: text;
-        }
+      &:hover {
+        cursor: text;
       }
     }
   }
 
   .post-field-after {
     width: 100%;
-    height: 240px;
-    padding: 24px 32px 56px 32px;
+    height: 350px;
+    padding: 10px 8px 16px 8px;
+    background-image: radial-gradient(99.12% 159.6% at 92.94% 95.93%, #E4D3FF 0%, #E5EEFF 62.33%, #EEE1FF 69.62%, #DAD7F8 81.02%);
+    border-radius: 8px;
 
     textarea {
       width: 100%;
@@ -81,194 +74,109 @@
       padding: 7px 16px;
     }
 
+    .submit-btn {
+      width: 100%;
+      height: 32px;
+      line-height: 32px;
+      color: #fff;
+      background-color: $purple1;
+      border-radius: 20px;
+      box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      vertical-align: middle;
+    }
+
     .setting-area {
-      height: 70px;
-      margin-top: 40px;
-      display: flex;
-      flex-direction: row;
-      align-items: bottom;
+      height: 225px;
+      margin-top: 17px;
+      margin-bottom: 17px;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 8px 16px;
+
+      h3 {
+        color: $dark-grey;
+        font-size: $smaller-font-size;
+        margin: 8px auto;
+      }
+
+      p {
+        font-size: $small-font-size;
+        color: #333;
+        margin: 8px auto;
+      }
 
       label {
         font-size: $smallest-font-size;
         color: $dark-grey;
+        cursor: pointer;
+        margin-top: 8px;
+        margin-bottom: 8px;
+
+        span {
+          color: #BDBDBD;
+          font-size: $smallest-font-size;
+          font-weight: bold;
+        }
       }
 
       .divider {
-        width: 77px;
+        width: 100%;
         height: 1px;
         background-color: $light-grey;
         margin: 0 auto;
       }
 
-      .setting-username {
-        flex: 1;
-
-        .setting-username-row {
-          margin-top: 20px;
-          display: flex;
-          flex-direction: row;
-          align-items: bottom;
-
-          p {
-            font-size: $small-font-size;
-          }
-
-          .switch {
-            position: relative;
-            display: inline-block;
-            width: 40px;
-            height: 20px;
-            margin-left: 8px;
-
-            input {
-              opacity: 0;
-              width: 0;
-              height: 0;
-
-              &:checked + .slider {
-                background-color: $purple1;
-              }
-
-              &:checked + .slider:before {
-                -webkit-transform: translateX(21px);
-                -ms-transform: translateX(21px);
-                transform: translateX(21px);
-              }
-            }
-
-            .slider {
-              position: absolute;
-              cursor: pointer;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              background-color: $dark-grey;
-              -webkit-transition: .4s;
-              transition: .4s;
-              border-radius: 12.5px;
-
-              &:before {
-                position: absolute;
-                content: "";
-                height: 17.5px;
-                width: 17.5px;
-                left: 1.25px;
-                bottom: 1.25px;
-                background-color: white;
-                -webkit-transition: .4s;
-                transition: .4s;
-                border-radius: 12.5px;
-              }
-            }
-          }
-        }
-      }
-
-      .setting-reputation {
-        flex: 1;
-
-        .reputation {
-          @include myButton(93px, 32px, $block-color1: #fff, $radius: 8px);
-          margin-top: 8px;
-          padding: 0px 8px;
-          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-
-          span {
-            flex: 4;
-          }
-
-          img {
-            flex: 1;
-            height: 6px;
-          }
-        }
-
-        .reputation-dropdown {
-          display: block;
-          width: 93px;
-          margin: 8px 5px 0px 5px;
-          background-color: #fff;
-          border-radius: 8px;
-          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-          cursor: pointer;
-
-          .reputation-choice {
-            width: 100%;
-            height: 32px;
-            line-height: 32px;
-            vertical-align: middle;
-            padding: 0px 8px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-
-            &:hover {
-              background-color: $light-grey;
-            }
-
-            span {
-              flex: 4;
-            }
-
-            img {
-              flex: 1;
-              height: 6px;
-            }
-          }
-        }
-      }
-
       .setting-epk {
-        flex: 3;
-
         .epk {
-          @include myButton(341px, 32px, $block-color1: #fff, $radius: 8px);
-          margin-top: 8px;
-          padding: 0px 8px;
-          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+          width: 515px; 
+          height:32px;
+          background-color: #fff;
+          padding: 8px 16px;
+          color: #333;
+          font-size: $small-font-size;
           display: flex;
           flex-direction: row;
           align-items: center;
+          cursor: pointer;
 
           span {
             flex: 20;
+            margin-left: 8px;
           }
 
           img {
-            flex: 1;
+            width: 12px;
             height: 6px;
           }
+        }
+
+        .epk-with-border {
+          border: 1px solid #F0F0F0;
+          border-radius: 8px;
+          box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.1);
         }
 
         .epk-dropdown {
           display: block;
-          width: 341px;
-          margin: 8px 5px 0px 5px;
+          position: fixed;
+          width: 515px;
           background-color: #fff;
           border-radius: 8px;
-          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+          color: #333;
+          font-size: $small-font-size;
+          border: 1px solid #F0F0F0;
+          border-radius: 8px;
+          box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.1);
           cursor: pointer;
-
-          .epk-choice {
-            height: 32px;
-            line-height: 32px;
-            padding: 0px 8px;
-
-            &:hover {
-              background-color: $light-grey;
-            }
-          }
         }
       }
 
-      .submit-btn {
-        flex: 1;
-        margin-top: 30px;
-        @include myButton(86px, 32px, $color: #fff, $block-color1: $purple1, $radius: 20px);
+      .setting-reputation {
+        
+        textarea {
+          width: 515px;
+        }
       }
     }
   }
@@ -278,12 +186,11 @@
   width: 100%;
   margin-top: 20px;
   border-radius: 8px;
-  background-color: $grey;
 }
 
 .post-block {
-  width: 640px;
-  background-color: #fff;
+  width: 100%;
+  background-image: linear-gradient(180.55deg, rgba(249, 245, 255, 0) 73.13%, #F9F5FF 99.52%), radial-gradient(99.12% 159.6% at 92.94% 95.93%, #E4D3FF 0%, #E5EEFF 62.33%, #EEE1FF 69.62%, #DAD7F8 81.02%);
   border-radius: 8px;
   display: block;
   flex-direction: row;

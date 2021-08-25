@@ -36,12 +36,12 @@ const Header = () => {
                     UNIREP SOCIAL
                 </NavLink>
             </div>
-            <div className="search-bar">
+            {/* <div className="search-bar">
                 <div className="search-icon"><FaSearch /></div>
                 <form>
                     <input type="text" name="searchInput" placeholder="Search by keyword, user names or epoch key" onChange={handleSearchInput} />
                 </form>
-            </div>
+            </div> */}
             {user && user.identity? 
                 <div className="navButtons">
                     <div className="userInfo" onClick={printUser}><FaUser /></div>
