@@ -59,7 +59,6 @@ const PostField = () => {
         } else if (content == "") {
             console.log('not enter anything yet.');
         } else {
-            console.log('publish post');
             const ret = await publishPost(content, epkNonce, user.identity, 0); // content, epkNonce, identity, minRep
             if (ret !== undefined) {
                 const newPost = {

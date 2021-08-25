@@ -84,6 +84,7 @@
       box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.1);
       text-align: center;
       vertical-align: middle;
+      cursor: pointer;
     }
 
     .setting-area {
@@ -173,7 +174,6 @@
       }
 
       .setting-reputation {
-        
         textarea {
           width: 515px;
         }
@@ -190,6 +190,7 @@
 
 .post-block {
   width: 100%;
+  height: 500px;
   background-image: linear-gradient(180.55deg, rgba(249, 245, 255, 0) 73.13%, #F9F5FF 99.52%), radial-gradient(99.12% 159.6% at 92.94% 95.93%, #E4D3FF 0%, #E5EEFF 62.33%, #EEE1FF 69.62%, #DAD7F8 81.02%);
   border-radius: 8px;
   display: block;
