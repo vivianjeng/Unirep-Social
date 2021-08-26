@@ -4,6 +4,7 @@ import { WebContext } from '../../context/WebContext';
 import { MainPageContext } from '../../context/MainPageContext';
 import './mainPage.scss';
 import Choice from './choices';
+import { getEpochKeys } from '../../utils'
 
 const PostField = () => {
 
@@ -39,9 +40,12 @@ const PostField = () => {
         setReputation(event.target.value);
     }
 
-    const switchEpkDropdown = (event: any|null) => {
+    const switchEpkDropdown = async (event: any|null) => {
         if (event != null) {
             event.stopPropagation();
+        }
+        if (user != null) {
+            const epks = await getEpochKeys(user.identity);
         }
         setIsPostFieldEpkDropdown(!isPostFieldEpkDropdown);
     }

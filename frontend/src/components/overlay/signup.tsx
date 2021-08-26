@@ -30,7 +30,7 @@ const SignUp = () => {
             const {i, c} = await userSignUp();
             setIdentity(i);
             setCommitment(c);
-            const epks = await getEpochKeys(identity);
+            const epks = await getEpochKeys(i);
             setEpks(epks);
         }
 

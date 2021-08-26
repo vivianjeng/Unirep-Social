@@ -70,6 +70,7 @@ const genProof = async (identity: string, epkNonce: number = 0, proveKarmaAmount
 
     const epochTreeDepth = treeDepths.epochTreeDepth
     const epk = genEpochKey(id.identityNullifier, currentEpoch, epkNonce, epochTreeDepth).toString(16)
+    console.log('after gen epoch key: ' + epk)
 
     let circuitInputs: any
     let GSTRoot: any
@@ -155,7 +156,7 @@ export const userSignUp = async () => {
 
 export const publishPost = async (content: string, epkNonce: number, identity: string, minRep: number = 0) => {
     const ret = await genProof(identity, epkNonce, config.DEFAULT_POST_KARMA, minRep, )
-    
+
     if (ret === undefined) {
         console.error('genProof error, ret is undefined.')
         return
@@ -189,8 +190,7 @@ export const publishPost = async (content: string, epkNonce: number, identity: s
             postId = data.postId
         });
     
-    const epochKey = BigInt(add0x(ret.epk))
-    return {epk: epochKey.toString(), transaction, postId}
+    return {epk: ret.epk, transaction, postId}
 }
 
 export const vote = async(identity: string, upvote: number|undefined, downvote: number|undefined, postId: string, receiver: string, epkNonce: number = 0, minRep: number = 0) => {
