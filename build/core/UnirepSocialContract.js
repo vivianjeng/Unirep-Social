@@ -8,11 +8,12 @@ const ethers_1 = require("ethers");
 const crypto_1 = require("@unirep/crypto");
 // import { getUnirepContract } from '@unirep/contracts'
 const circuits_1 = require("@unirep/circuits");
-const unirep_1 = require("@unirep/unirep");
+// import { maxReputationBudget } from '@unirep/unirep'
 const Unirep_json_1 = __importDefault(require("../node_modules/@unirep/contracts/artifacts/contracts/Unirep.sol/Unirep.json"));
 const defaults_1 = require("../cli/defaults");
 const utils_1 = require("../cli/utils");
 const UnirepSocial_json_1 = __importDefault(require("../artifacts/contracts/UnirepSocial.sol/UnirepSocial.json"));
+const maxReputationBudget = 5;
 /**
  * An API module of Unirep Social contracts.
  * All contract-interacting domain logic should be defined in here.
@@ -90,15 +91,15 @@ class UnirepSocialContract {
             return tx;
         };
         this.parseRepuationProof = (publicSignals, proof) => {
-            const reputationNullifiers = publicSignals.slice(0, unirep_1.maxReputationBudget);
-            const epoch = publicSignals[unirep_1.maxReputationBudget];
-            const epochKey = publicSignals[unirep_1.maxReputationBudget + 1];
-            const globalStatetreeRoot = publicSignals[unirep_1.maxReputationBudget + 2];
-            const attesterId = publicSignals[unirep_1.maxReputationBudget + 3];
-            const proveReputationAmount = publicSignals[unirep_1.maxReputationBudget + 4];
-            const minRep = publicSignals[unirep_1.maxReputationBudget + 5];
-            const proveGraffiti = publicSignals[unirep_1.maxReputationBudget + 6];
-            const graffitiPreImage = publicSignals[unirep_1.maxReputationBudget + 7];
+            const reputationNullifiers = publicSignals.slice(0, maxReputationBudget);
+            const epoch = publicSignals[maxReputationBudget];
+            const epochKey = publicSignals[maxReputationBudget + 1];
+            const globalStatetreeRoot = publicSignals[maxReputationBudget + 2];
+            const attesterId = publicSignals[maxReputationBudget + 3];
+            const proveReputationAmount = publicSignals[maxReputationBudget + 4];
+            const minRep = publicSignals[maxReputationBudget + 5];
+            const proveGraffiti = publicSignals[maxReputationBudget + 6];
+            const graffitiPreImage = publicSignals[maxReputationBudget + 7];
             return [
                 reputationNullifiers,
                 epoch,
@@ -120,15 +121,15 @@ class UnirepSocialContract {
                 console.log("Error: should connect a signer");
                 return;
             }
-            const reputationNullifiers = publicSignals.slice(0, unirep_1.maxReputationBudget);
-            const epoch = publicSignals[unirep_1.maxReputationBudget];
-            const epochKey = publicSignals[unirep_1.maxReputationBudget + 1];
-            const globalStatetreeRoot = publicSignals[unirep_1.maxReputationBudget + 2];
-            const attesterId = publicSignals[unirep_1.maxReputationBudget + 3];
-            const proveReputationAmount = publicSignals[unirep_1.maxReputationBudget + 4];
-            const minRep = publicSignals[unirep_1.maxReputationBudget + 5];
-            const proveGraffiti = publicSignals[unirep_1.maxReputationBudget + 6];
-            const graffitiPreImage = publicSignals[unirep_1.maxReputationBudget + 7];
+            const reputationNullifiers = publicSignals.slice(0, maxReputationBudget);
+            const epoch = publicSignals[maxReputationBudget];
+            const epochKey = publicSignals[maxReputationBudget + 1];
+            const globalStatetreeRoot = publicSignals[maxReputationBudget + 2];
+            const attesterId = publicSignals[maxReputationBudget + 3];
+            const proveReputationAmount = publicSignals[maxReputationBudget + 4];
+            const minRep = publicSignals[maxReputationBudget + 5];
+            const proveGraffiti = publicSignals[maxReputationBudget + 6];
+            const graffitiPreImage = publicSignals[maxReputationBudget + 7];
             const proofsRelated = this.parseRepuationProof(publicSignals, proof);
             const attestingFee = await this.attestingFee();
             let tx;
@@ -152,15 +153,15 @@ class UnirepSocialContract {
                 console.log("Error: should connect a signer");
                 return;
             }
-            const reputationNullifiers = publicSignals.slice(0, unirep_1.maxReputationBudget);
-            const epoch = publicSignals[unirep_1.maxReputationBudget];
-            const epochKey = publicSignals[unirep_1.maxReputationBudget + 1];
-            const globalStatetreeRoot = publicSignals[unirep_1.maxReputationBudget + 2];
-            const attesterId = publicSignals[unirep_1.maxReputationBudget + 3];
-            const proveReputationAmount = publicSignals[unirep_1.maxReputationBudget + 4];
-            const minRep = publicSignals[unirep_1.maxReputationBudget + 5];
-            const proveGraffiti = publicSignals[unirep_1.maxReputationBudget + 6];
-            const graffitiPreImage = publicSignals[unirep_1.maxReputationBudget + 7];
+            const reputationNullifiers = publicSignals.slice(0, maxReputationBudget);
+            const epoch = publicSignals[maxReputationBudget];
+            const epochKey = publicSignals[maxReputationBudget + 1];
+            const globalStatetreeRoot = publicSignals[maxReputationBudget + 2];
+            const attesterId = publicSignals[maxReputationBudget + 3];
+            const proveReputationAmount = publicSignals[maxReputationBudget + 4];
+            const minRep = publicSignals[maxReputationBudget + 5];
+            const proveGraffiti = publicSignals[maxReputationBudget + 6];
+            const graffitiPreImage = publicSignals[maxReputationBudget + 7];
             const proofsRelated = this.parseRepuationProof(publicSignals, proof);
             const attestingFee = await this.attestingFee();
             let tx;
@@ -392,15 +393,15 @@ class UnirepSocialContract {
             if (this.unirep == undefined) {
                 await this.getUnirep();
             }
-            const reputationNullifiers = publicSignals.slice(0, unirep_1.maxReputationBudget);
-            const epoch = publicSignals[unirep_1.maxReputationBudget];
-            const epochKey = publicSignals[unirep_1.maxReputationBudget + 1];
-            const globalStatetreeRoot = publicSignals[unirep_1.maxReputationBudget + 2];
-            const attesterId = publicSignals[unirep_1.maxReputationBudget + 3];
-            const proveReputationAmount = publicSignals[unirep_1.maxReputationBudget + 4];
-            const minRep = publicSignals[unirep_1.maxReputationBudget + 5];
-            const proveGraffiti = publicSignals[unirep_1.maxReputationBudget + 6];
-            const graffitiPreImage = publicSignals[unirep_1.maxReputationBudget + 7];
+            const reputationNullifiers = publicSignals.slice(0, maxReputationBudget);
+            const epoch = publicSignals[maxReputationBudget];
+            const epochKey = publicSignals[maxReputationBudget + 1];
+            const globalStatetreeRoot = publicSignals[maxReputationBudget + 2];
+            const attesterId = publicSignals[maxReputationBudget + 3];
+            const proveReputationAmount = publicSignals[maxReputationBudget + 4];
+            const minRep = publicSignals[maxReputationBudget + 5];
+            const proveGraffiti = publicSignals[maxReputationBudget + 6];
+            const graffitiPreImage = publicSignals[maxReputationBudget + 7];
             const isValid = await ((_a = this.unirep) === null || _a === void 0 ? void 0 : _a.verifyReputation(reputationNullifiers, epoch, epochKey, globalStatetreeRoot, attesterId, proveReputationAmount, minRep, proveGraffiti, graffitiPreImage, proof));
             return isValid;
         };
