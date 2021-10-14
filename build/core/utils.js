@@ -7,7 +7,7 @@ exports.genEpochKey = exports.deployUnirepSocial = exports.getTreeDepthsForTesti
 // The reason for the ts-ignore below is that if we are executing the code via `ts-node` instead of `hardhat`,
 // it can not read the hardhat config and error ts-2305 will be reported.
 // @ts-ignore
-const hardhat_1 = require("hardhat");
+const ethers_1 = require("ethers");
 const UnirepSocial_json_1 = __importDefault(require("../artifacts/contracts/UnirepSocial.sol/UnirepSocial.json"));
 const unirep_1 = require("@unirep/unirep");
 const maci_crypto_1 = require("maci-crypto");
@@ -48,9 +48,7 @@ const deployUnirepSocial = async (deployer, UnirepAddr, _settings) => {
     const _defaultAirdroppedRep = socialMedia_1.defaultAirdroppedReputation;
     const _postReputation = socialMedia_1.defaultPostReputation;
     const _commentReputation = socialMedia_1.defaultCommentReputation;
-    const f = await hardhat_1.ethers.getContractFactory("UnirepSocial", {
-        signer: deployer,
-    });
+    const f = new ethers_1.ethers.ContractFactory(UnirepSocial_json_1.default.abi, UnirepSocial_json_1.default.bytecode, deployer);
     const c = await (f.deploy(UnirepAddr, _postReputation, _commentReputation, _defaultAirdroppedRep, {
         gasLimit: 9000000,
     }));
