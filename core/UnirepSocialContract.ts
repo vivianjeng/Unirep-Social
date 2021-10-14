@@ -1,8 +1,9 @@
 import { ethers } from 'ethers';
 import { add0x } from '@unirep/crypto';
-import { getUnirepContract } from '@unirep/contracts'
+// import { getUnirepContract } from '@unirep/contracts'
 import { formatProofForVerifierContract } from '@unirep/circuits'
 import { maxReputationBudget } from '@unirep/unirep'
+import Unirep from "../node_modules/@unirep/contracts/artifacts/contracts/Unirep.sol/Unirep.json"
 
 import { DEFAULT_ETH_PROVIDER, } from '../cli/defaults';
 import { checkDeployerProviderConnection, promptPwd, validateEthAddress, validateEthSk } from '../cli/utils';
@@ -62,7 +63,12 @@ export class UnirepSocialContract {
 
     public getUnirep = async (): Promise<any> => {
         const unirepAddress = await this.contract.unirep()
-        this.unirep = getUnirepContract(unirepAddress, this.provider)
+        // this.unirep = getUnirepContract(unirepAddress, this.provider)
+        this.unirep = new ethers.Contract(
+            unirepAddress,
+            Unirep.abi,
+            this.provider,
+        )
         return this.unirep
     }
 

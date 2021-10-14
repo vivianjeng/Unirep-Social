@@ -12,11 +12,11 @@ const UnirepSocial_json_1 = __importDefault(require("../artifacts/contracts/Unir
 const unirep_1 = require("@unirep/unirep");
 const maci_crypto_1 = require("maci-crypto");
 const socialMedia_1 = require("../config/socialMedia");
-const defaultUserStateLeaf = (0, maci_crypto_1.hash5)([BigInt(0), BigInt(0), BigInt(0), BigInt(0), BigInt(0)]);
+const defaultUserStateLeaf = maci_crypto_1.hash5([BigInt(0), BigInt(0), BigInt(0), BigInt(0), BigInt(0)]);
 exports.defaultUserStateLeaf = defaultUserStateLeaf;
-const SMT_ZERO_LEAF = (0, maci_crypto_1.hashLeftRight)(BigInt(0), BigInt(0));
+const SMT_ZERO_LEAF = maci_crypto_1.hashLeftRight(BigInt(0), BigInt(0));
 exports.SMT_ZERO_LEAF = SMT_ZERO_LEAF;
-const SMT_ONE_LEAF = (0, maci_crypto_1.hashLeftRight)(BigInt(1), BigInt(0));
+const SMT_ONE_LEAF = maci_crypto_1.hashLeftRight(BigInt(1), BigInt(0));
 exports.SMT_ONE_LEAF = SMT_ONE_LEAF;
 const computeEmptyUserStateRoot = (treeDepth) => {
     const t = new maci_crypto_1.IncrementalQuinTree(treeDepth, defaultUserStateLeaf, 2);
@@ -71,7 +71,7 @@ const genEpochKey = (identityNullifier, epoch, nonce, _epochTreeDepth = unirep_1
         BigInt(0),
         BigInt(0),
     ];
-    let epochKey = (0, maci_crypto_1.hash5)(values);
+    let epochKey = maci_crypto_1.hash5(values);
     // Adjust epoch key size according to epoch tree depth
     const epochKeyModed = BigInt(epochKey.toString()) % BigInt(2 ** _epochTreeDepth);
     return epochKeyModed;
