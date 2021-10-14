@@ -3,7 +3,7 @@ import { add0x } from '@unirep/crypto';
 // import { getUnirepContract } from '@unirep/contracts'
 import { formatProofForVerifierContract } from '@unirep/circuits'
 // import { maxReputationBudget } from '@unirep/unirep'
-import Unirep from "../node_modules/@unirep/contracts/artifacts/contracts/Unirep.sol/Unirep.json"
+import Unirep from "../artifacts/@unirep/contracts/contracts/Unirep.sol/Unirep.json"
 
 import { DEFAULT_ETH_PROVIDER, } from '../cli/defaults';
 import { checkDeployerProviderConnection, promptPwd, validateEthAddress, validateEthSk } from '../cli/utils';

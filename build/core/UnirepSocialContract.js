@@ -9,7 +9,7 @@ const crypto_1 = require("@unirep/crypto");
 // import { getUnirepContract } from '@unirep/contracts'
 const circuits_1 = require("@unirep/circuits");
 // import { maxReputationBudget } from '@unirep/unirep'
-const Unirep_json_1 = __importDefault(require("../node_modules/@unirep/contracts/artifacts/contracts/Unirep.sol/Unirep.json"));
+const Unirep_json_1 = __importDefault(require("../artifacts/@unirep/contracts/contracts/Unirep.sol/Unirep.json"));
 const defaults_1 = require("../cli/defaults");
 const utils_1 = require("../cli/utils");
 const UnirepSocial_json_1 = __importDefault(require("../artifacts/contracts/UnirepSocial.sol/UnirepSocial.json"));
