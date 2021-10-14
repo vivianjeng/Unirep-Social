@@ -9,7 +9,7 @@ exports.genEpochKey = exports.deployUnirepSocial = exports.getTreeDepthsForTesti
 // @ts-ignore
 const ethers_1 = require("ethers");
 const UnirepSocial_json_1 = __importDefault(require("../artifacts/contracts/UnirepSocial.sol/UnirepSocial.json"));
-const unirep_1 = require("@unirep/unirep");
+const constants_1 = require("./constants");
 const maci_crypto_1 = require("maci-crypto");
 const socialMedia_1 = require("../config/socialMedia");
 const defaultUserStateLeaf = maci_crypto_1.hash5([BigInt(0), BigInt(0), BigInt(0), BigInt(0), BigInt(0)]);
@@ -26,16 +26,16 @@ exports.computeEmptyUserStateRoot = computeEmptyUserStateRoot;
 const getTreeDepthsForTesting = (deployEnv = "circuit") => {
     if (deployEnv === 'contract') {
         return {
-            "userStateTreeDepth": unirep_1.userStateTreeDepth,
-            "globalStateTreeDepth": unirep_1.globalStateTreeDepth,
-            "epochTreeDepth": unirep_1.epochTreeDepth,
+            "userStateTreeDepth": constants_1.userStateTreeDepth,
+            "globalStateTreeDepth": constants_1.globalStateTreeDepth,
+            "epochTreeDepth": constants_1.epochTreeDepth,
         };
     }
     else if (deployEnv === 'circuit') {
         return {
-            "userStateTreeDepth": unirep_1.circuitUserStateTreeDepth,
-            "globalStateTreeDepth": unirep_1.circuitGlobalStateTreeDepth,
-            "epochTreeDepth": unirep_1.circuitEpochTreeDepth,
+            "userStateTreeDepth": constants_1.circuitUserStateTreeDepth,
+            "globalStateTreeDepth": constants_1.circuitGlobalStateTreeDepth,
+            "epochTreeDepth": constants_1.circuitEpochTreeDepth,
         };
     }
     else {
@@ -61,7 +61,7 @@ const deployUnirepSocial = async (deployer, UnirepAddr, _settings) => {
     return c;
 };
 exports.deployUnirepSocial = deployUnirepSocial;
-const genEpochKey = (identityNullifier, epoch, nonce, _epochTreeDepth = unirep_1.epochTreeDepth) => {
+const genEpochKey = (identityNullifier, epoch, nonce, _epochTreeDepth = constants_1.epochTreeDepth) => {
     const values = [
         identityNullifier,
         epoch,
