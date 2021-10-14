@@ -9,7 +9,7 @@ import { DEFAULT_ETH_PROVIDER, } from '../cli/defaults';
 import { checkDeployerProviderConnection, promptPwd, validateEthAddress, validateEthSk } from '../cli/utils';
 import UnirepSocial from "../artifacts/contracts/UnirepSocial.sol/UnirepSocial.json"
 
-const maxReputationBudget = 5;
+const maxReputationBudget = 10;
 /**
  * An API module of Unirep Social contracts.
  * All contract-interacting domain logic should be defined in here.

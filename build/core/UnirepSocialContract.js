@@ -13,7 +13,7 @@ const Unirep_json_1 = __importDefault(require("../node_modules/@unirep/contracts
 const defaults_1 = require("../cli/defaults");
 const utils_1 = require("../cli/utils");
 const UnirepSocial_json_1 = __importDefault(require("../artifacts/contracts/UnirepSocial.sol/UnirepSocial.json"));
-const maxReputationBudget = 5;
+const maxReputationBudget = 10;
 /**
  * An API module of Unirep Social contracts.
  * All contract-interacting domain logic should be defined in here.
