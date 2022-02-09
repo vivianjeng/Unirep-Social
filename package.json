@@ -4,6 +4,7 @@
     "description": "",
     "main": "build/core/index.js",
     "scripts": {
+        "start": "npx hardhat node",
         "build": "tsc",
         "compile": "npx hardhat compile",
         "test-cli": "./scripts/testCLI.sh",
