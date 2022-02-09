@@ -8,4 +8,5 @@ COPY yarn.lock yarn.lock
 RUN yarn install
 
 COPY . .
+EXPOSE 8545
 CMD ["yarn", "start"]
