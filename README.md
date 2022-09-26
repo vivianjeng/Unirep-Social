@@ -1,3 +1,7 @@
+# [Deprecated]
+
+Please refer to [Unirep/Unirep Social](https://github.com/unirep/unirep-social) for the latest developments
+
 # Unirep Social With MongoDB
 
 For more information about Unirep Social, refer to the [documentation](https://vivi432.gitbook.io/unirep-social/)
